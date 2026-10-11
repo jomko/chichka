@@ -1,36 +1,34 @@
-# CHICHKA — Marichka Chichkova
+# CHICHKA — editorial portfolio
 
-Minimal editorial portfolio for Marichka Chichkova — music, performance, cultural practice.
+Astro static portfolio for **Marichka Chichkova**, independent Ukrainian artist and cultural manager. English default, full Ukrainian alternative.
 
-## Preview
+## Run locally
 
-Open `index.html` directly in a browser, or serve the folder with a static web server.
+```bash
+npm install
+npm run dev
+npm run build
+```
 
-No build step, framework, or dependencies. Fonts and the two temporary editorial-reference photographs are loaded externally.
+Deploy with Vercel's Astro preset or any static host: build command `npm run build`, output `dist`.
 
-## Structure
+## Routes
 
-- Hero
-- About
-- Selected Work
-- Cultural Practice
-- Contact
-- Ukrainian / English switcher (default Ukrainian)
+- EN: `/`, `/projects/`, `/projects/:slug/`, `/about/`, `/contact/`
+- UA: `/uk/`, `/uk/projects/`, `/uk/projects/:slug/`, `/uk/about/`, `/uk/contact/`
 
-## Status
+## Editing content
 
-**Design prototype — not approved for publication yet.**
+Projects are in `src/data/projects.js`. One data entry creates two localized project pages. Update descriptions, roles, dates, links and images there. CSS is in `src/styles/global.css`.
 
-- The two images reference 24 Kanal and are not cleared for reuse. Replace with permissioned files before production.
-- Some project links lead to Linktree rather than project-specific material.
-- Editorial copy and selection of works need Marichka's approval.
-- Validate mobile layouts, accessibility, and outbound links before release.
+## Photographs
 
-## Next
+Existing six archive photos remain at the repository root and are referenced directly in this first migration. **Before production**, move them into `public/` (or into the Astro image pipeline) and verify each photograph belongs to its assigned project, crop and photo credit. Photo assignments at this stage are **editorial placeholders**: the images were not visually reviewed, so do not imply they document a particular project.
 
-1. Confirm copy, current roles, selected work, and project order with Marichka.
-2. Replace temporary imagery with licensed portrait and performance photographs; provide credits and alt text.
-3. Replace Linktree fallbacks with individual project links where available.
-4. QA browser/mobile behavior and deploy to a preview URL before publishing.
+## Editorial status
 
-Project homepage: https://linktr.ee/mari4i4ka
+Texts are based on Marichka's 2019–2025 CVs and public material. Copy is provisional; verify roles, time ranges (including NGO founding date), authorship, original artist credits, project photos and external links with Marichka. No unverified claims about ticket sales, prizes, visitor numbers, partners or funders.
+
+## Migration notes
+
+The previous single-page HTML prototype was replaced by Astro source. A copy is retained as `legacy/index.html` for reference. No CMS or heavy client-side JS.

@@ -1,0 +1,6 @@
+---
+import Base from '../layouts/Base.astro';
+import {t} from '../data/projects.js';
+const {lang}=Astro.props;
+---
+<Base lang={lang} title={t(lang,'contact')}><section class="wrap page-head"><p class="micro">Contact / Lviv, Ukraine</p><h1>{t(lang,'contactHeading')}</h1><p class="large-copy">{t(lang,'contactText')}</p><div class="contact-links"><a href="mailto:mari4i4ka@gmail.com">Email ↗</a><a href="https://www.instagram.com/mari4i4ka/" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="https://www.facebook.com/marichka.chichkova" target="_blank" rel="noopener noreferrer">Facebook ↗</a></div></section></Base>
