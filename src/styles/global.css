@@ -48,3 +48,13 @@
 /* Sticky navigation on desktop and mobile; solid editorial-paper backdrop. */
 .header{position:sticky;top:0;z-index:1000;background:var(--paper);background:rgba(245,241,235,.97);isolation:isolate}
 @supports (padding-top: env(safe-area-inset-top)){.header{top:0}}
+
+/* Art-directed portfolio thumbnails: respect posters and graphic design. */
+.project-card--artwork figure{background:#e8e3dc}
+.project-card--artwork figure img{object-fit:contain;object-position:center}
+.project-card--logo figure{background:#eeeae4;display:flex;align-items:center;justify-content:center;padding:clamp(28px,4vw,65px)}
+.project-card--logo figure img{object-fit:contain;object-position:center;max-width:100%;max-height:100%}
+.project-card>p:not(.project-role){font-size:15px;line-height:1.6;color:#585249}
+.project-card .project-role{font-size:13px!important;line-height:1.6;margin-top:10px!important}
+.project-card .project-role .micro{font-size:11px}
+@media(max-width:600px){.project-card>p:not(.project-role){font-size:14px}.project-card .project-role{font-size:12px!important}.project-card--logo figure{padding:30px}}
