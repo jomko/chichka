@@ -93,3 +93,6 @@
 .cv-row p{margin:0;font-size:clamp(16px,1.4vw,20px)}
 @media(max-width:800px){.about-story{grid-template-columns:1fr;gap:10px}.about-cv{align-items:start;flex-direction:column;gap:35px}}
 @media(max-width:600px){.about-opening{padding-top:60px;padding-bottom:55px}.about-opening h1{font-size:clamp(49px,12vw,78px)}.about-portrait{height:110vw;max-height:650px}.about-narrative p{font-size:17px}.year-row{grid-template-columns:90px 1fr;gap:16px}.year-items{display:block}.year-items>*{display:block;margin-bottom:8px}.about-chronology-intro{margin-bottom:35px}.cv-row{grid-template-columns:82px 1fr;gap:15px}}
+
+/* Wider editorial canvas only for Selected Projects on the homepage. */
+.wrap--portfolio{max-width:1920px;padding-inline:clamp(20px,4vw,76px)}
