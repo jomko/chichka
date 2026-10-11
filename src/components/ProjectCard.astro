@@ -1,5 +1,5 @@
 ---
 import {pathFor} from '../data/projects.js';
-const {p,lang}=Astro.props;
+const {p,lang,showPhoto=true}=Astro.props;
 ---
-<a class="project-card" href={pathFor(lang,p.slug)}><figure>{p.image?<img src={p.image} alt={p.name[lang]} loading="lazy" decoding="async"/>:<div class="placeholder">{p.name[lang]}</div>}</figure><div class="card-head"><h3>{p.name[lang]}</h3><span class="micro">{p.years} ↗</span></div><p>{p.intro[lang]}</p></a>
+<a class="project-card" href={pathFor(lang,p.slug)}><figure>{p.image&&showPhoto?<img src={p.image} alt={p.name[lang]} loading="lazy" decoding="async"/>:<div class="placeholder">{p.name[lang]}</div>}</figure><div class="card-head"><h3>{p.name[lang]}</h3><span class="micro">{p.years} ↗</span></div><p>{p.intro[lang]}</p><p class="project-role"><span class="micro">{lang==='en'?'Role':'Роль'}:</span> {p.role[lang]}</p></a>
