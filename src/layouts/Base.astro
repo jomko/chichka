@@ -73,4 +73,29 @@ const summary=description||t(lang,'intro');
 </nav></div></header>
 <main id="content"><slot/></main>
 <footer class="footer"><div class="wrap"><span>© {new Date().getFullYear()} Marichka Chichkova</span><span>Independent artist · Cultural manager · Lviv, Ukraine</span></div></footer>
+<script is:inline>
+(function(){
+  if(!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const selector='.section .display, .section .large-copy, .project-card, .year-row, .about-narrative p, .about-cv, .cv-row, .editorial-interlude, .detail-grid, .contact-links';
+  const init=()=>{
+    const items=Array.from(document.querySelectorAll(selector));
+    if(!items.length)return;
+    const observer=new IntersectionObserver((entries)=>{
+      for(const entry of entries){
+        if(entry.isIntersecting){
+          entry.target.classList.add('scroll-revealed');
+          observer.unobserve(entry.target);
+        }
+      }
+    },{rootMargin:'0px 0px -45px 0px',threshold:0.06});
+    for(const el of items){
+      if(el.getBoundingClientRect().top < window.innerHeight-35)continue;
+      el.classList.add('scroll-reveal');
+      observer.observe(el);
+    }
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+})();
+</script>
 </body></html>

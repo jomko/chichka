@@ -127,3 +127,8 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 .loader-caption{font-size:10px;letter-spacing:.2em;color:var(--muted)}
 @keyframes loading-bar{to{transform:translateX(0)}}
 @media(prefers-reduced-motion:reduce){.page-loader{display:none}.project-card figure img,.navigation a,.hero-contact span{transition:none}.loader-line:after{animation:none}}
+
+/* One-time editorial reveal; content remains visible if JS is disabled. */
+.scroll-reveal{opacity:0;transform:translate3d(0,22px,0);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
+.scroll-reveal.scroll-revealed{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.scroll-reveal{opacity:1!important;transform:none!important;transition:none!important}}
