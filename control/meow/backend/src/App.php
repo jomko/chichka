@@ -188,7 +188,8 @@ final class App
             }));
         $app->patch('/api/tasks/{id}', fn(Request $req, Response $res, array $args) =>
             $guard($req, $res, function (array $user) use ($req, $res, $args, $json, $db): Response {
-                $status = (string)((array)$req->getParsedBody()['status'] ?? '');
+                $payload = $req->getParsedBody();
+                $status = is_array($payload) ? (string)($payload['status'] ?? '') : '';
                 if (!in_array($status,['open','done'],true)) return $json($res,['error'=>'INVALID_STATUS'],422);
                 $stmt=$db()->prepare('UPDATE tasks SET status=? WHERE id=? AND owner_sub=?');
                 $stmt->execute([$status,$args['id'],$user['sub']]);
