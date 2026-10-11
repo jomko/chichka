@@ -44,3 +44,7 @@
 .project-role{margin-top:12px!important;font-size:12px!important;line-height:1.55;color:#514b45!important}
 .project-role .micro{font-size:10px;letter-spacing:.07em}
 .project-card .placeholder{overflow-wrap:anywhere}
+
+/* Sticky navigation on desktop and mobile; solid editorial-paper backdrop. */
+.header{position:sticky;top:0;z-index:1000;background:var(--paper);background:rgba(245,241,235,.97);isolation:isolate}
+@supports (padding-top: env(safe-area-inset-top)){.header{top:0}}
