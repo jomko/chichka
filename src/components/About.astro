@@ -1,6 +1,36 @@
 ---
 import Base from '../layouts/Base.astro';
-import {t} from '../data/projects.js';
-const {lang}=Astro.props;
+import {projects,base,pathFor} from '../data/projects.js';
+const {lang='en'}=Astro.props;
+const uk=lang==='uk';
+const prefix=base(lang);
+const story=uk?[
+'Марічка Чічкова — незалежна мисткиня та культурна менеджерка зі Львова. В основі її роботи — українська традиційна музика, голос і люди, які передають пісні одне одному.',
+'Вона співає, грає на концертини й віолончелі, аранжує та працює з музикою в театрі. У різних проєктах традиційна пісня звучить по-своєму: у гурті, в перформансі, на сцені театру чи під час спільного співу.',
+'Співмайстерня — її власна школа традиційного співу. Це місце для навчання й зустрічей, де пісні живуть завдяки людям, які їх співають. Марічка також співпрацює з музикантами з інших країн, зокрема в Slavalachia.',
+'Інша частина її роботи — створювати умови для музики: організовувати Свято музики у Львові, розвивати камерний простір Нижній Зал, підтримувати незалежних виконавців і культурні ініціативи через ГО «Локальна культурна підтримка».'
+]:[
+'Marichka Chichkova is an independent Ukrainian artist and cultural manager based in Lviv. Traditional music is at the heart of her work — along with the voices and people who keep songs moving from one generation to another.',
+'She sings, plays concertina and cello, arranges music and works with sound in theatre. A traditional song takes on different lives in her practice: with a band, in a performance, on a theatre stage or simply among people singing together.',
+'Spivmaisternia is her independent school of traditional singing — a place to learn, listen and pass songs on. She also works across borders, including through the international collaboration Slavalachia.',
+'Alongside making music, Marichka makes room for it: directing Make Music Day Lviv, developing the intimate Nyzhnyj Zal venue and supporting independent artists and cultural initiatives through the NGO Local Cultural Support.'
+];
+const entries=[
+ {year:'2023',items:[['kolo','Kolo'],['','Lesya. Herstory']]},
+ {year:'2022',items:[['vertep','Vertep'],['zriz','ZRIZ'],['','Where is Home']]},
+ {year:'2021',items:[['cycles','CYCLES'],['nyzhnyj-zal','Nyzhnyj Zal']]},
+ {year:'2020',items:[['spivmaisternia','Spivmaisternia'],['we-selo','We_selo']]},
+ {year:'2019',items:[['slavalachia','Slavalachia']]},
+ {year:'2017',items:[['torban','Torbán']]},
+ {year:'2014',items:[['olenky','Olenky']]},
+ {year:'2012',items:[['make-music-day-lviv',uk?'Свято музики у Львові':'Make Music Day Lviv']]}
+];
+const label=(slug,name)=>{const p=projects.find(x=>x.slug===slug);return p?.name[lang]||name};
 ---
-<Base lang={lang} title={t(lang,'about')}><section class="wrap page-head"><p class="micro">About / Marichka Chichkova</p><h1>{t(lang,'aboutHeading')}</h1></section><figure class="detail-hero"><img src="/about.png" alt="Marichka Chichkova"/></figure><section class="section"><div class="wrap intro-grid"><h2 class="display">{t(lang,'about')}</h2><div><p class="large-copy">{t(lang,'aboutText')}</p><p class="prose">{t(lang,'aboutMore')}</p><p class="note">{t(lang,'sourceNote')}</p></div></div></section></Base>
+<Base lang={lang} title={uk?'Про Марічку':'About'}>
+<section class="wrap about-opening"><p class="micro">{uk?'Про Марічку / Львів, Україна':'About / Lviv, Ukraine'}</p><h1>{uk?'Марічка Чічкова':'Marichka Chichkova'}</h1><p class="about-deck">{uk?'Незалежна мисткиня та культурна менеджерка.':'Independent artist & cultural manager.'}</p></section>
+<figure class="about-portrait"><img src="/about.png" alt="Marichka Chichkova" /></figure>
+<section class="section"><div class="wrap about-story"><div><span class="micro">01 / {uk?'Історія':'Story'}</span><h2 class="display">{uk?'Музика, що живе між людьми.':'Music lives between people.'}</h2></div><div class="about-narrative">{story.map((line,i)=><p class={i===0?'about-first':undefined}>{line}</p>)}</div></div></section>
+<section class="section"><div class="wrap"><div class="eyebrow"><span class="micro">02 / {uk?'Вибрана хронологія':'Selected chronology'}</span><span class="micro">2012—2023</span></div><h2 class="display">{uk?'Роботи за роками':'Work through the years'}</h2><p class="about-chronology-intro">{uk?'Вибрані мистецькі та менеджерські роботи. Повніші відомості — у CV.':'Selected artistic and management work. A fuller record is available in the CV.'}</p><div class="year-list">{entries.map(e=><div class="year-row"><span class="year">{e.year}</span><div class="year-items">{e.items.map(([slug,name])=>slug?<a href={pathFor(lang,slug)}>{label(slug,name)} <span aria-hidden="true">↗</span></a>:<span>{name}</span>)}</div></div>)}</div></div></section>
+<section class="section"><div class="wrap about-cv"><div><span class="micro">03 / Curriculum vitae</span><h2 class="display">{uk?'Професійний досвід':'Full professional record'}</h2><p>{uk?'Організації, фестивалі, музичні та театральні роботи, освіта й інші професійні відомості.':'Organisations, festivals, music and theatre credits, training and professional experience.'}</p></div><a class="cv-link" href={prefix+'/cv/'}>{uk?'Переглянути CV':'View CV'} <span>↗</span></a></div></section>
+</Base>

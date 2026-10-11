@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import {base} from '../data/projects.js';
+const {lang='en'}=Astro.props;
+const uk=lang==='uk';
+const groups=[
+ {title:uk?'Культурний менеджмент':'Cultural management',items:[
+ ['2012—',uk?'Свято музики у Львові — керівництво фестивалем':'Make Music Day Lviv — festival leadership'],
+ ['2021—',uk?'ГО «Локальна культурна підтримка» — керівництво, Нижній Зал, ЗРІЗ, Розколяда':'Local Cultural Support — NGO leadership; Nyzhnyj Zal, ZRIZ, Rozkolyada'],
+ ['2021–2024',uk?'Менторство для культурних менеджерів':'Mentoring for cultural managers'],
+ ['2019–2021',uk?'Львівський театр ляльок — керівництво PR-відділом':'Lviv Puppet Theatre — Head of PR'],
+ ['2018–2019',uk?'Тустань — музична програма «Традиція»':'Tustan festival — Tradition programme / music direction'],
+ ['2019',uk?'Флюгери Львова — співорганізація; BOYE — артдирекція':'Flugery Lvova — co-organisation; BOYE — art direction'],
+ ['2016–2018',uk?'!FEST — проєктний менеджмент':'!FEST — project management'],
+ ['2015–2016',uk?'Форум видавців — програмний менеджмент':'Publishers’ Forum — programme management'],
+ ['2012–2019',uk?'ГО «17» — керівництво':'NGO “17” — leadership']
+ ]},
+ {title:uk?'Мистецька практика':'Artistic practice',items:[
+ ['2023',uk?'«Коло» — музика та концепція; «Леся. Їсторія» — асистентка композитора':'Kolo — composition and concept; Lesya. Herstory — assistant to composer'],
+ ['2022',uk?'«Вертеп» — музика та виконання; Where is Home — концепція та вокал':'Vertep — composition and performance; Where is Home — concept and vocals'],
+ ['2021',uk?'CYCLES — концепція та вокал':'CYCLES — concept and vocals'],
+ ['2020—',uk?'Співмайстерня — засновниця й викладачка; We_selo — традиційний спів':'Spivmaisternia — founder and singing teacher; We_selo — traditional singing'],
+ ['2019—',uk?'Slavalachia — вокал, інструменти, аранжування':'Slavalachia — vocals, instruments and arrangements'],
+ ['2017–2021',uk?'Torbán — вокал, концертина, аранжування, менеджмент':'Torbán — vocals, concertina, arrangements and management'],
+ ['2014–2017',uk?'Olenky — вокал, концертина, перкусія, аранжування, менеджмент':'Olenky — vocals, concertina, percussion, arrangements and management']
+ ]},
+ {title:uk?'Освіта й програми':'Education & programmes',items:[
+ ['2012',uk?'Львівська політехніка — магістр менеджменту зовнішньої торгівлі та митної справи':'Lviv Polytechnic — Master’s degree, Foreign Trade and Customs Management'],
+ ['2016','EU–EaP Culture and Creativity programme'],
+ ['2019',uk?'Школа культурного менеджменту «Кадри управління»':'Kadry Upravlinnia — cultural management course'],
+ ['2021','House of Europe — Digital Lab: Music Management']
+ ]}
+];
+---
+<Base lang={lang} title="CV"><section class="wrap page-head"><p class="micro">Curriculum vitae / Marichka Chichkova</p><h1>Curriculum vitae</h1><p class="large-copy">{uk?'Вибраний професійний досвід Марічки Чічкової.':'Selected professional experience of Marichka Chichkova.'}</p><p class="note">{uk?'Укладено на основі CV 2019–2025. Дати поточних ролей потребують підтвердження перед фінальною публікацією.':'Compiled from CVs dated 2019–2025. Ongoing dates require confirmation before final publication.'}</p></section>{groups.map(g=><section class="section"><div class="wrap"><h2 class="group-title">{g.title}</h2><div class="cv-rows">{g.items.map(([year,description])=><div class="cv-row"><time>{year}</time><p>{description}</p></div>)}</div></div></section>)}</Base>
