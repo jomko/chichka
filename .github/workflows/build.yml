@@ -1,0 +1,26 @@
+name: Astro build
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npm run build
+      - name: Assert static routes
+        run: |
+          test -f dist/index.html
+          test -f dist/uk/index.html
+          test -f dist/projects/index.html
+          test -f dist/uk/projects/index.html
+          test -f dist/projects/spivmaisternia/index.html
+          test -f dist/uk/projects/spivmaisternia/index.html
+          test -f dist/about/index.html
+          test -f dist/contact/index.html
+          test -f dist/chichka.jpg
