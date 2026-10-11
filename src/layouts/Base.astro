@@ -1,10 +1,53 @@
 ---
 import '../styles/global.css';
 import {t,base} from '../data/projects.js';
-const {lang='en',title='Marichka Chichkova',description,alternate}=Astro.props;
+const {lang='en',title='Marichka Chichkova',description,image='/chichka.jpg'}=Astro.props;
 const prefix=base(lang);
 const current=Astro.url.pathname;
 const switchHref=lang==='en'?'/uk'+(current==='/'?'':current):current.replace(/^\/uk/,'')||'/';
 const links=[['projects',prefix+'/projects/'],['about',prefix+'/about/'],['contact',prefix+'/contact/']];
+const site=Astro.site; // Omit absolute SEO URLs rather than publish localhost canonicals.
+const canonical=site ? new URL(current,site).href : null;
+const alternate=site ? new URL(switchHref,site).href : null;
+const enPath=lang==='en'?current:switchHref;
+const english=site ? new URL(enPath,site).href : null;
+const shareImage=site ? new URL(image,site).href : null;
+const fullTitle=title==='Marichka Chichkova'?title:`${title} — Marichka Chichkova`;
+const summary=description||t(lang,'intro');
 ---
-<!doctype html><html lang={lang}><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="theme-color" content="#f5f1eb"/><meta name="description" content={description||t(lang,'intro')}/><title>{title} — Marichka Chichkova</title><link rel="canonical" href={Astro.url.href}/><link rel="alternate" hreflang={lang==='en'?'uk':'en'} href={new URL(switchHref,Astro.url).href}/><link rel="alternate" hreflang={lang} href={Astro.url.href}/><link rel="alternate" hreflang="x-default" href={new URL(lang==='en'?current:switchHref,Astro.url).href}/></head><body><header class="header"><div class="wrap header-inner"><a class="wordmark" href={prefix+'/'}>Marichka Chichkova</a><nav class="navigation" aria-label="Primary navigation">{links.map(([key,url])=><a href={url} aria-current={current===url?'page':undefined}>{t(lang,key)}</a>)}<a class="language" href={switchHref} hreflang={lang==='en'?'uk':'en'}>{lang==='en'?'UA':'EN'}</a></nav></div></header><main><slot/></main><footer class="footer"><div class="wrap"><span>© {new Date().getFullYear()} Marichka Chichkova</span><span>Independent artist · Cultural manager · Lviv, Ukraine</span></div></footer></body></html>
+<!doctype html>
+<html lang={lang}>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="theme-color" content="#f5f1eb"/>
+<meta name="description" content={summary}/>
+<title>{fullTitle}</title>
+{canonical&&<link rel="canonical" href={canonical}/>}
+{canonical&&<link rel="alternate" hreflang={lang} href={canonical}/>}
+{alternate&&<link rel="alternate" hreflang={lang==='en'?'uk':'en'} href={alternate}/>}
+{english&&<link rel="alternate" hreflang="x-default" href={english}/>}
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Marichka Chichkova"/>
+<meta property="og:locale" content={lang==='uk'?'uk_UA':'en_US'}/>
+<meta property="og:title" content={fullTitle}/>
+<meta property="og:description" content={summary}/>
+{canonical&&<meta property="og:url" content={canonical}/>}
+{shareImage&&<meta property="og:image" content={shareImage}/>}
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content={fullTitle}/>
+<meta name="twitter:description" content={summary}/>
+{shareImage&&<meta name="twitter:image" content={shareImage}/>}
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+</head>
+<body>
+<a class="skip-link" href="#content">{lang==='en'?'Skip to content':'Перейти до вмісту'}</a>
+<header class="header"><div class="wrap header-inner">
+<a class="wordmark" href={prefix+'/'}>Marichka Chichkova</a>
+<nav class="navigation" aria-label={lang==='en'?'Main navigation':'Головна навігація'}>
+{links.map(([key,url])=><a href={url} aria-current={current===url?'page':undefined}>{t(lang,key)}</a>)}
+<a class="language" href={switchHref} hreflang={lang==='en'?'uk':'en'} aria-label={lang==='en'?'Перейти на українську':'Switch to English'}>{lang==='en'?'UA':'EN'}</a>
+</nav></div></header>
+<main id="content"><slot/></main>
+<footer class="footer"><div class="wrap"><span>© {new Date().getFullYear()} Marichka Chichkova</span><span>Independent artist · Cultural manager · Lviv, Ukraine</span></div></footer>
+</body></html>

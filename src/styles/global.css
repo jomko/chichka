@@ -96,3 +96,10 @@
 
 /* Wider editorial canvas only for Selected Projects on the homepage. */
 .wrap--portfolio{max-width:1920px;padding-inline:clamp(20px,4vw,76px)}
+
+/* Keyboard navigation and accessible anchors */
+.skip-link{position:fixed;top:-80px;left:20px;z-index:2000;padding:12px 18px;background:var(--ink);color:var(--paper)}
+.skip-link:focus{top:12px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+html{scroll-padding-top:90px}
+@media(max-width:600px){html{scroll-padding-top:78px}}

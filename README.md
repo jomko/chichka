@@ -32,3 +32,12 @@ Texts are based on Marichka's 2019–2025 CVs and public material. Copy is provi
 ## Migration notes
 
 The previous single-page HTML prototype was replaced by Astro source. A copy is retained as `legacy/index.html` for reference. No CMS or heavy client-side JS.
+
+## Production deployment (Vercel)
+
+- Connect GitHub repository `jomko/chichka` to Vercel, framework **Astro**.
+- Install command: `npm ci`; build command: `npm run build`; output directory: `dist`.
+- Set `SITE_URL` in the Production environment to the final public HTTPS domain (no trailing path).
+- If `SITE_URL` is unset, Vercel's production hostname is used as the canonical origin when available. Local builds omit canonical / hreflang rather than writing localhost.
+- Before changing DNS, verify desktop/mobile, EN/UA paths, internal links, photo credits, dates and rights.
+- GitHub Actions builds every route and checks output assets. Passing CI means the static build works; it does **not** constitute editorial approval.

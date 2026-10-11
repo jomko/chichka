@@ -1,4 +1,4 @@
-name: Astro build
+name: Production build
 on:
   push:
     branches: [main]
@@ -11,16 +11,27 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: npm install --no-audit --no-fund
+          cache: npm
+      - run: npm ci --no-audit --no-fund
       - run: npm run build
-      - name: Assert static routes
+        env:
+          SITE_URL: https://portfolio.example.org
+      - name: Verify all generated routes and images
         run: |
           test -f dist/index.html
           test -f dist/uk/index.html
-          test -f dist/projects/index.html
-          test -f dist/uk/projects/index.html
-          test -f dist/projects/spivmaisternia/index.html
-          test -f dist/uk/projects/spivmaisternia/index.html
-          test -f dist/about/index.html
-          test -f dist/contact/index.html
-          test -f dist/chichka.jpg
+          for route in about contact cv projects; do
+            test -f "dist/$route/index.html"
+            test -f "dist/uk/$route/index.html"
+          done
+          for slug in spivmaisternia we-selo slavalachia torban olenky cycles vertep kolo make-music-day-lviv nyzhnyj-zal zriz rozkolyada local-cultural-support; do
+            test -f "dist/projects/$slug/index.html"
+            test -f "dist/uk/projects/$slug/index.html"
+          done
+          for image in chichka.jpg about.png spiv.jpg slavalacha.jpg cycles.png fdlm.png nz.png lkp.png; do
+            test -s "dist/$image"
+          done
+          if grep -R -l 'localhost:4321' dist --include='*.html'; then
+            echo "Unexpected localhost URL in production output"
+            exit 1
+          fi
