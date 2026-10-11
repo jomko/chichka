@@ -53,9 +53,13 @@ const summary=description||t(lang,'intro');
   const begin=performance.now();
   let ended=false;
   const done=()=>{if(ended)return;ended=true;const delay=Math.max(0,330-(performance.now()-begin));setTimeout(()=>{overlay.classList.add('is-done');setTimeout(()=>overlay.remove(),450)},delay)};
-  const hero=document.querySelector('.hero img, .about-portrait img, .detail-hero img');
-  if(hero&&!hero.complete){hero.addEventListener('load',done,{once:true});hero.addEventListener('error',done,{once:true})}
-  else{requestAnimationFrame(done)}
+  const startImageWait=()=>{
+    const hero=document.querySelector('.hero img, .about-portrait img, .detail-hero img');
+    if(hero&&!hero.complete){hero.addEventListener('load',done,{once:true});hero.addEventListener('error',done,{once:true})}
+    else{requestAnimationFrame(done)}
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',startImageWait,{once:true});
+  else startImageWait();
   window.addEventListener('load',done,{once:true});
   setTimeout(done,1100);
 })();
