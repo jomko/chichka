@@ -135,7 +135,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
 /* Portrait diptychs: a fixed photographic window on desktop. */
 .editorial-interlude{background-color:var(--paper);background-repeat:no-repeat;background-size:cover;background-position:center;}
-.editorial-interlude--after-about{background-image:url('/face_top.png')}
-.editorial-interlude--after-projects{background-image:url('/face_bottom.png')}
+.editorial-interlude--after-about{background-image:url('/assets/images/face_top.png')}
+.editorial-interlude--after-projects{background-image:url('/assets/images/face_bottom.png')}
 @media(min-width:801px) and (prefers-reduced-motion:no-preference){.editorial-interlude{background-attachment:fixed}}
 @media(max-width:800px){.editorial-interlude{background-attachment:scroll;background-position:center;background-size:cover}}

@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import {t,base} from '../data/projects.js';
-const {lang='en',title='Marichka Chichkova',description,image='/og.png'}=Astro.props;
+const {lang='en',title='Marichka Chichkova',description,image='/assets/social/og.png'}=Astro.props;
 const prefix=base(lang);
 const current=Astro.url.pathname;
 const switchHref=lang==='en'?'/uk'+(current==='/'?'':current):current.replace(/^\/uk/,'')||'/';
