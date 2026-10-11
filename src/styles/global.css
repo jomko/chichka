@@ -58,3 +58,11 @@
 .project-card .project-role{font-size:13px!important;line-height:1.6;margin-top:10px!important}
 .project-card .project-role .micro{font-size:11px}
 @media(max-width:600px){.project-card>p:not(.project-role){font-size:14px}.project-card .project-role{font-size:12px!important}.project-card--logo figure{padding:30px}}
+
+/* Remove letterbox bands from poster cards without cropping poster artwork. */
+.project-card--artwork figure{height:auto;aspect-ratio:auto;background:transparent;overflow:visible}
+.project-card--artwork figure img{width:100%;height:auto;object-fit:unset;display:block}
+/* Keep the NGO identity panel clean, without the former grey frame. */
+.project-card--logo figure{background:transparent;padding:0;height:auto;aspect-ratio:auto;overflow:visible;display:block}
+.project-card--logo figure img{width:100%;height:auto;max-height:none;object-fit:contain}
+@media(max-width:600px){.project-card--logo figure{padding:0}}
