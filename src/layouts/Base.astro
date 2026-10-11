@@ -79,7 +79,7 @@ const summary=description||t(lang,'intro');
 <script is:inline>
 (function(){
   if(!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const selector='.section .display, .section .large-copy, .project-card, .year-row, .about-narrative p, .about-cv, .cv-row, .editorial-interlude, .detail-grid, .contact-links';
+  const selector='.section .display, .section .large-copy, .project-card, .year-row, .about-narrative p, .about-cv, .cv-row, .detail-grid, .contact-links';
   const init=()=>{
     const items=Array.from(document.querySelectorAll(selector));
     if(!items.length)return;

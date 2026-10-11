@@ -133,7 +133,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 .scroll-reveal.scroll-revealed{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.scroll-reveal{opacity:1!important;transform:none!important;transition:none!important}}
 
-/* Portrait diptychs: a fixed photographic window on desktop. */
+/* Fixed backgrounds must never be transformed by reveal animations: transforms\n   create a containing block and briefly turn background-attachment:fixed into scroll. */\n.editorial-interlude{opacity:1;transform:none;transition:none}\n\n/* Portrait diptychs: a fixed photographic window on desktop. */
 .editorial-interlude{background-color:var(--paper);background-repeat:no-repeat;background-size:cover;background-position:center;}
 .editorial-interlude--after-about{background-image:url('/assets/images/face_top.png')}
 .editorial-interlude--after-projects{background-image:url('/assets/images/face_bottom.png')}
