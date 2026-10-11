@@ -33,3 +33,9 @@
  .intro-grid .display{font-size:clamp(42px,10vw,66px)}
  .intro-grid .large-copy{font-size:19px}
 }
+
+/* Editorial photographs between homepage chapters. */
+.editorial-interlude{margin:0;width:100%;height:clamp(340px,50vw,780px);overflow:hidden;background:#ded7ce}
+.editorial-interlude img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 50%}
+.editorial-interlude--after-about img{object-position:center 45%}
+@media(max-width:600px){.editorial-interlude{height:65vw;min-height:280px;max-height:500px}}
