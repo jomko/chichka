@@ -4,7 +4,7 @@ import ProjectCard from './ProjectCard.astro';
 import {projects,t,base} from '../data/projects.js';
 const {lang}=Astro.props;
 const prefix=base(lang);
-const selected=['spivmaisternia','make-music-day-lviv','slavalachia','nyzhnyj-zal','cycles','zriz'].map(slug=>projects.find(p=>p.slug===slug));
+const selected=['spivmaisternia','make-music-day-lviv','slavalachia','nyzhnyj-zal','cycles','local-cultural-support'].map(slug=>projects.find(p=>p.slug===slug));
 ---
 <Base lang={lang} title={lang==='en'?'Independent artist & cultural manager':'Незалежна мисткиня та культурна менеджерка'}>
 <section class="wrap hero"><div><p class="micro">{t(lang,'tag')} · Lviv, Ukraine</p><h1>Marichka<br/>Chichkova</h1><p class="lead">{t(lang,'intro')}</p></div><figure><img src="/chichka.jpg" alt="Marichka Chichkova" fetchpriority="high"/></figure></section>
