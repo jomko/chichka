@@ -1,7 +1,23 @@
 ---
 import Base from '../layouts/Base.astro';
 import ProjectCard from './ProjectCard.astro';
-import {projects,t} from '../data/projects.js';
+import {projects,t,base} from '../data/projects.js';
+import '../styles/project-sections.css';
 const {lang}=Astro.props;
+const uk=lang==='uk';
+const groups=[
+ {id:'artist',name:t(lang,'artist'),photo:'/m1.jpg',items:projects.filter(p=>p.type==='artist')},
+ {id:'management',name:t(lang,'management'),photo:'/m2.jpg',items:projects.filter(p=>p.type==='management')},
+ {id:'voice',name:uk?'Голосові практики й навчання':'Voice Practices & Teaching',photo:'/m3.jpg',items:projects.filter(p=>p.slug==='spivmaisternia')}
+];
 ---
-<Base lang={lang} title={t(lang,'projects')}><section class="wrap page-head"><p class="micro">Portfolio / 01</p><h1>{t(lang,'projects')}.</h1><p class="large-copy">{t(lang,'allIntro')}</p></section><section class="section"><div class="wrap">{['artist','management'].map(type=><div class="group" id={type}><h2 class="group-title">{t(lang,type)}</h2><div class="project-grid">{projects.filter(p=>p.type===type).map(p=><ProjectCard p={p} lang={lang}/>)}</div></div>)}</div></section></Base>
+<Base lang={lang} title={t(lang,'projects')}>
+ <section class="wrap page-head"><p class="micro">Portfolio / 01</p><h1>{t(lang,'projects')}.</h1><p class="large-copy">{t(lang,'allIntro')}</p></section>
+ <section class="section"><div class="wrap">
+ {groups.map(group=><section class="group ch-project-group" id={group.id}>
+   <figure class="ch-project-group__photo" data-project-image={`discipline-${group.id}`}><img src={group.photo} alt="" loading="eager" decoding="async"/></figure>
+   <h2 class="group-title">{group.name}</h2>
+   <div class="project-grid">{group.items.map(p=><ProjectCard p={p} lang={lang}/>)}</div>
+  </section>)}
+ </div></section>
+</Base>
