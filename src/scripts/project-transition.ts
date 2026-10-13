@@ -79,7 +79,15 @@ document.addEventListener('click',async(event)=>{
   restore();
   // Once the image has landed, return to the beginning of the new project page.
   // Do not change scroll position until the photographic handoff is complete.
-  requestAnimationFrame(()=>scrollTo({top:0,behavior:'smooth'}));
+  // Discipline links land at their new section; project detail links return to page top.
+  const anchor=new URL(current.url).hash;
+  requestAnimationFrame(()=>{
+   if(anchor){
+    const section=document.getElementById(decodeURIComponent(anchor.slice(1)));
+    if(section){section.scrollIntoView({behavior:'smooth',block:'start'});return;}
+   }
+   scrollTo({top:0,behavior:'smooth'});
+  });
  }catch(error){
   const fallbackUrl=current.url;
   restore();
