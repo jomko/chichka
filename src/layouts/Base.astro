@@ -52,29 +52,6 @@ const summary=description||t(lang,'intro');
 </style>
 </head>
 <body>
-<div id="page-loader" class="page-loader" aria-hidden="true">
- <div class="loader-inner"><span class="loader-monogram">MC</span><span class="loader-line"></span><span class="loader-caption">MARICHKA CHICHKOVA</span></div>
-</div>
-<script is:inline>
-(function(){
-  const overlay=document.getElementById('page-loader');
-  if(!overlay)return;
-  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduced){overlay.remove();return;}
-  const begin=performance.now();
-  let ended=false;
-  const done=()=>{if(ended)return;ended=true;const delay=Math.max(0,330-(performance.now()-begin));setTimeout(()=>{overlay.classList.add('is-done');setTimeout(()=>overlay.remove(),450)},delay)};
-  const startImageWait=()=>{
-    const hero=document.querySelector('.hero img, .about-portrait img, .detail-hero img');
-    if(hero&&!hero.complete){hero.addEventListener('load',done,{once:true});hero.addEventListener('error',done,{once:true})}
-    else{requestAnimationFrame(done)}
-  };
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',startImageWait,{once:true});
-  else startImageWait();
-  window.addEventListener('load',done,{once:true});
-  setTimeout(done,1100);
-})();
-</script>
 <a class="skip-link" href="#content">{lang==='en'?'Skip to content':'Перейти до вмісту'}</a>
 <header class="header"><div class="header-inner">
 <div class="site-languages" aria-label={lang==='en'?'Language':'Мова'}>
