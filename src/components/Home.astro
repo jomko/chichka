@@ -88,14 +88,14 @@ const disciplines=[
        const rect=img.getBoundingClientRect();
        const layer=document.createElement('div');
        layer.setAttribute('aria-hidden','true');
-       Object.assign(layer.style,{position:'fixed',zIndex:'9999',inset:'0',pointerEvents:'none',overflow:'hidden'});
+       Object.assign(layer.style,{position:'fixed',zIndex:'9999',left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px',pointerEvents:'none',overflow:'hidden'});
        const clone=img.cloneNode();
        Object.assign(clone.style,{position:'absolute',left:'0',top:'0',width:'100%',height:'100%',objectFit:'cover',objectPosition:getComputedStyle(img).objectPosition,filter:'saturate(.85)'});
        layer.append(clone);
        document.body.append(layer);
        const animation=layer.animate([
-         {clipPath:'inset('+rect.top+'px '+(innerWidth-rect.right)+'px '+(innerHeight-rect.bottom)+'px '+rect.left+'px)',opacity:1},
-         {clipPath:'inset(0px 0px 0px 0px)',opacity:1}
+         {left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'},
+         {left:'0px',top:'0px',width:innerWidth+'px',height:innerHeight+'px'}
        ],{duration:680,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'});
        try{await animation.finished}catch{}
        // Existing destination layout begins with a typographic title, not the image.
