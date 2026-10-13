@@ -48,7 +48,25 @@ const disciplines=[
    </div>
   </div>
  </section>
- <section class="ch-placeholder" id="collaboration"><h2>{uk?'Маєте ідею?':'Have something in mind?'}</h2><p>{uk?'Розкажіть про неї.':'Let’s see what we can make of it.'}</p><a href={prefix+'/contact/'}>{uk?'Зв’язатися':'Get in touch'} ↗</a></section>
+ <section class="ch-about" id="about-preview" aria-labelledby="ch-about-title">
+   <div class="ch-about__image" role="img" aria-label={uk?'Місце для другого портрета':'Second portrait placeholder'}><span>PORTRAIT / 02</span></div>
+   <div class="ch-about__content">
+    <p class="ch-about__label">05 / {uk?'ПРО МЕНЕ':'ABOUT'}</p>
+    <h2 id="ch-about-title">{uk?'Цікавість зближує людей.':'Curiosity brings people together.'}</h2>
+    <div class="ch-about__bottom">
+     <p>{uk?'Я працюю з музикою, людьми й культурними середовищами. Співаю, викладаю та створюю простір для зустрічей — на сцені, у спільнотах і через спільну практику.':'I work with music, people and cultural spaces. I sing, teach, and create opportunities to meet — on stage, in communities and through shared practice.'}</p>
+     <a href={prefix+'/about/'}>{uk?'Більше про мене':'More about me'} <span aria-hidden="true">↗</span></a>
+    </div>
+   </div>
+  </section>
+  <section class="ch-collaboration" id="collaboration" aria-labelledby="ch-collab-title">
+   <div class="ch-collaboration__meta"><span>06 / {uk?'СПІВПРАЦЯ':'COLLABORATION'}</span><span>LVIV · UKRAINE</span></div>
+   <div class="ch-collaboration__center"><span class="ch-collaboration__disc" aria-hidden="true"></span><h2 id="ch-collab-title">{uk?'МАЄТЕ ЩОСЬ':'HAVE SOMETHING'}<br/>{uk?'НА ДУМЦІ?':'IN MIND?'}</h2><p>{uk?'Подивімось, що з цього може вийти.':'Let’s see what we can make of it.'}</p></div>
+   <div class="ch-collaboration__footer">
+    <div class="ch-collaboration__context">{uk?'Концерт · фестиваль · резиденція · майстерня · несподівана ідея':'Concert · festival · residency · workshop · unexpected idea'}</div>
+    <div class="ch-collaboration__links"><a href="mailto:mari4i4ka@gmail.com">{uk?'Написати мені':'Email me'} <span aria-hidden="true">↗</span></a><a href="https://www.instagram.com/mari4i4ka/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></div>
+   </div>
+  </section>
 </div>
 <script is:inline>
 (()=>{
