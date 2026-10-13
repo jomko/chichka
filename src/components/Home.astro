@@ -80,64 +80,7 @@ const disciplines=[
  if(!header||!title)return;
  const observer=new IntersectionObserver(entries=>header.classList.toggle('is-scrolled',!entries[0].isIntersecting),{rootMargin:'-80px 0px 0px 0px',threshold:0});
  observer.observe(title);
- // Editorial sequence for the three disciplines. Content remains visible without JS.
- if('IntersectionObserver' in window && Element.prototype.animate &&
-    !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-   const rows=[...document.querySelectorAll('.ch-discipline')];
-   const motionObserver=new IntersectionObserver(entries=>{
-     for(const entry of entries){
-       if(!entry.isIntersecting)continue;
-       motionObserver.unobserve(entry.target);
-       const row=entry.target;
-       const heading=row.querySelector('h2');
-       const detail=row.querySelector('.ch-detail');
-       const preview=row.querySelector('.ch-preview');
-       // The headline leads. Supporting elements follow without delaying navigation.
-       heading?.animate([
-         {clipPath:'inset(0 0 100% 0)',transform:'translateY(22px)'},
-         {clipPath:'inset(0 0 0 0)',transform:'translateY(0)'}
-       ],{duration:780,easing:'cubic-bezier(.22,1,.36,1)'});
-       detail?.animate([
-         {opacity:0,transform:'translateY(10px)'},
-         {opacity:1,transform:'translateY(0)'}
-       ],{duration:560,delay:140,easing:'ease-out',fill:'backwards'});
-       preview?.animate([
-         {clipPath:'inset(0 0 100% 0)'},
-         {clipPath:'inset(0 0 0 0)'}
-       ],{duration:800,delay:190,easing:'cubic-bezier(.76,0,.24,1)',fill:'backwards'});
-     }
-   },{threshold:.18,rootMargin:'0px 0px -8% 0px'});
-   rows.forEach(row=>{if(row.getBoundingClientRect().top>window.innerHeight*.85)motionObserver.observe(row)});
- }
- // Reveal images with a visible bottom-up mask; no dependency or forced scrolling.
- if (!('IntersectionObserver' in window) || !Element.prototype.animate ||
-     window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
- const frames=[...document.querySelectorAll('.ch-work__image')];
- const photoObserver=new IntersectionObserver(entries=>{
-   for(const entry of entries){
-     if(!entry.isIntersecting)continue;
-     const frame=entry.target;
-     photoObserver.unobserve(frame);
-     const reveal=()=>{
-       const animation=frame.animate([
-         {clipPath:'inset(0 0 100% 0)'},
-         {clipPath:'inset(0 0 0% 0)'}
-       ],{duration:1050,easing:'cubic-bezier(.76,0,.24,1)',fill:'forwards'});
-       animation.finished.then(()=>{frame.style.clipPath='';animation.cancel()}).catch(()=>{frame.style.clipPath=''});
-     };
-     const photo=frame.querySelector('img');
-     if(!photo){frame.style.clipPath='';continue}
-     if(photo.complete){reveal();continue}
-     photo.addEventListener('load',reveal,{once:true});
-     photo.addEventListener('error',()=>{frame.style.clipPath=''}, {once:true});
-   }
- },{threshold:0,rootMargin:'0px 0px -12% 0px'});
- frames.forEach(frame=>{
-   if(frame.getBoundingClientRect().top>=window.innerHeight){
-     frame.style.clipPath='inset(0 0 100% 0)';
-     photoObserver.observe(frame);
-   }
- });
+
 })();
 </script>
 </Base>
