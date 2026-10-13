@@ -34,7 +34,8 @@ const disciplines=[
   <div class="ch-work__grid">
    {selected.map((p,i)=><a class={'ch-work__item ch-work__item--'+(i+1)} href={pathFor(lang,p.slug)} aria-label={p.name[lang]+': '+workLabel(p)}>
     <div class="ch-work__image">
-     <span class="ch-work__image-label">{p.image?'IMAGE / EDITORIAL PLACEHOLDER':'PHOTO / COMING SOON'}</span>
+     {p.slug==='spivmaisternia' && <img class="ch-work__photo" src="/assets/images/spivmaisternia-card.webp" alt={uk?'Співмайстерня — вечірній спів біля вогню':'Spivmaisternia — an evening singing circle by the fire'} loading="lazy" decoding="async" width="780" height="840" />}
+     {p.slug!=='spivmaisternia' && <span class="ch-work__image-label">{p.image?'IMAGE / EDITORIAL PLACEHOLDER':'PHOTO / COMING SOON'}</span>}
      <span class="ch-work__index">0{i+1}</span>
     </div>
     <div class="ch-work__caption">
