@@ -88,95 +88,118 @@ const summary=description||t(lang,'intro');
 })();
 </script>
 <script>
-import { navigate } from 'astro:transitions';
+import { navigate } from 'astro:transitions/client';
 
-const state = window.__chProjectTransitionState ||= {pending:null,initialized:false};
-if (!state.initialized) {
-state.initialized = true;
-const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-function layer() { return document.getElementById('project-transition-layer'); }
-function clear() {
- const el=layer();
- if(el){el.getAnimations().forEach(a=>a.cancel());el.style.cssText='';el.classList.remove('is-active');el.querySelector('img')?.removeAttribute('src');document.body?.prepend(el);}
- state.pending=null;
+type Phase = 'IDLE' | 'EXPANDING' | 'FULLSCREEN' | 'LOADING' | 'CONTRACTING' | 'COMPLETE';
+declare global { interface Window { __chProjectTransition?: { phase: Phase; initialized?: boolean; scrollRestoration?: ScrollRestoration; wheelBlock?: (event: Event) => void; keyBlock?: (event: KeyboardEvent) => void } } }
+const controller = window.__chProjectTransition ||= { phase: 'IDLE' as Phase };
+const layer = () => document.getElementById('project-transition-layer')!;
+const frame = () => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+const wait = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms));
+
+function cleanup() {
+  const overlay = layer();
+  overlay.getAnimations().forEach(animation => animation.cancel());
+  overlay.style.cssText = '';
+  overlay.classList.remove('is-active');
+  overlay.querySelector('img')?.removeAttribute('src');
+  if (controller.wheelBlock) {
+    document.removeEventListener('wheel', controller.wheelBlock, true);
+    document.removeEventListener('touchmove', controller.wheelBlock, true);
+    controller.wheelBlock = undefined;
+  }
+  if (controller.keyBlock) {
+    document.removeEventListener('keydown', controller.keyBlock, true);
+    controller.keyBlock = undefined;
+  }
+  if (controller.scrollRestoration) {
+    history.scrollRestoration = controller.scrollRestoration;
+    controller.scrollRestoration = undefined;
+  }
+  controller.phase = 'IDLE';
 }
-document.addEventListener('click', async (event)=>{
- if(state.pending || reduce() || !Element.prototype.animate || event.defaultPrevented || event.button!==0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)return;
- const target=event.target instanceof Element ? event.target.closest('a[data-project-entry]') : null;
- if(!target || target.target==='_blank' || target.hasAttribute('download'))return;
- const photo=target.querySelector('.ch-work__photo');
- const el=layer();
- if(!photo || !photo.complete || !photo.naturalWidth || !el)return;
- event.preventDefault();
- // Own this click before Astro's delegated navigation handler can start a swap.
- event.stopImmediatePropagation();
- const slug=target.dataset.projectEntry;
- const destination=target.href;
- const rect=photo.getBoundingClientRect();
- const moving=el.querySelector('img');
- moving.src=photo.currentSrc || photo.src;
- moving.style.objectPosition=getComputedStyle(photo).objectPosition;
- // Keep the overlay OUTSIDE <body>: Astro swaps the body during navigation.
- document.documentElement.appendChild(el);
- el.classList.add('is-active');
- Object.assign(el.style,{position:'fixed',zIndex:'9999',left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px',right:'auto',bottom:'auto',inset:'auto',pointerEvents:'none',overflow:'hidden'});
- Object.assign(moving.style,{position:'absolute',left:'0',top:'0',width:'100%',height:'100%',objectFit:'cover'});
- state.pending={slug,destination,expandedAt:0};
- try {
-  await el.animate([
-   {left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'},
-   {left:'0px',top:'0px',width:innerWidth+'px',height:innerHeight+'px'}
-  ],{duration:950,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'}).finished;
-  // Preserve the final frame, exactly as in the original working clone expansion.
-  Object.assign(el.style,{left:'0px',top:'0px',width:innerWidth+'px',height:innerHeight+'px',inset:'auto',right:'auto',bottom:'auto'});
-  el.getAnimations().forEach(a=>a.cancel());
-  state.pending.expandedAt=performance.now();
-  // A visible hold before page replacement, independent of router timing.
-  await new Promise(resolve=>setTimeout(resolve,320));
-  await navigate(destination);
- } catch (error) {
-  clear();
-  window.location.assign(destination);
- }
-}, {capture:true});
-document.addEventListener('astro:page-load', async ()=>{
- if(!state.pending)return;
- const active=state.pending;
- const el=layer();
- if(el){Object.assign(el.style,{left:'0px',top:'0px',width:innerWidth+'px',height:innerHeight+'px',inset:'auto',right:'auto',bottom:'auto'});el.classList.add('is-active');}
- const destination=document.querySelector('[data-project-image="'+CSS.escape(active.slug)+'"]');
- if(!el || !destination){clear();return;}
- const image=destination.querySelector('img');
- if(image && !image.complete){
-   await Promise.race([
-     new Promise(resolve=>{image.addEventListener('load',resolve,{once:true});image.addEventListener('error',resolve,{once:true})}),
-     new Promise(resolve=>setTimeout(resolve,1500))
-   ]);
- }
- // Make the landing photo visible, then settle the full-screen image into its exact box.
- const offset=Math.min(100,innerHeight*.12);
- const top=destination.getBoundingClientRect().top+scrollY-offset;
- scrollTo({top:Math.max(0,top),behavior:'instant'});
- await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
- // Hold the fully expanded image for at least 300 ms, even if the page is ready immediately.
- const hold=Math.max(300,600-(performance.now()-(active.expandedAt || performance.now())));
- if(hold)await new Promise(resolve=>setTimeout(resolve,hold));
- const rect=destination.getBoundingClientRect();
- try{
-  await el.animate([
-   {left:'0px',top:'0px',width:innerWidth+'px',height:innerHeight+'px'},
-   {left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'}
-  ],{duration:1050,easing:'cubic-bezier(.76,0,.24,1)',fill:'forwards'}).finished;
- }catch{}
- clear();
-});
-document.addEventListener('astro:before-preparation',()=>{if(!state.pending)clear()});
-addEventListener('pageshow',()=>{if(!state.pending)clear()});
 
+if (!controller.initialized) {
+controller.initialized = true;
+document.addEventListener('click', async event => {
+  if (controller.phase !== 'IDLE' || matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      !Element.prototype.animate || event.defaultPrevented || event.button !== 0 ||
+      event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[data-project-entry]') : null;
+  if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
+  const source = link.querySelector<HTMLImageElement>('.ch-work__photo');
+  if (!source?.complete || !source.naturalWidth) return;
+
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  const overlay = layer();
+  document.documentElement.appendChild(overlay);
+  const image = overlay.querySelector('img')!;
+  const slug = link.dataset.projectEntry!;
+  const destinationUrl = link.href;
+  const start = source.getBoundingClientRect();
+  image.src = source.currentSrc || source.src;
+  image.style.objectPosition = getComputedStyle(source).objectPosition;
+  Object.assign(overlay.style, { position: 'fixed', zIndex: '9999', left: `${start.left}px`, top: `${start.top}px`, width: `${start.width}px`, height: `${start.height}px`, right: 'auto', bottom: 'auto', inset: 'auto', overflow: 'hidden' });
+  overlay.classList.add('is-active');
+  controller.wheelBlock = event => event.preventDefault();
+  controller.keyBlock = event => { if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '].includes(event.key)) event.preventDefault(); };
+  document.addEventListener('wheel', controller.wheelBlock, { capture: true, passive: false });
+  document.addEventListener('touchmove', controller.wheelBlock, { capture: true, passive: false });
+  document.addEventListener('keydown', controller.keyBlock, true);
+  controller.phase = 'EXPANDING';
+  try {
+    const expand = overlay.animate([
+      { left: `${start.left}px`, top: `${start.top}px`, width: `${start.width}px`, height: `${start.height}px` },
+      { left: '0px', top: '0px', width: `${innerWidth}px`, height: `${innerHeight}px` }
+    ], { duration: 950, easing: 'cubic-bezier(.22,1,.36,1)' });
+    await expand.finished;
+    Object.assign(overlay.style, { left: '0px', top: '0px', width: `${innerWidth}px`, height: `${innerHeight}px` });
+    expand.cancel();
+    controller.phase = 'FULLSCREEN';
+    const expandedAt = performance.now();
+    await wait(300);
+    controller.phase = 'LOADING';
+    controller.scrollRestoration = history.scrollRestoration;
+    history.scrollRestoration = 'manual';
+    await navigate(destinationUrl);
+
+    const destination = document.querySelector<HTMLElement>(`[data-project-image="${CSS.escape(slug)}"]`);
+    const targetImage = destination?.querySelector('img');
+    if (!destination || !targetImage) throw new Error('Project destination image is missing');
+    if (!targetImage.complete) await new Promise<void>((resolve, reject) => {
+      targetImage.addEventListener('load', () => resolve(), { once: true });
+      targetImage.addEventListener('error', () => reject(new Error('Project image failed to load')), { once: true });
+    });
+    await targetImage.decode();
+
+    const y = Math.max(0, destination.getBoundingClientRect().top + scrollY - Math.min(100, innerHeight * .12));
+    scrollTo(0, y);
+    await frame();
+    await frame();
+    if (performance.now() - expandedAt < 300) await wait(300 - (performance.now() - expandedAt));
+    const end = destination.getBoundingClientRect();
+    controller.phase = 'CONTRACTING';
+    const contract = overlay.animate([
+      { left: '0px', top: '0px', width: `${innerWidth}px`, height: `${innerHeight}px` },
+      { left: `${end.left}px`, top: `${end.top}px`, width: `${end.width}px`, height: `${end.height}px` }
+    ], { duration: 1050, easing: 'cubic-bezier(.76,0,.24,1)' });
+    await contract.finished;
+    Object.assign(overlay.style, { left: `${end.left}px`, top: `${end.top}px`, width: `${end.width}px`, height: `${end.height}px` });
+    contract.cancel();
+    controller.phase = 'COMPLETE';
+    cleanup();
+  } catch {
+    cleanup();
+    window.location.assign(destinationUrl);
+  }
+}, { capture: true });
+
+window.addEventListener('pageshow', cleanup);
 }
 </script>
 <style is:global>
-#project-transition-layer{position:fixed;left:0;top:0;width:0;height:0;z-index:9999;pointer-events:none;visibility:hidden;overflow:hidden;background:#111}
+#project-transition-layer{position:fixed;left:0;top:0;width:0;height:0;z-index:9999;pointer-events:auto;visibility:hidden;overflow:hidden;background:#111}
 #project-transition-layer.is-active{visibility:visible}
 #project-transition-layer img{display:block;width:100%;height:100%;object-fit:cover}
 </style>
