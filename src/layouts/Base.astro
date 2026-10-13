@@ -114,14 +114,15 @@ document.addEventListener('click', async (event)=>{
  moving.style.objectPosition=getComputedStyle(photo).objectPosition;
  el.classList.add('is-active');
  Object.assign(el.style,{left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'});
- pending={slug,destination};
+ pending={slug,destination,expandedAt:0};
  try {
   await el.animate([
    {left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'},
    {left:'0px',top:'0px',width:innerWidth+'px',height:innerHeight+'px'}
-  ],{duration:650,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'}).finished;
+  ],{duration:950,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'}).finished;
   Object.assign(el.style,{left:'0px',top:'0px',width:'100vw',height:'100dvh'});
   el.getAnimations().forEach(a=>a.cancel());
+  pending.expandedAt=performance.now();
   await navigate(destination);
  } catch (error) {
   clear();
@@ -146,12 +147,15 @@ document.addEventListener('astro:page-load', async ()=>{
  const top=destination.getBoundingClientRect().top+scrollY-offset;
  scrollTo({top:Math.max(0,top),behavior:'instant'});
  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+ // Hold the fully expanded image for at least 300 ms, even if the page is ready immediately.
+ const hold=Math.max(0,300-(performance.now()-(active.expandedAt || performance.now())));
+ if(hold)await new Promise(resolve=>setTimeout(resolve,hold));
  const rect=destination.getBoundingClientRect();
  try{
   await el.animate([
    {left:'0px',top:'0px',width:innerWidth+'px',height:innerHeight+'px'},
    {left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'}
-  ],{duration:750,easing:'cubic-bezier(.76,0,.24,1)',fill:'forwards'}).finished;
+  ],{duration:1050,easing:'cubic-bezier(.76,0,.24,1)',fill:'forwards'}).finished;
  }catch{}
  clear();
 });
