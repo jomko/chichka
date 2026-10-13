@@ -75,6 +75,36 @@ const disciplines=[
 </div>
 <script is:inline>
 (()=>{
+ // Reliable project-entry motion in browsers without cross-document View Transitions.
+ // Standard links remain functional for keyboard modifiers, new tabs and reduced motion.
+ const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(!reduced){
+   document.querySelectorAll('.ch-work__item').forEach(link=>{
+     link.addEventListener('click',async event=>{
+       if(event.defaultPrevented || event.button!==0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)return;
+       const img=link.querySelector('.ch-work__photo');
+       if(!img || !img.complete || !img.naturalWidth || !Element.prototype.animate)return;
+       event.preventDefault();
+       const rect=img.getBoundingClientRect();
+       const layer=document.createElement('div');
+       layer.setAttribute('aria-hidden','true');
+       Object.assign(layer.style,{position:'fixed',zIndex:'9999',inset:'0',pointerEvents:'none',overflow:'hidden'});
+       const clone=img.cloneNode();
+       Object.assign(clone.style,{position:'absolute',left:'0',top:'0',width:'100%',height:'100%',objectFit:'cover',objectPosition:getComputedStyle(img).objectPosition,filter:'saturate(.85)'});
+       layer.append(clone);
+       document.body.append(layer);
+       const animation=layer.animate([
+         {clipPath:'inset('+rect.top+'px '+(innerWidth-rect.right)+'px '+(innerHeight-rect.bottom)+'px '+rect.left+'px)',opacity:1},
+         {clipPath:'inset(0px 0px 0px 0px)',opacity:1}
+       ],{duration:680,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'});
+       try{await animation.finished}catch{}
+       // Existing destination layout begins with a typographic title, not the image.
+       // Fade out the photographic curtain before normal navigation.
+       await layer.animate([{opacity:1},{opacity:0}],{duration:180,fill:'forwards'}).finished.catch(()=>{});
+       window.location.assign(link.href);
+     });
+   });
+ }
  const header=document.querySelector('.header');
  const title=document.getElementById('ch-hero-title');
  if(!header||!title)return;
