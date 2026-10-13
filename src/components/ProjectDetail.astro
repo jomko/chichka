@@ -22,7 +22,7 @@ const image=images[p.slug] || p.image;
   <h1>{p.name[lang]}</h1>
   <div class="ch-project__lead"><span>{p.years}</span><p>{p.intro[lang]}</p></div>
  </div>
- {image && <figure class="ch-project__hero" data-project-image={p.slug}><img src={image} alt={p.name[lang]} loading="eager" decoding="async" fetchpriority="high"/></figure>}
+ {image && <figure class="ch-project__hero" data-project-image={p.slug}><img src={image} style={`view-transition-name: project-${p.slug}`} alt={p.name[lang]} loading="eager" decoding="async" fetchpriority="high"/></figure>}
  <section class="ch-project__story" aria-label={uk?'Про проєкт':'About the project'}>
   <div class="ch-project__facts">
    <span class="ch-project__serial">01 / {uk?'КОНТЕКСТ':'CONTEXT'}</span>
