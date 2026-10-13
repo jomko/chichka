@@ -43,13 +43,7 @@ const summary=description||t(lang,'intro');
 <meta name="twitter:description" content={summary}/>
 {shareImage&&<meta name="twitter:image" content={shareImage}/>}
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-<style is:global>
-/* Opt in to same-origin cross-document transitions; unsupported browsers navigate normally. */
-@view-transition { navigation: auto; }
-::view-transition-old(root),::view-transition-new(root){animation-duration:.38s;animation-timing-function:ease-in-out}
-::view-transition-group(*){animation-duration:.7s;animation-timing-function:cubic-bezier(.22,1,.36,1)}
-@media(prefers-reduced-motion:reduce){::view-transition-old(*),::view-transition-new(*),::view-transition-group(*){animation-duration:.01ms!important}}
-</style>
+
 </head>
 <body>
 <a class="skip-link" href="#content">{lang==='en'?'Skip to content':'Перейти до вмісту'}</a>
