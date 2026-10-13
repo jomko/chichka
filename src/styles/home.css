@@ -22,22 +22,9 @@ body:has(.ch-home){background:var(--ch-white);color:var(--ch-black)}
 .ch-home .ch-detail{font-size:11px;text-transform:uppercase;letter-spacing:.1em;line-height:1.7}
 .ch-home .ch-preview{aspect-ratio:1.9;background:#d2d2d0;position:relative;overflow:hidden;display:grid;place-items:centerbackground:#dededb}
 .ch-home .ch-preview span{font-size:10px;letter-spacing:.13em;z-index:1;background:rgba(245,245,242,.85);padding:5px 8px}
-body:has(.ch-home) .header{position:fixed;top:0;left:0;right:0;background:transparent;color:#fff;border:0;transition:background .25s,color .25s;z-index:1000}
-body:has(.ch-home) .header-inner{max-width:none;min-height:80px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
-body:has(.ch-home) .wordmark{opacity:0;pointer-events:none;transition:opacity .25s;font-size:22px;grid-column:2;grid-row:1}
-body:has(.ch-home) .navigation{grid-column:3;grid-row:1;justify-self:end}
-body:has(.ch-home) .header.is-scrolled{background:rgba(245,245,242,.97);color:#111;border-bottom:1px solid #bdbdbd}
-body:has(.ch-home) .header.is-scrolled .wordmark{opacity:1;pointer-events:auto}
-body:has(.ch-home) .navigation .language{margin-left:8px}
-body:has(.ch-home) .ch-header-langs{position:fixed;left:clamp(22px,4vw,80px);top:28px;z-index:1002;font:12px Arial,sans-serif;letter-spacing:.1em;color:#fff}
-body:has(.ch-home) .ch-header-langs a{color:inherit}
-body:has(.ch-home) .ch-header-langs a[aria-current]{opacity:.5}
-body:has(.ch-home):has(.header.is-scrolled) .ch-header-langs{color:#111}
-body:has(.ch-home) .navigation .language{display:none}
-body:has(.ch-home) .page-loader{display:none!important}
 @media(max-width:900px){.ch-home .ch-discipline{grid-template-columns:45px 1fr 27%;gap:14px}.ch-home .ch-detail{display:none}.ch-home .ch-discipline h2{font-size:clamp(31px,6vw,70px)}}
-@media(max-width:600px){body:has(.ch-home) .header-inner{min-height:68px;grid-template-columns:1fr auto}body:has(.ch-home) .wordmark{grid-column:1;justify-self:start;font-size:15px;max-width:140px}body:has(.ch-home) .navigation{grid-column:2;gap:12px}body:has(.ch-home) .ch-header-langs{top:81px;left:22px}.ch-home .ch-hero{min-height:90svh;padding-bottom:34px}.ch-home .ch-title{font-size:clamp(53px,14vw,90px)}.ch-home .ch-hero__bottom{align-items:start;flex-direction:column;gap:18px}.ch-home .ch-cta{align-self:flex-start}.ch-home .ch-discipline{min-height:auto;grid-template-columns:30px 1fr;padding:28px 20px;gap:10px}.ch-home .ch-discipline h2{font-size:clamp(36px,10vw,62px)}.ch-home .ch-preview{grid-column:2;aspect-ratio:2.7;width:100%}.ch-home .ch-number{font-size:14px}.ch-home .ch-dot{width:52px;height:52px}}
-@media(prefers-reduced-motion:reduce){.ch-home *,body:has(.ch-home) .header,body:has(.ch-home) .wordmark{transition:none!important;animation:none!important}}
+@media(max-width:600px){.ch-home .ch-hero{min-height:90svh;padding-bottom:34px}.ch-home .ch-title{font-size:clamp(53px,14vw,90px)}.ch-home .ch-hero__bottom{align-items:start;flex-direction:column;gap:18px}.ch-home .ch-cta{align-self:flex-start}.ch-home .ch-discipline{min-height:auto;grid-template-columns:30px 1fr;padding:28px 20px;gap:10px}.ch-home .ch-discipline h2{font-size:clamp(36px,10vw,62px)}.ch-home .ch-preview{grid-column:2;aspect-ratio:2.7;width:100%}.ch-home .ch-number{font-size:14px}.ch-home .ch-dot{width:52px;height:52px}}
+@media(prefers-reduced-motion:reduce){.ch-home *,body:has(.ch-home) .header,}
 
 
 /* Selected Work / editorial masonry, intentionally photo-independent */
@@ -105,12 +92,13 @@ body:has(.ch-home) .page-loader{display:none!important}
 .ch-home #collaboration,.ch-home #about-preview{scroll-margin-top:80px}
 @media(max-width:1000px){.ch-home .ch-about__bottom{grid-template-columns:1fr}.ch-home .ch-collaboration__center{grid-template-columns:auto 1fr}.ch-home .ch-collaboration__center p{grid-column:2;margin:0}}
 @media(max-width:650px){.ch-home .ch-about{grid-template-columns:1fr}.ch-home .ch-about__image{min-height:0;aspect-ratio:1.25}.ch-home .ch-about__content{padding:45px 22px 60px;gap:35px}.ch-home .ch-about h2{font-size:clamp(42px,11vw,70px)}.ch-home .ch-collaboration{padding:36px 22px 50px;min-height:660px}.ch-home .ch-collaboration__center{grid-template-columns:1fr;gap:25px}.ch-home .ch-collaboration__disc{width:70px}.ch-home .ch-collaboration h2{font-size:clamp(43px,11vw,75px)}.ch-home .ch-collaboration__center p{grid-column:1}.ch-home .ch-collaboration__footer{align-items:start;flex-direction:column;gap:30px}.ch-home .ch-collaboration__links{flex-wrap:wrap;gap:15px}}
-\n@media(max-width:600px){.ch-home .ch-photo img{object-position:62% center}.ch-home .ch-photo:before{background:linear-gradient(0deg,rgba(0,0,0,.82),rgba(0,0,0,.08) 75%)}}\n
+@media(max-width:600px){.ch-home .ch-photo img{object-position:62% center}.ch-home .ch-photo:before{background:linear-gradient(0deg,rgba(0,0,0,.82),rgba(0,0,0,.08) 75%)}}
+
 /* Discipline interaction stays useful for touch and keyboard. */
 @media(hover:none){.ch-home .ch-discipline h2{color:var(--ch-black)}.ch-home .ch-preview:before{border-color:#8b8b8b}}
 @media(max-width:600px){
- body:has(.ch-home) .navigation{gap:14px}
- body:has(.ch-home) .navigation a{font-size:12px}
+ 
+ 
  .ch-home .ch-discipline{padding-block:32px}
  .ch-home .ch-discipline h2{overflow-wrap:anywhere;font-size:clamp(31px,9vw,52px)}
  .ch-home .ch-preview{margin-top:10px}
