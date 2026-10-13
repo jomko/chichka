@@ -49,15 +49,11 @@ document.addEventListener('click',async(event)=>{
  session={slug:link.dataset.projectEntry!,url:link.href,layer,image:photo,phase:'expanding',started:performance.now()};
  const current=session;
  try{
-  await layer.animate([rectangle(initial),viewport()],{duration:1100,easing:'cubic-bezier(.33,0,.18,1)'}).finished;
+  await layer.animate([rectangle(initial),viewport()],{duration:950,easing:'cubic-bezier(.22,1,.36,1)'}).finished;
   Object.assign(layer.style,viewport()); // Commit full viewport, never clear before committing.
   current.phase='holding';
   await paint();
-  // Keep a barely perceptible photographic drift through the full-screen beat.
-  // The frame stays fixed, but the image never feels frozen.
-  const breathe=photo.animate([{transform:'scale(1)'},{transform:'scale(1.018)'}],
-   {duration:950,easing:'cubic-bezier(.25,.1,.25,1)',fill:'forwards'});
-  await sleep(340); // Keep at least 300ms at full viewport before navigation.
+  await sleep(300); // Actual visible full-screen hold, NOT concurrent with expansion.
   current.phase='loading';
   await navigate(current.url); // Incoming figure was hidden in astro:before-swap.
   if(session!==current)return;
@@ -76,15 +72,7 @@ document.addEventListener('click',async(event)=>{
   if(session!==current)return;
   const target=figure.getBoundingClientRect();
   current.phase='contracting';
-  // Carry the photographic drift into the landing; no frozen hold or abrupt reset.
-  const liveScale=Number((getComputedStyle(photo).transform.match(/^matrix\\(([^,]+)/)?.[1])||1);
-  breathe.cancel();
-  photo.style.transform=`scale(${liveScale})`;
-  const settle=photo.animate([{transform:`scale(${liveScale})`},{transform:'scale(1)'}],
-   {duration:1200,easing:'cubic-bezier(.33,0,.2,1)',fill:'forwards'});
-  await layer.animate([viewport(),rectangle(target)],{duration:1200,easing:'cubic-bezier(.4,0,.2,1)'}).finished;
-  settle.cancel();
-  photo.style.transform='';
+  await layer.animate([viewport(),rectangle(target)],{duration:1050,easing:'cubic-bezier(.76,0,.24,1)'}).finished;
   Object.assign(layer.style,rectangle(target));
   figure.style.visibility='';
   figure.removeAttribute('data-ch-arrival');
