@@ -4,4 +4,4 @@ import ProjectCard from './ProjectCard.astro';
 import {projects,t} from '../data/projects.js';
 const {lang}=Astro.props;
 ---
-<Base lang={lang} title={t(lang,'projects')}><section class="wrap page-head"><p class="micro">Portfolio / 01</p><h1>{t(lang,'projects')}.</h1><p class="large-copy">{t(lang,'allIntro')}</p></section><section class="section"><div class="wrap">{['artist','management'].map(type=><div class="group"><h2 class="group-title">{t(lang,type)}</h2><div class="project-grid">{projects.filter(p=>p.type===type).map(p=><ProjectCard p={p} lang={lang}/>)}</div></div>)}</div></section></Base>
+<Base lang={lang} title={t(lang,'projects')}><section class="wrap page-head"><p class="micro">Portfolio / 01</p><h1>{t(lang,'projects')}.</h1><p class="large-copy">{t(lang,'allIntro')}</p></section><section class="section"><div class="wrap">{['artist','management'].map(type=><div class="group" id={type}><h2 class="group-title">{t(lang,type)}</h2><div class="project-grid">{projects.filter(p=>p.type===type).map(p=><ProjectCard p={p} lang={lang}/>)}</div></div>)}</div></section></Base>
