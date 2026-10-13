@@ -34,6 +34,13 @@ function isHomepageLink(a:HTMLAnchorElement){
  return url.origin===location.origin && /^\/(?:uk\/?)?$/.test(url.pathname) && location.pathname!==url.pathname && !url.hash;
 }
 
+// Do not allow the incoming document to add a second curtain during the swap.
+document.addEventListener('astro:before-swap',event=>{
+ if(!returning)return;
+ const next=(event as CustomEvent & {newDocument:Document}).newDocument;
+ next?.getElementById('ch-editorial-cut')?.remove();
+});
+
 document.addEventListener('click',async event=>{
  if(returning || reduced() || !Element.prototype.animate || event.defaultPrevented || event.button!==0 ||
     event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)return;
