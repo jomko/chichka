@@ -63,27 +63,33 @@ const summary=description||t(lang,'intro');
 <footer class="footer"><div class="wrap"><span>© {new Date().getFullYear()} Marichka Chichkova</span><span>Independent artist · Cultural manager · Lviv, Ukraine</span></div></footer>
 <script is:inline>
 (function(){
- const selector='.section .display, .section .large-copy, .project-card, .year-row, .about-narrative p, .about-cv, .cv-row, .detail-grid, .contact-links, .ch-discipline h2, .ch-discipline .ch-detail, .ch-discipline .ch-preview, .ch-work__header, .ch-work__item, .ch-work__statement, .ch-about__content, .ch-collaboration__center, .ch-collaboration__footer';
+ const typeSelector='.section .display, .section .large-copy, .project-card h3, .project-card p, .year-row, .about-narrative p, .about-cv, .cv-row, .detail-grid, .contact-links, .ch-discipline h2, .ch-discipline .ch-detail, .ch-work__header, .ch-work__caption, .ch-work__statement, .ch-about__content, .ch-collaboration__center, .ch-collaboration__footer';
+ const photoSelector='.project-card figure, .detail-hero, .about-portrait, .residency-landscape, .ch-discipline .ch-preview, .ch-work__image';
  let observer;
  function init(){
-   observer?.disconnect();
-   // Keep already revealed nodes visible when both initial and Astro events fire.
-   if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-   observer=new IntersectionObserver(entries=>{
-     for(const entry of entries)if(entry.isIntersecting){
-       entry.target.classList.add('scroll-revealed');
-       observer.unobserve(entry.target);
-     }
-   },{threshold:0,rootMargin:'0px 0px -40px 0px'});
-   for(const el of document.querySelectorAll(selector)){
-     if(el.classList.contains('scroll-revealed'))continue;
-     if(el.getBoundingClientRect().top<innerHeight-30){
-       el.classList.remove('scroll-reveal');
-       continue;
-     }
-     el.classList.add('scroll-reveal');
-     observer.observe(el);
+  observer?.disconnect();
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  observer=new IntersectionObserver(entries=>{
+   for(const entry of entries){
+    if(!entry.isIntersecting)continue;
+    entry.target.classList.add('scroll-revealed');
+    observer.unobserve(entry.target);
    }
+  },{threshold:0,rootMargin:'0px 0px -35px 0px'});
+  const items=[
+   ...Array.from(document.querySelectorAll(typeSelector),el=>[el,'type']),
+   ...Array.from(document.querySelectorAll(photoSelector),el=>[el,'photo'])
+  ];
+  for(const [el,kind] of items){
+   if(el.classList.contains('scroll-revealed'))continue;
+   el.dataset.cut=kind;
+   if(el.getBoundingClientRect().top<innerHeight-25){
+    el.classList.remove('scroll-reveal');
+    continue;
+   }
+   el.classList.add('scroll-reveal');
+   observer.observe(el);
+  }
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
  else init();
