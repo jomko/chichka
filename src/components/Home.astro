@@ -95,12 +95,17 @@ const disciplines=[
      revealed.add(frame);
      // Do not animate an unloaded image or a scrolled-past image.
      const photo=frame.querySelector('img');
-     if(!photo || !photo.complete || !photo.naturalWidth)return;
-     frame.animate(
-       [{clipPath:'inset(0 0 16% 0)',opacity:.6},
-        {clipPath:'inset(0 0 0 0)',opacity:1}],
-       {duration:720,easing:'cubic-bezier(.22,1,.36,1)',fill:'none'}
-     );
+     if(!photo)return;
+     const play=()=>{
+       if(!photo.naturalWidth)return;
+       frame.animate(
+         [{clipPath:'inset(0 0 16% 0)',opacity:.6},
+          {clipPath:'inset(0 0 0 0)',opacity:1}],
+         {duration:720,easing:'cubic-bezier(.22,1,.36,1)'}
+       );
+     };
+     if(photo.complete)play();
+     else photo.addEventListener('load',play,{once:true});
    }
  },{threshold:.12,rootMargin:'0px 0px -30px 0px'});
  images.forEach(frame=>{
