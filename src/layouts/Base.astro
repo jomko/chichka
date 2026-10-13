@@ -93,11 +93,13 @@ import { navigate } from 'astro:transitions/client';
 type Phase = 'IDLE' | 'EXPANDING' | 'FULLSCREEN' | 'LOADING' | 'CONTRACTING' | 'COMPLETE';
 declare global { interface Window { __chProjectTransition?: { phase: Phase; initialized?: boolean; scrollRestoration?: ScrollRestoration; wheelBlock?: (event: Event) => void; keyBlock?: (event: KeyboardEvent) => void } } }
 const controller = window.__chProjectTransition ||= { phase: 'IDLE' as Phase };
+let hiddenDestination: HTMLImageElement | null = null;
 const layer = () => document.getElementById('project-transition-layer')!;
 const frame = () => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
 const wait = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms));
 
 function cleanup() {
+  if (hiddenDestination) { hiddenDestination.style.visibility = ''; hiddenDestination = null; }
   const overlay = layer();
   overlay.getAnimations().forEach(animation => animation.cancel());
   overlay.style.cssText = '';
@@ -167,6 +169,9 @@ document.addEventListener('click', async event => {
     const destination = document.querySelector<HTMLElement>(`[data-project-image="${CSS.escape(slug)}"]`);
     const targetImage = destination?.querySelector('img');
     if (!destination || !targetImage) throw new Error('Project destination image is missing');
+    // The moving clone is the ONLY visible photograph until its landing is complete.
+    targetImage.style.visibility = 'hidden';
+    hiddenDestination = targetImage;
     if (!targetImage.complete) await new Promise<void>((resolve, reject) => {
       targetImage.addEventListener('load', () => resolve(), { once: true });
       targetImage.addEventListener('error', () => reject(new Error('Project image failed to load')), { once: true });
@@ -188,6 +193,9 @@ document.addEventListener('click', async event => {
     Object.assign(overlay.style, { left: `${end.left}px`, top: `${end.top}px`, width: `${end.width}px`, height: `${end.height}px` });
     contract.cancel();
     controller.phase = 'COMPLETE';
+    // Swap visibility in the same frame; no second photograph during contraction.
+    if (hiddenDestination) hiddenDestination.style.visibility = '';
+    hiddenDestination = null;
     cleanup();
   } catch {
     cleanup();
