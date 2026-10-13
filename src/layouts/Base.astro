@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import '../styles/site-header.css';
 import {t,base} from '../data/projects.js';
 const {lang='en',title='Marichka Chichkova',description,image='/assets/social/og.png'}=Astro.props;
 const prefix=base(lang);
@@ -68,11 +69,15 @@ const summary=description||t(lang,'intro');
 })();
 </script>
 <a class="skip-link" href="#content">{lang==='en'?'Skip to content':'Перейти до вмісту'}</a>
-<header class="header"><div class="wrap header-inner">
+<header class="header"><div class="header-inner">
+<div class="site-languages" aria-label={lang==='en'?'Language':'Мова'}>
+<a href="/" hreflang="en" aria-current={lang==='en'?'page':undefined}>EN</a>
+<span aria-hidden="true">/</span>
+<a href={lang==='uk'?current:'/uk'+(current==='/'?'':current)} hreflang="uk" aria-current={lang==='uk'?'page':undefined}>UA</a>
+</div>
 <a class="wordmark" href={prefix+'/'}>Marichka Chichkova</a>
 <nav class="navigation" aria-label={lang==='en'?'Main navigation':'Головна навігація'}>
 {links.map(([key,url])=><a href={url} aria-current={current===url?'page':undefined}>{t(lang,key)}</a>)}
-<a class="language" href={switchHref} hreflang={lang==='en'?'uk':'en'} aria-label={lang==='en'?'Перейти на українську':'Switch to English'}>{lang==='en'?'UA':'EN'}</a>
 </nav></div></header>
 <main id="content"><slot/></main>
 <footer class="footer"><div class="wrap"><span>© {new Date().getFullYear()} Marichka Chichkova</span><span>Independent artist · Cultural manager · Lviv, Ukraine</span></div></footer>
