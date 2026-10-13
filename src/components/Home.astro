@@ -73,14 +73,5 @@ const disciplines=[
    </div>
   </section>
 </div>
-<script is:inline>
-(()=>{
- const header=document.querySelector('.header');
- const title=document.getElementById('ch-hero-title');
- if(!header||!title)return;
- const observer=new IntersectionObserver(entries=>header.classList.toggle('is-scrolled',!entries[0].isIntersecting),{rootMargin:'-80px 0px 0px 0px',threshold:0});
- observer.observe(title);
 
-})();
-</script>
 </Base>
