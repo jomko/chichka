@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import '../styles/site-header.css';
+import { ClientRouter } from 'astro:transitions';
 import {t,base} from '../data/projects.js';
 const {lang='en',title='Marichka Chichkova',description,image='/assets/social/og.png'}=Astro.props;
 const prefix=base(lang);
@@ -43,9 +44,11 @@ const summary=description||t(lang,'intro');
 <meta name="twitter:description" content={summary}/>
 {shareImage&&<meta name="twitter:image" content={shareImage}/>}
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<ClientRouter fallback="swap" />
 
 </head>
 <body>
+<div id="project-transition-layer" transition:persist="project-transition-layer" aria-hidden="true"><img alt="" /></div>
 <a class="skip-link" href="#content">{lang==='en'?'Skip to content':'Перейти до вмісту'}</a>
 <header class="header"><div class="header-inner">
 <div class="site-languages" aria-label={lang==='en'?'Language':'Мова'}>
@@ -84,4 +87,80 @@ const summary=description||t(lang,'intro');
   else init();
 })();
 </script>
+<script>
+import { navigate } from 'astro:transitions';
+
+let pending = null;
+const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+function layer() { return document.getElementById('project-transition-layer'); }
+function clear() {
+ const el=layer();
+ if(el){el.getAnimations().forEach(a=>a.cancel());el.style.cssText='';el.classList.remove('is-active');el.querySelector('img')?.removeAttribute('src');}
+ pending=null;
+}
+document.addEventListener('click', async (event)=>{
+ if(pending || reduce() || !Element.prototype.animate || event.defaultPrevented || event.button!==0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)return;
+ const target=event.target instanceof Element ? event.target.closest('a[data-project-entry]') : null;
+ if(!target || target.target==='_blank' || target.hasAttribute('download'))return;
+ const photo=target.querySelector('.ch-work__photo');
+ const el=layer();
+ if(!photo || !photo.complete || !photo.naturalWidth || !el)return;
+ event.preventDefault();
+ const slug=target.dataset.projectEntry;
+ const destination=target.href;
+ const rect=photo.getBoundingClientRect();
+ const moving=el.querySelector('img');
+ moving.src=photo.currentSrc || photo.src;
+ moving.style.objectPosition=getComputedStyle(photo).objectPosition;
+ el.classList.add('is-active');
+ Object.assign(el.style,{left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'});
+ pending={slug,destination};
+ try {
+  await el.animate([
+   {left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'},
+   {left:'0px',top:'0px',width:innerWidth+'px',height:innerHeight+'px'}
+  ],{duration:650,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'}).finished;
+  Object.assign(el.style,{left:'0px',top:'0px',width:'100vw',height:'100dvh'});
+  el.getAnimations().forEach(a=>a.cancel());
+  await navigate(destination);
+ } catch (error) {
+  clear();
+  window.location.assign(destination);
+ }
+});
+document.addEventListener('astro:page-load', async ()=>{
+ if(!pending)return;
+ const active=pending;
+ const el=layer();
+ const destination=document.querySelector('[data-project-image="'+CSS.escape(active.slug)+'"]');
+ if(!el || !destination){clear();return;}
+ const image=destination.querySelector('img');
+ if(image && !image.complete){
+   await Promise.race([
+     new Promise(resolve=>{image.addEventListener('load',resolve,{once:true});image.addEventListener('error',resolve,{once:true})}),
+     new Promise(resolve=>setTimeout(resolve,1500))
+   ]);
+ }
+ // Make the landing photo visible, then settle the full-screen image into its exact box.
+ const offset=Math.min(100,innerHeight*.12);
+ const top=destination.getBoundingClientRect().top+scrollY-offset;
+ scrollTo({top:Math.max(0,top),behavior:'instant'});
+ await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+ const rect=destination.getBoundingClientRect();
+ try{
+  await el.animate([
+   {left:'0px',top:'0px',width:innerWidth+'px',height:innerHeight+'px'},
+   {left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'}
+  ],{duration:750,easing:'cubic-bezier(.76,0,.24,1)',fill:'forwards'}).finished;
+ }catch{}
+ clear();
+});
+document.addEventListener('astro:before-preparation',()=>{if(!pending)clear()});
+addEventListener('pageshow',()=>{if(!pending)clear()});
+</script>
+<style is:global>
+#project-transition-layer{position:fixed;left:0;top:0;width:0;height:0;z-index:9999;pointer-events:none;visibility:hidden;overflow:hidden;background:#111}
+#project-transition-layer.is-active{visibility:visible}
+#project-transition-layer img{display:block;width:100%;height:100%;object-fit:cover}
+</style>
 </body></html>
