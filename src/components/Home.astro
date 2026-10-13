@@ -29,7 +29,7 @@ const disciplines=[
   <div class="ch-hero__bottom"><span class="ch-tag">{uk?'Мисткиня':'Artist'}<br/>{uk?'Культурна менеджерка':'Cultural manager'}<br/>{uk?'Практики голосу':'Voice practitioner'}</span><a class="ch-cta" href="#collaboration"><span class="ch-dot" aria-hidden="true">↗</span><span>{uk?'Створімо щось разом':'Let’s make something together'}</span></a></div>
  </section>
  <section class="ch-disciplines" aria-label={uk?'Напрями діяльності':'Areas of practice'}>
- {disciplines.map((d,i)=><a class="ch-discipline" href={d.href}><span class="ch-number">0{i+1}</span><h2>{d.title}</h2><span class="ch-detail">{d.desc}<br/>↗</span><div class="ch-preview" aria-hidden="true"><img src={`/assets/m${i+1}.png`} alt="" loading="lazy" decoding="async" width="1024" height="1024" /></div></a>)}
+ {disciplines.map((d,i)=><a class="ch-discipline" href={d.href}><span class="ch-number">0{i+1}</span><h2>{d.title}</h2><span class="ch-detail">{d.desc}<br/>↗</span><div class="ch-preview" aria-hidden="true"><img src={`/m${i+1}.jpg`} alt="" loading="lazy" decoding="async" width="1024" height="1024" /></div></a>)}
  </section>
  <section class="ch-work" id="selected-work" aria-labelledby="ch-work-heading">
   <header class="ch-work__header">
