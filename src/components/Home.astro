@@ -38,7 +38,7 @@ const disciplines=[
    <a class="ch-work__all" href={prefix+'/projects/'}>{uk?'Усі проєкти':'All projects'} <span aria-hidden="true">↗</span></a>
   </header>
   <div class="ch-work__grid">
-   {selected.map((p,i)=><a class={'ch-work__item ch-work__item--'+(i+1)} href={pathFor(lang,p.slug)} aria-label={p.name[lang]+': '+workLabel(p)}>
+   {selected.map((p,i)=><a class={'ch-work__item ch-work__item--'+(i+1)} data-project-entry={p.slug} href={pathFor(lang,p.slug)} aria-label={p.name[lang]+': '+workLabel(p)}>
     <div class="ch-work__image">
      {selectedImages[p.slug] && <img class="ch-work__photo" style={`view-transition-name: project-${p.slug}`} src={selectedImages[p.slug]} alt={p.name[lang]} loading="lazy" decoding="async" />}
      <span class="ch-work__index">0{i+1}</span>
@@ -75,32 +75,6 @@ const disciplines=[
 </div>
 <script is:inline>
 (()=>{
- // Editorial project exit: avoid a false full-screen morph into a text-first page.
- const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- if(!reduceMotion && Element.prototype.animate){
-   document.querySelectorAll('.ch-work__item').forEach(link=>{
-     link.addEventListener('click',async event=>{
-       if(event.defaultPrevented || event.button!==0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)return;
-       const img=link.querySelector('.ch-work__photo');
-       if(!img || !img.complete || !img.naturalWidth)return;
-       event.preventDefault();
-       const veil=document.createElement('div');
-       veil.setAttribute('aria-hidden','true');
-       Object.assign(veil.style,{position:'fixed',inset:'0',zIndex:'9999',background:'#f5f5f2',opacity:'0',pointerEvents:'none'});
-       document.body.append(veil);
-       const imageMotion=img.animate(
-         [{transform:'scale(1)'},{transform:'scale(1.065)'}],
-         {duration:380,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'}
-       );
-       const fade=veil.animate([{opacity:0},{opacity:1}],{duration:380,delay:80,easing:'ease-in-out',fill:'forwards'});
-       try{await fade.finished}catch{}
-       imageMotion.cancel();
-       window.location.assign(link.href);
-       // Restore navigation if the browser cancels it (e.g. back/forward cache).
-       window.addEventListener('pageshow',()=>veil.remove(),{once:true});
-     });
-   });
- }
  const header=document.querySelector('.header');
  const title=document.getElementById('ch-hero-title');
  if(!header||!title)return;
