@@ -77,6 +77,9 @@ document.addEventListener('click',async(event)=>{
   figure.style.visibility='';
   figure.removeAttribute('data-ch-arrival');
   restore();
+  // Once the image has landed, return to the beginning of the new project page.
+  // Do not change scroll position until the photographic handoff is complete.
+  requestAnimationFrame(()=>scrollTo({top:0,behavior:'smooth'}));
  }catch(error){
   const fallbackUrl=current.url;
   restore();
