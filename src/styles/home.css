@@ -24,7 +24,7 @@ body:has(.ch-home){background:var(--ch-white);color:var(--ch-black)}
 .ch-home .ch-preview span{font-size:10px;letter-spacing:.13em;z-index:1;background:rgba(245,245,242,.85);padding:5px 8px}
 @media(max-width:900px){.ch-home .ch-discipline{grid-template-columns:45px 1fr 27%;gap:14px}.ch-home .ch-detail{display:none}.ch-home .ch-discipline h2{font-size:clamp(31px,6vw,70px)}}
 @media(max-width:600px){.ch-home .ch-hero{min-height:90svh;padding-bottom:34px}.ch-home .ch-title{font-size:clamp(53px,14vw,90px)}.ch-home .ch-hero__bottom{align-items:start;flex-direction:column;gap:18px}.ch-home .ch-cta{align-self:flex-start}.ch-home .ch-discipline{min-height:auto;grid-template-columns:30px 1fr;padding:28px 20px;gap:10px}.ch-home .ch-discipline h2{font-size:clamp(36px,10vw,62px)}.ch-home .ch-preview{grid-column:2;aspect-ratio:2.7;width:100%}.ch-home .ch-number{font-size:14px}.ch-home .ch-dot{width:52px;height:52px}}
-@media(prefers-reduced-motion:reduce){.ch-home *,body:has(.ch-home) .header,}
+@media(prefers-reduced-motion:reduce){.ch-home *{transition:none!important;animation:none!important}}
 
 
 /* Selected Work / editorial masonry, intentionally photo-independent */
