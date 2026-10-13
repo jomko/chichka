@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import '../styles/about-editorial.css';
 import {projects,base,pathFor} from '../data/projects.js';
 const {lang='en'}=Astro.props;
 const uk=lang==='uk';
@@ -30,9 +31,24 @@ const entries=[
 const label=(slug,name)=>{const p=projects.find(x=>x.slug===slug);return p?.name[lang]||name};
 ---
 <Base lang={lang} title={uk?'Про Марічку':'About'}>
-<section class="wrap about-opening"><p class="micro">{uk?'Про Марічку / Львів, Україна':'About / Lviv, Ukraine'}</p><h1>{uk?'Марічка Чічкова':'Marichka Chichkova'}</h1><p class="about-deck">{uk?'Незалежна мисткиня та культурна менеджерка.':'Independent artist & cultural manager.'}</p></section>
-<figure class="about-portrait"><img src="/assets/images/about.png" alt="Marichka Chichkova" /></figure>
-<section class="section"><div class="wrap about-story"><div><span class="micro">01 / {uk?'Історія':'Story'}</span><h2 class="display">{uk?'Музика — це початок. Далі цікавіше.':'Music is just the beginning.'}</h2></div><div class="about-narrative">{story.map((line,i)=><p class={i===0?'about-first':undefined}>{line}</p>)}</div></div></section>
-<section class="section"><div class="wrap"><div class="eyebrow"><span class="micro">02 / {uk?'Вибрана хронологія':'Selected chronology'}</span><span class="micro">2012—2023</span></div><h2 class="display">{uk?'Роботи за роками':'Work through the years'}</h2><p class="about-chronology-intro">{uk?'Деякі проєкти почалися давно й тривають досі. Тут — вибрані роботи та ролі, а повніший перелік є у CV.':'Some of these projects began years ago and are still growing. Here is a selection of work and roles; the CV has a fuller record.'}</p><div class="year-list">{entries.map(e=><div class="year-row"><span class="year">{e.year}</span><div class="year-items">{e.items.map(([slug,name])=>slug?<a href={pathFor(lang,slug)}>{label(slug,name)} <span aria-hidden="true">↗</span></a>:<span>{name}</span>)}</div></div>)}</div></div></section>
-<section class="section"><div class="wrap about-cv"><div><span class="micro">03 / Curriculum vitae</span><h2 class="display">{uk?'Професійний досвід':'Full professional record'}</h2><p>{uk?'Фестивалі, гурти, музика для театру, культурний менеджмент та освіта — детальніша хронологія моєї роботи.':'Festivals, bands, theatre music, cultural management and training — a more detailed view of the work I’ve done.'}</p></div><a class="cv-link" href={prefix+'/cv/'}>{uk?'Переглянути CV':'View CV'} <span>↗</span></a></div></section>
+<div class="ch-about-page">
+ <section class="ch-about-lead">
+  <div class="ch-about-lead__meta"><span>ABOUT / 01</span><span>LVIV · UKRAINE</span></div>
+  <figure class="ch-about-lead__image"><img src="/assets/images/about.png" alt="Marichka Chichkova" fetchpriority="high" decoding="async"/></figure>
+  <div class="ch-about-lead__identity">
+   <span class="ch-about-lead__overline">{uk?'МИСТКИНЯ · КУЛЬТУРНА МЕНЕДЖЕРКА':'ARTIST · CULTURAL MANAGER'}</span>
+   <h1>Marichka<br/><em>Chichkova</em></h1>
+   <p>{uk?'Музика — це початок. Далі цікавіше.':'Music is just the beginning.'}</p>
+  </div>
+ </section>
+ <section class="ch-about-story" aria-labelledby="ch-about-story-title">
+  <div class="ch-about-story__heading"><span>02 / {uk?'ІСТОРІЯ':'STORY'}</span><h2 id="ch-about-story-title">{uk?'Музика. Люди.':'Music. People.'}<br/><em>{uk?'Нові зустрічі.':'Unexpected connections.'}</em></h2></div>
+  <div class="ch-about-story__copy">{story.map((line,i)=><p class={i===0?'ch-about-story__first':undefined}>{line}</p>)}</div>
+ </section>
+ <section class="ch-about-timeline" aria-labelledby="ch-about-years-title">
+  <div class="ch-about-timeline__intro"><div><span>03 / {uk?'ВИБРАНА ХРОНОЛОГІЯ':'SELECTED CHRONOLOGY'}</span><h2 id="ch-about-years-title">{uk?'Роботи за':'Work through'}<br/><em>{uk?'роками':'the years'}</em></h2></div><p>{uk?'Деякі проєкти почалися давно й тривають досі. Тут — вибрані роботи та ролі, а повніший перелік є у CV.':'Some of these projects began years ago and are still growing. Here is a selection of work and roles; the CV has a fuller record.'}</p></div>
+  <div class="ch-about-timeline__list">{entries.map(e=><div class="ch-about-timeline__row"><span class="ch-about-timeline__year">{e.year}</span><div class="ch-about-timeline__items">{e.items.map(([slug,name])=>slug?<a href={pathFor(lang,slug)}>{label(slug,name)} <span aria-hidden="true">↗</span></a>:<span>{name}</span>)}</div></div>)}</div>
+ </section>
+ <section class="ch-about-close"><div class="ch-about-close__meta"><span>04 / CURRICULUM VITAE</span><span>{uk?'ДОСВІД · ПРАКТИКИ · СПІВПРАЦЯ':'EXPERIENCE · PRACTICE · COLLABORATION'}</span></div><h2>{uk?'Більше ніж':'More than'}<br/><em>{uk?'біографія.':'a biography.'}</em></h2><div class="ch-about-close__bottom"><p>{uk?'Фестивалі, гурти, музика для театру, культурний менеджмент та освіта — детальніша хронологія моєї роботи.':'Festivals, bands, theatre music, cultural management and training — a more detailed view of the work I’ve done.'}</p><a href={prefix+'/cv/'}>{uk?'Переглянути CV':'View CV'} <span aria-hidden="true">↗</span></a></div></section>
+</div>
 </Base>
