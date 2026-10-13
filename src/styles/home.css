@@ -116,3 +116,7 @@ body:has(.ch-home) .page-loader{display:none!important}
  .ch-home .ch-preview{margin-top:10px}
  .ch-home .ch-work__grid{align-items:start}
 }
+
+/* Real project photography */
+.ch-home .ch-work__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;filter:saturate(.78)}
+.ch-home .ch-work__item:hover .ch-work__photo{filter:saturate(.9)}
