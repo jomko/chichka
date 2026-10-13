@@ -119,16 +119,16 @@ document.addEventListener('click', async (event)=>{
  // Keep the overlay OUTSIDE <body>: Astro swaps the body during navigation.
  document.documentElement.appendChild(el);
  el.classList.add('is-active');
- Object.assign(el.style,{left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'});
+ Object.assign(el.style,{position:'fixed',zIndex:'9999',left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px',right:'auto',bottom:'auto',inset:'auto',pointerEvents:'none',overflow:'hidden'});
+ Object.assign(moving.style,{position:'absolute',left:'0',top:'0',width:'100%',height:'100%',objectFit:'cover'});
  state.pending={slug,destination,expandedAt:0};
  try {
   await el.animate([
    {left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'},
    {left:'0px',top:'0px',width:innerWidth+'px',height:innerHeight+'px'}
   ],{duration:950,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'}).finished;
-  // Commit the terminal frame before releasing the animation, preventing a snap.
-  Object.assign(el.style,{left:'0px',top:'0px',width:innerWidth+'px',height:innerHeight+'px'});
-  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+  // Preserve the final frame, exactly as in the original working clone expansion.
+  Object.assign(el.style,{left:'0px',top:'0px',width:innerWidth+'px',height:innerHeight+'px',inset:'auto',right:'auto',bottom:'auto'});
   el.getAnimations().forEach(a=>a.cancel());
   state.pending.expandedAt=performance.now();
   // A visible hold before page replacement, independent of router timing.
@@ -143,7 +143,7 @@ document.addEventListener('astro:page-load', async ()=>{
  if(!state.pending)return;
  const active=state.pending;
  const el=layer();
- if(el){Object.assign(el.style,{left:'0px',top:'0px',width:'100vw',height:'100dvh'});el.classList.add('is-active');}
+ if(el){Object.assign(el.style,{left:'0px',top:'0px',width:innerWidth+'px',height:innerHeight+'px',inset:'auto',right:'auto',bottom:'auto'});el.classList.add('is-active');}
  const destination=document.querySelector('[data-project-image="'+CSS.escape(active.slug)+'"]');
  if(!el || !destination){clear();return;}
  const image=destination.querySelector('img');
