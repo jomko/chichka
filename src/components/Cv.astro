@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import '../styles/cv-editorial.css';
 import {base} from '../data/projects.js';
 const {lang='en'}=Astro.props;
 const uk=lang==='uk';
@@ -32,4 +33,18 @@ const groups=[
  ]}
 ];
 ---
-<Base lang={lang} title="CV"><section class="wrap page-head"><p class="micro">Curriculum vitae / Marichka Chichkova</p><h1>Curriculum vitae</h1><p class="large-copy">{uk?'Вибраний професійний досвід Марічки Чічкової.':'Selected professional experience of Marichka Chichkova.'}</p><p class="note">{uk?'Укладено на основі CV 2019–2025. Дати поточних ролей потребують підтвердження перед фінальною публікацією.':'Compiled from CVs dated 2019–2025. Ongoing dates require confirmation before final publication.'}</p></section>{groups.map(g=><section class="section"><div class="wrap"><h2 class="group-title">{g.title}</h2><div class="cv-rows">{g.items.map(([year,description])=><div class="cv-row"><time>{year}</time><p>{description}</p></div>)}</div></div></section>)}</Base>
+<Base lang={lang} title="CV">
+<div class="ch-cv">
+ <header class="ch-cv__opening">
+  <div class="ch-cv__eyebrow"><span>MARICHKA CHICHKOVA</span><span>CURRICULUM VITAE / 2026</span></div>
+  <h1>EXPERIENCE<span class="ch-cv__mark" aria-hidden="true">↗</span><br/><em>&amp; PRACTICE</em></h1>
+  <div class="ch-cv__opening-bottom"><span>{uk?'МИСТКИНЯ · КУЛЬТУРНА МЕНЕДЖЕРКА':'ARTIST · CULTURAL MANAGER'}</span><p>{uk?'Музика, культурні проєкти, освіта й люди — професійний досвід у різних контекстах.':'Music, cultural projects, education and people — professional experience across different contexts.'}</p></div>
+ </header>
+ {groups.map((g,i)=><section class="ch-cv__chapter" aria-labelledby={`cv-chapter-${i}`}>
+  <div class="ch-cv__chapter-heading"><span>0{i+1} / 03</span><h2 id={`cv-chapter-${i}`}>{g.title}</h2><span>{String(g.items.length).padStart(2,'0')} {uk?'ЗАПИСІВ':'ENTRIES'}</span></div>
+  <div class="ch-cv__rows">{g.items.map(([year,description])=><div class="ch-cv__row"><span class="ch-cv__date">{year}</span><p>{description}</p><span class="ch-cv__row-mark" aria-hidden="true">↗</span></div>)}</div>
+ </section>)}
+ <aside class="ch-cv__source-note"><span>DOCUMENTATION / NOTE</span><p>{uk?'Укладено на основі CV 2019–2025. Дати поточних ролей потребують підтвердження перед фінальною публікацією.':'Compiled from CVs dated 2019–2025. Ongoing dates require confirmation before final publication.'}</p></aside>
+ <section class="ch-cv__outro"><span>COLLABORATION / 04</span><h2>{uk?'ПОПРАЦЮЙМО':'LET’S MAKE'}<br/><em>{uk?'РАЗОМ.':'SOMETHING.'}</em></h2><a href={lang==='uk'?'/uk/contact/':'/contact/'}>{uk?'Зв’язатися':'Get in touch'} <span aria-hidden="true">↗</span></a></section>
+</div>
+</Base>
