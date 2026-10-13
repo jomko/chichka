@@ -90,6 +90,23 @@ const summary=description||t(lang,'intro');
  document.addEventListener('astro:page-load',init);
 })();
 </script>
+<script is:inline>
+(function(){
+ if(window.__chHeaderScrollInit)return;
+ window.__chHeaderScrollInit=true;
+ const update=()=>{
+  const header=document.querySelector('.header');
+  const hero=document.querySelector('.ch-home .ch-hero');
+  if(!header)return;
+  header.classList.toggle('is-scrolled',!!hero && hero.getBoundingClientRect().bottom<=header.getBoundingClientRect().height);
+ };
+ window.addEventListener('scroll',update,{passive:true});
+ window.addEventListener('resize',update,{passive:true});
+ document.addEventListener('astro:page-load',update);
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',update,{once:true});
+ update();
+})();
+</script>
 <script>import '../scripts/project-transition.ts';</script>
 <style is:global>
 .ch-transition-stage{position:fixed;z-index:2147483647;pointer-events:none;overflow:hidden;background:#111;box-sizing:border-box;will-change:left,top,width,height}
