@@ -90,16 +90,18 @@ const summary=description||t(lang,'intro');
 <script>
 import { navigate } from 'astro:transitions';
 
-let pending = null;
+const state = window.__chProjectTransitionState ||= {pending:null,initialized:false};
+if (!state.initialized) {
+state.initialized = true;
 const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 function layer() { return document.getElementById('project-transition-layer'); }
 function clear() {
  const el=layer();
  if(el){el.getAnimations().forEach(a=>a.cancel());el.style.cssText='';el.classList.remove('is-active');el.querySelector('img')?.removeAttribute('src');}
- pending=null;
+ state.pending=null;
 }
 document.addEventListener('click', async (event)=>{
- if(pending || reduce() || !Element.prototype.animate || event.defaultPrevented || event.button!==0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)return;
+ if(state.pending || reduce() || !Element.prototype.animate || event.defaultPrevented || event.button!==0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)return;
  const target=event.target instanceof Element ? event.target.closest('a[data-project-entry]') : null;
  if(!target || target.target==='_blank' || target.hasAttribute('download'))return;
  const photo=target.querySelector('.ch-work__photo');
@@ -114,7 +116,7 @@ document.addEventListener('click', async (event)=>{
  moving.style.objectPosition=getComputedStyle(photo).objectPosition;
  el.classList.add('is-active');
  Object.assign(el.style,{left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'});
- pending={slug,destination,expandedAt:0};
+ state.pending={slug,destination,expandedAt:0};
  try {
   await el.animate([
    {left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'},
@@ -122,7 +124,7 @@ document.addEventListener('click', async (event)=>{
   ],{duration:950,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'}).finished;
   Object.assign(el.style,{left:'0px',top:'0px',width:'100vw',height:'100dvh'});
   el.getAnimations().forEach(a=>a.cancel());
-  pending.expandedAt=performance.now();
+  state.pending.expandedAt=performance.now();
   await navigate(destination);
  } catch (error) {
   clear();
@@ -130,8 +132,8 @@ document.addEventListener('click', async (event)=>{
  }
 });
 document.addEventListener('astro:page-load', async ()=>{
- if(!pending)return;
- const active=pending;
+ if(!state.pending)return;
+ const active=state.pending;
  const el=layer();
  const destination=document.querySelector('[data-project-image="'+CSS.escape(active.slug)+'"]');
  if(!el || !destination){clear();return;}
@@ -159,8 +161,10 @@ document.addEventListener('astro:page-load', async ()=>{
  }catch{}
  clear();
 });
-document.addEventListener('astro:before-preparation',()=>{if(!pending)clear()});
-addEventListener('pageshow',()=>{if(!pending)clear()});
+document.addEventListener('astro:before-preparation',()=>{if(!state.pending)clear()});
+addEventListener('pageshow',()=>{if(!state.pending)clear()});
+
+}
 </script>
 <style is:global>
 #project-transition-layer{position:fixed;left:0;top:0;width:0;height:0;z-index:9999;pointer-events:none;visibility:hidden;overflow:hidden;background:#111}
