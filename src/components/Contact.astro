@@ -1,6 +1,28 @@
 ---
 import Base from '../layouts/Base.astro';
-import {t} from '../data/projects.js';
-const {lang}=Astro.props;
+import '../styles/contact-editorial.css';
+const {lang='en'}=Astro.props;
+const uk=lang==='uk';
 ---
-<Base lang={lang} title={t(lang,'contact')}><section class="wrap page-head"><p class="micro">Contact / Lviv, Ukraine</p><h1>{t(lang,'contactHeading')}</h1><p class="large-copy">{t(lang,'contactText')}</p><div class="contact-links"><a href="mailto:mari4i4ka@gmail.com">Email ↗</a><a href="https://www.instagram.com/mari4i4ka/" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="https://www.facebook.com/marichka.chichkova" target="_blank" rel="noopener noreferrer">Facebook ↗</a></div></section></Base>
+<Base lang={lang} title={uk?'Співпраця':'Contact'}>
+<div class="ch-contact">
+ <section class="ch-contact__hero">
+  <div class="ch-contact__meta"><span>CONTACT / 01</span><span>LVIV · UKRAINE</span></div>
+  <div class="ch-contact__composition">
+   <div class="ch-contact__circle" aria-hidden="true"></div>
+   <h1>{uk?'МАЄТЕ':'HAVE'}<br/>{uk?'ІДЕЮ?':'AN IDEA?'}<span class="ch-contact__arrow" aria-hidden="true">↗</span></h1>
+   <div class="ch-contact__aside"><span>ART · MUSIC · PEOPLE</span><p>{uk?'Цікаві проєкти часто починаються з несподіваної розмови.':'Interesting projects often begin with an unexpected conversation.'}</p></div>
+  </div>
+  <p class="ch-contact__sub">{uk?'Давайте подивимось, що ми можемо створити разом.':'Let’s see what we can make together.'}</p>
+ </section>
+ <section class="ch-contact__channels" aria-label={uk?'Контакти':'Contact channels'}>
+  <div class="ch-contact__intro"><span>02 / {uk?'ЗВʼЯЗОК':'GET IN TOUCH'}</span><p>{uk?'Музичні колаборації, фестивалі, резиденції, навчальні програми — або щось, чого ми ще не вигадали.':'Musical collaborations, festivals, residencies, workshops — or something we haven’t imagined yet.'}</p></div>
+  <div class="ch-contact__links">
+   <a href="mailto:mari4i4ka@gmail.com"><span>01 / EMAIL</span><strong>Write me an email</strong><span aria-hidden="true">↗</span></a>
+   <a href="https://www.instagram.com/mari4i4ka/" target="_blank" rel="noopener noreferrer"><span>02 / INSTAGRAM</span><strong>Instagram</strong><span aria-hidden="true">↗</span></a>
+   <a href="https://www.facebook.com/marichka.chichkova" target="_blank" rel="noopener noreferrer"><span>03 / FACEBOOK</span><strong>Facebook</strong><span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="ch-contact__signoff"><span>MARICHKA CHICHKOVA</span><span>{uk?'МИСТКИНЯ · КУЛЬТУРНА МЕНЕДЖЕРКА':'ARTIST · CULTURAL MANAGER'}</span></div>
+ </section>
+</div>
+</Base>
