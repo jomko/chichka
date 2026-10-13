@@ -18,7 +18,7 @@ const groups=[
 ];
 ---
 <Base lang={lang} title={t(lang,'projects')}>
-<main class="ch-projects" id="portfolio">
+<div class="ch-projects" id="portfolio">
  <header class="ch-projects__opening">
   <div class="ch-projects__meta"><span>PORTFOLIO / 01—03</span><span>MARICHKA CHICHKOVA · LVIV</span></div>
   <h1>{uk?'ПРОЄКТИ':'SELECTED'}<br/><em>{uk?'ТА ПРАКТИКИ':'PROJECTS'}</em><span class="ch-projects__mark" aria-hidden="true">↗</span></h1>
@@ -42,5 +42,5 @@ const groups=[
    </div>
  </section>)}
  <footer class="ch-projects__outro"><span>{uk?'СПІВПРАЦЯ':'COLLABORATION'}</span><a href={lang==='uk'?'/uk/contact/':'/contact/'}>{uk?'Маєте ідею?':'Have something in mind?'} <span aria-hidden="true">↗</span></a></footer>
-</main>
+</div>
 </Base>
