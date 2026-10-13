@@ -81,6 +81,32 @@ const disciplines=[
  if(!header||!title)return;
  const observer=new IntersectionObserver(entries=>header.classList.toggle('is-scrolled',!entries[0].isIntersecting),{rootMargin:'-80px 0px 0px 0px',threshold:0});
  observer.observe(title);
+ // A single editorial photo reveal; images remain visible if animations are unavailable.
+ if (!('IntersectionObserver' in window) || !Element.prototype.animate ||
+     window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+ const images=document.querySelectorAll('.ch-work__image');
+ const revealed=new WeakSet();
+ const photoObserver=new IntersectionObserver((entries)=>{
+   for(const entry of entries){
+     if(!entry.isIntersecting)continue;
+     const frame=entry.target;
+     photoObserver.unobserve(frame);
+     if(revealed.has(frame))continue;
+     revealed.add(frame);
+     // Do not animate an unloaded image or a scrolled-past image.
+     const photo=frame.querySelector('img');
+     if(!photo || !photo.complete || !photo.naturalWidth)return;
+     frame.animate(
+       [{clipPath:'inset(0 0 16% 0)',opacity:.6},
+        {clipPath:'inset(0 0 0 0)',opacity:1}],
+       {duration:720,easing:'cubic-bezier(.22,1,.36,1)',fill:'none'}
+     );
+   }
+ },{threshold:.12,rootMargin:'0px 0px -30px 0px'});
+ images.forEach(frame=>{
+   // Avoid animating cards already in the initial viewport.
+   if(frame.getBoundingClientRect().top>=window.innerHeight)photoObserver.observe(frame);
+ });
 })();
 </script>
 </Base>
