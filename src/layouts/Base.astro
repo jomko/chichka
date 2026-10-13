@@ -108,6 +108,8 @@ document.addEventListener('click', async (event)=>{
  const el=layer();
  if(!photo || !photo.complete || !photo.naturalWidth || !el)return;
  event.preventDefault();
+ // Own this click before Astro's delegated navigation handler can start a swap.
+ event.stopImmediatePropagation();
  const slug=target.dataset.projectEntry;
  const destination=target.href;
  const rect=photo.getBoundingClientRect();
@@ -124,7 +126,9 @@ document.addEventListener('click', async (event)=>{
    {left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'},
    {left:'0px',top:'0px',width:innerWidth+'px',height:innerHeight+'px'}
   ],{duration:950,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'}).finished;
-  Object.assign(el.style,{left:'0px',top:'0px',width:'100vw',height:'100dvh'});
+  // Commit the terminal frame before releasing the animation, preventing a snap.
+  Object.assign(el.style,{left:'0px',top:'0px',width:innerWidth+'px',height:innerHeight+'px'});
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
   el.getAnimations().forEach(a=>a.cancel());
   state.pending.expandedAt=performance.now();
   // A visible hold before page replacement, independent of router timing.
@@ -134,7 +138,7 @@ document.addEventListener('click', async (event)=>{
   clear();
   window.location.assign(destination);
  }
-});
+}, {capture:true});
 document.addEventListener('astro:page-load', async ()=>{
  if(!state.pending)return;
  const active=state.pending;
