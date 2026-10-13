@@ -97,7 +97,7 @@ const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 function layer() { return document.getElementById('project-transition-layer'); }
 function clear() {
  const el=layer();
- if(el){el.getAnimations().forEach(a=>a.cancel());el.style.cssText='';el.classList.remove('is-active');el.querySelector('img')?.removeAttribute('src');}
+ if(el){el.getAnimations().forEach(a=>a.cancel());el.style.cssText='';el.classList.remove('is-active');el.querySelector('img')?.removeAttribute('src');document.body?.prepend(el);}
  state.pending=null;
 }
 document.addEventListener('click', async (event)=>{
@@ -114,6 +114,8 @@ document.addEventListener('click', async (event)=>{
  const moving=el.querySelector('img');
  moving.src=photo.currentSrc || photo.src;
  moving.style.objectPosition=getComputedStyle(photo).objectPosition;
+ // Keep the overlay OUTSIDE <body>: Astro swaps the body during navigation.
+ document.documentElement.appendChild(el);
  el.classList.add('is-active');
  Object.assign(el.style,{left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'});
  state.pending={slug,destination,expandedAt:0};
@@ -125,6 +127,8 @@ document.addEventListener('click', async (event)=>{
   Object.assign(el.style,{left:'0px',top:'0px',width:'100vw',height:'100dvh'});
   el.getAnimations().forEach(a=>a.cancel());
   state.pending.expandedAt=performance.now();
+  // A visible hold before page replacement, independent of router timing.
+  await new Promise(resolve=>setTimeout(resolve,320));
   await navigate(destination);
  } catch (error) {
   clear();
@@ -135,6 +139,7 @@ document.addEventListener('astro:page-load', async ()=>{
  if(!state.pending)return;
  const active=state.pending;
  const el=layer();
+ if(el){Object.assign(el.style,{left:'0px',top:'0px',width:'100vw',height:'100dvh'});el.classList.add('is-active');}
  const destination=document.querySelector('[data-project-image="'+CSS.escape(active.slug)+'"]');
  if(!el || !destination){clear();return;}
  const image=destination.querySelector('img');
@@ -150,7 +155,7 @@ document.addEventListener('astro:page-load', async ()=>{
  scrollTo({top:Math.max(0,top),behavior:'instant'});
  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
  // Hold the fully expanded image for at least 300 ms, even if the page is ready immediately.
- const hold=Math.max(0,300-(performance.now()-(active.expandedAt || performance.now())));
+ const hold=Math.max(300,600-(performance.now()-(active.expandedAt || performance.now())));
  if(hold)await new Promise(resolve=>setTimeout(resolve,hold));
  const rect=destination.getBoundingClientRect();
  try{
