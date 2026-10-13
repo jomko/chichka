@@ -1,10 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
-import {t,base} from '../data/projects.js';
+import {t,base,projects,pathFor} from '../data/projects.js';
 import '../styles/home.css';
 const {lang}=Astro.props;
 const prefix=base(lang);
 const uk=lang==='uk';
+const selectedSlugs=['make-music-day-lviv','spivmaisternia','slavalachia','cycles','local-cultural-support'];
+const selected=selectedSlugs.map(slug=>projects.find(p=>p.slug===slug)).filter(Boolean);
+const workLabel=(p)=>p.role[lang] || p.intro[lang];
 const disciplines=[
  {title:uk?'Музика й виступи':'Music & Performance',desc:uk?'Традиційний спів · концерти · співпраця':'Traditional songs · concerts · collaborations',href:prefix+'/projects/#artist'},
  {title:uk?'Культурний менеджмент':'Cultural Management',desc:uk?'Фестивалі · резиденції · культурні проєкти':'Festivals · residencies · cultural projects',href:prefix+'/projects/#management'},
@@ -23,7 +26,28 @@ const disciplines=[
  <section class="ch-disciplines" aria-label={uk?'Напрями діяльності':'Areas of practice'}>
  {disciplines.map((d,i)=><a class="ch-discipline" href={d.href}><span class="ch-number">0{i+1}</span><h2>{d.title}</h2><span class="ch-detail">{d.desc}<br/>↗</span><div class="ch-preview" aria-hidden="true"><span>IMAGE / {String(i+1).padStart(2,'0')}</span></div></a>)}
  </section>
- <section class="ch-placeholder" id="selected-work"><h2>{uk?'Вибрані проєкти':'Selected Work'}</h2><p>{uk?'Наступний етап: редакційна композиція реальних проєктів.':'Next phase: an editorial composition of real projects.'}</p><a href={prefix+'/projects/'}>{uk?'Дивитися проєкти':'Explore projects'} ↗</a></section>
+ <section class="ch-work" id="selected-work" aria-labelledby="ch-work-heading">
+  <header class="ch-work__header">
+   <div class="ch-work__eyebrow"><span>04 / {uk?'ВИБРАНЕ':'SELECTED'}</span><span>{uk?'Музика, люди, різні контексти.':'Music, people, different contexts.'}</span></div>
+   <h2 id="ch-work-heading"><span>{uk?'ВИБРАНІ':'SELECTED'}</span> <em>{uk?'ПРОЄКТИ':'WORK'}</em><span class="ch-work__period" aria-hidden="true">●</span></h2>
+   <a class="ch-work__all" href={prefix+'/projects/'}>{uk?'Усі проєкти':'All projects'} <span aria-hidden="true">↗</span></a>
+  </header>
+  <div class="ch-work__grid">
+   {selected.map((p,i)=><a class={'ch-work__item ch-work__item--'+(i+1)} href={pathFor(lang,p.slug)} aria-label={p.name[lang]+': '+workLabel(p)}>
+    <div class="ch-work__image">
+     <span class="ch-work__image-label">{p.image?'IMAGE / EDITORIAL PLACEHOLDER':'PHOTO / COMING SOON'}</span>
+     <span class="ch-work__index">0{i+1}</span>
+    </div>
+    <div class="ch-work__caption">
+     <div><h3>{p.name[lang]}</h3><p>{workLabel(p)}</p></div>
+     <span class="ch-work__arrow" aria-hidden="true">↗</span>
+    </div>
+   </a>)}
+   <div class="ch-work__statement" aria-label={uk?'Різні контексти, той самий намір':'Different contexts. Same intention.'}>
+    <span>↗</span><p>{uk?'Різні контексти.':'Different contexts.'}<br/><em>{uk?'Спільний задум.':'Same intention.'}</em></p>
+   </div>
+  </div>
+ </section>
  <section class="ch-placeholder" id="collaboration"><h2>{uk?'Маєте ідею?':'Have something in mind?'}</h2><p>{uk?'Розкажіть про неї.':'Let’s see what we can make of it.'}</p><a href={prefix+'/contact/'}>{uk?'Зв’язатися':'Get in touch'} ↗</a></section>
 </div>
 <script is:inline>
