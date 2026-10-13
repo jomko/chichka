@@ -120,10 +120,21 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 .text-link,.cv-link{transition:color .2s ease,border-color .2s ease}
 @media(prefers-reduced-motion:reduce){.project-card figure img,.navigation a,.hero-contact span{transition:none}}
 
-/* One-time editorial reveal; content remains visible if JS is disabled. */
-.scroll-reveal{opacity:0;transform:translate3d(0,22px,0);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
-.scroll-reveal.scroll-revealed{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.scroll-reveal{opacity:1!important;transform:none!important;transition:none!important}}
+/* Editorial Cut: typography cuts in; still images are uncovered by a fixed mask. */
+.scroll-reveal[data-cut="type"]{visibility:hidden}
+.scroll-reveal.scroll-revealed[data-cut="type"]{visibility:visible}
+.scroll-reveal[data-cut="photo"]{clip-path:inset(0 100% 0 0)}
+.scroll-reveal.scroll-revealed[data-cut="photo"]{
+  animation:editorial-curtain .72s cubic-bezier(.76,0,.24,1) both;
+  animation-delay:var(--cut-delay,90ms);
+}
+@keyframes editorial-curtain{
+ from{clip-path:inset(0 100% 0 0)}
+ to{clip-path:inset(0 0 0 0)}
+}
+@media(prefers-reduced-motion:reduce){
+ .scroll-reveal[data-cut]{visibility:visible!important;clip-path:none!important;animation:none!important}
+}
 
 /* Keep fixed photographic backgrounds outside reveal transforms. */
 .editorial-interlude {
