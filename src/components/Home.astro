@@ -7,6 +7,13 @@ const prefix=base(lang);
 const uk=lang==='uk';
 const selectedSlugs=['make-music-day-lviv','spivmaisternia','slavalachia','cycles','local-cultural-support'];
 const selected=selectedSlugs.map(slug=>projects.find(p=>p.slug===slug)).filter(Boolean);
+const selectedImages={
+ 'make-music-day-lviv':'/assets/fete.png',
+ 'spivmaisternia':'/spivmaisternia-wide.webp',
+ 'slavalachia':'/assets/slavalacha.png',
+ 'cycles':'/assets/cycles.png',
+ 'local-cultural-support':'/assets/lkp.png'
+};
 const workLabel=(p)=>p.role[lang] || p.intro[lang];
 const disciplines=[
  {title:uk?'Музика й виступи':'Music & Performance',desc:uk?'Традиційний спів · концерти · співпраця':'Traditional songs · concerts · collaborations',href:prefix+'/projects/#artist'},
@@ -34,8 +41,7 @@ const disciplines=[
   <div class="ch-work__grid">
    {selected.map((p,i)=><a class={'ch-work__item ch-work__item--'+(i+1)} href={pathFor(lang,p.slug)} aria-label={p.name[lang]+': '+workLabel(p)}>
     <div class="ch-work__image">
-     {p.slug==='spivmaisternia' && <img class="ch-work__photo" src="/assets/images/spivmaisternia-card.webp" alt={uk?'Співмайстерня — вечірній спів біля вогню':'Spivmaisternia — an evening singing circle by the fire'} loading="lazy" decoding="async" width="780" height="840" />}
-     {p.slug!=='spivmaisternia' && <span class="ch-work__image-label">{p.image?'IMAGE / EDITORIAL PLACEHOLDER':'PHOTO / COMING SOON'}</span>}
+     {selectedImages[p.slug] && <img class="ch-work__photo" src={selectedImages[p.slug]} alt={p.name[lang]} loading="lazy" decoding="async" />}
      <span class="ch-work__index">0{i+1}</span>
     </div>
     <div class="ch-work__caption">
