@@ -1,23 +1,46 @@
 ---
 import Base from '../layouts/Base.astro';
-import ProjectCard from './ProjectCard.astro';
-import {projects,t,base} from '../data/projects.js';
+import {projects,t,pathFor} from '../data/projects.js';
 import '../styles/project-sections.css';
 const {lang}=Astro.props;
 const uk=lang==='uk';
+const images={
+ 'make-music-day-lviv':'/assets/fete.png',
+ 'spivmaisternia':'/spivmaisternia-wide.webp',
+ 'slavalachia':'/assets/slavalacha.png',
+ 'cycles':'/assets/cycles.png',
+ 'local-cultural-support':'/assets/lkp.png'
+};
 const groups=[
- {id:'artist',name:t(lang,'artist'),photo:'/m1.jpg',items:projects.filter(p=>p.type==='artist')},
- {id:'management',name:t(lang,'management'),photo:'/m2.jpg',items:projects.filter(p=>p.type==='management')},
- {id:'voice',name:uk?'Голосові практики й навчання':'Voice Practices & Teaching',photo:'/m3.jpg',items:projects.filter(p=>p.slug==='spivmaisternia')}
+ {id:'artist',number:'01',name:uk?'Музика й виступи':'Music & Performance',photo:'/m1.jpg',items:projects.filter(p=>p.type==='artist')},
+ {id:'management',number:'02',name:uk?'Культурний менеджмент':'Cultural Management',photo:'/m2.jpg',items:projects.filter(p=>p.type==='management')},
+ {id:'voice',number:'03',name:uk?'Голосові практики й навчання':'Voice Practices & Teaching',photo:'/m3.jpg',items:projects.filter(p=>p.slug==='spivmaisternia')}
 ];
 ---
 <Base lang={lang} title={t(lang,'projects')}>
- <section class="wrap page-head"><p class="micro">Portfolio / 01</p><h1>{t(lang,'projects')}.</h1><p class="large-copy">{t(lang,'allIntro')}</p></section>
- <section class="section"><div class="wrap">
- {groups.map(group=><section class="group ch-project-group" id={group.id}>
-   <figure class="ch-project-group__photo" data-project-image={`discipline-${group.id}`}><img src={group.photo} alt="" loading="eager" decoding="async"/></figure>
-   <h2 class="group-title">{group.name}</h2>
-   <div class="project-grid">{group.items.map(p=><ProjectCard p={p} lang={lang}/>)}</div>
-  </section>)}
- </div></section>
+<main class="ch-projects" id="portfolio">
+ <header class="ch-projects__opening">
+  <div class="ch-projects__meta"><span>PORTFOLIO / 01—03</span><span>MARICHKA CHICHKOVA · LVIV</span></div>
+  <h1>{uk?'ПРОЄКТИ':'SELECTED'}<br/><em>{uk?'ТА ПРАКТИКИ':'PROJECTS'}</em><span class="ch-projects__mark" aria-hidden="true">↗</span></h1>
+  <p>{t(lang,'allIntro')}</p>
+ </header>
+ {groups.map(group=><section class="ch-projects__chapter" id={group.id} aria-labelledby={`chapter-${group.id}`}>
+   <figure class="ch-project-group__photo" data-project-image={`discipline-${group.id}`}>
+     <img src={group.photo} alt="" loading="eager" decoding="async"/>
+   </figure>
+   <div class="ch-projects__chapter-heading"><span>{group.number} / 03</span><h2 id={`chapter-${group.id}`}>{group.name}</h2><span>{String(group.items.length).padStart(2,'0')} {uk?'ПРОЄКТІВ':'PROJECTS'}</span></div>
+   <div class="ch-projects__grid">
+     {group.items.map((p,i)=><a class="ch-projects__card" href={pathFor(lang,p.slug)}>
+       <figure class={p.slug==='local-cultural-support'?'ch-projects__card-photo ch-projects__card-photo--logo':'ch-projects__card-photo'}>
+         {images[p.slug]||p.image?<img src={images[p.slug]||p.image} alt={p.name[lang]} loading="lazy" decoding="async"/>:<span class="ch-projects__placeholder">{p.name[lang]}</span>}
+       </figure>
+       <div class="ch-projects__card-title"><h3>{p.name[lang]}</h3><span aria-hidden="true">↗</span></div>
+       <p class="ch-projects__role">{p.role[lang]}</p>
+       <p class="ch-projects__description">{p.intro[lang]}</p>
+       <span class="ch-projects__years">{p.years}</span>
+     </a>)}
+   </div>
+ </section>)}
+ <footer class="ch-projects__outro"><span>{uk?'СПІВПРАЦЯ':'COLLABORATION'}</span><a href={lang==='uk'?'/uk/contact/':'/contact/'}>{uk?'Маєте ідею?':'Have something in mind?'} <span aria-hidden="true">↗</span></a></footer>
+</main>
 </Base>
