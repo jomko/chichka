@@ -45,7 +45,11 @@ document.addEventListener('click',async event=>{
  if(returning || reduced() || !Element.prototype.animate || event.defaultPrevented || event.button!==0 ||
     event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)return;
  const a=(event.target as Element|null)?.closest<HTMLAnchorElement>('a[href]');
- if(!a || a.hasAttribute('download') || a.target==='_blank' || !isHomepageLink(a))return;
+ if(!a || a.hasAttribute('download') || a.target==='_blank')return;
+ const home=isHomepageLink(a);
+ const menu=!!a.closest('.navigation') && new URL(a.href).origin===location.origin &&
+  new URL(a.href).pathname!==location.pathname && !new URL(a.href).hash;
+ if(!home && !menu)return;
  // Photo transitions have their own navigation controller; never compete.
  if(a.closest('[data-project-entry]'))return;
  const stage=cover();
@@ -54,20 +58,29 @@ document.addEventListener('click',async event=>{
  event.stopImmediatePropagation();
  returning=true;
  const destination=a.href;
+ const title=stage.querySelector('span');
+ const previousTitle=title?.innerHTML;
+ stage.dataset.mode=home?'home':'menu';
+ if(menu && title){
+  const label=(a.textContent||'').trim();
+  title.textContent=label.toUpperCase();
+ }
  document.documentElement.append(stage); // survives Astro body swap
  stage.style.visibility='visible';
  stage.style.clipPath='inset(0 100% 0 0)';
  try{
   await stage.animate([{clipPath:'inset(0 100% 0 0)'},{clipPath:'inset(0 0 0 0)'}],
-    {duration:350,easing:'cubic-bezier(.76,0,.24,1)'}).finished;
+    {duration:home?350:280,easing:'cubic-bezier(.76,0,.24,1)'}).finished;
   stage.style.clipPath='inset(0 0 0 0)';
   await navigate(destination);
   window.scrollTo({top:0,behavior:'instant'});
   await nextFrame();
   await stage.animate([{clipPath:'inset(0 0 0 0)'},{clipPath:'inset(0 0 0 100%)'}],
-    {duration:430,easing:'cubic-bezier(.22,1,.36,1)'}).finished;
+    {duration:home?430:340,easing:'cubic-bezier(.22,1,.36,1)'}).finished;
   stage.style.visibility='hidden';
   stage.style.clipPath='inset(0 100% 0 0)';
+  if(title && previousTitle!==undefined)title.innerHTML=previousTitle;
+  delete stage.dataset.mode;
   document.body.prepend(stage);
  }catch{
   location.assign(destination);
