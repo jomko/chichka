@@ -49,7 +49,7 @@ document.addEventListener('click',async(event)=>{
  session={slug:link.dataset.projectEntry!,url:link.href,layer,image:photo,phase:'expanding',started:performance.now()};
  const current=session;
  try{
-  await layer.animate([rectangle(initial),viewport()],{duration:950,easing:'cubic-bezier(.22,1,.36,1)'}).finished;
+  await layer.animate([rectangle(initial),viewport()],{duration:750,easing:'cubic-bezier(.22,1,.36,1)'}).finished;
   Object.assign(layer.style,viewport()); // Commit full viewport, never clear before committing.
   current.phase='holding';
   await paint();
@@ -72,7 +72,7 @@ document.addEventListener('click',async(event)=>{
   if(session!==current)return;
   const target=figure.getBoundingClientRect();
   current.phase='contracting';
-  await layer.animate([viewport(),rectangle(target)],{duration:1050,easing:'cubic-bezier(.76,0,.24,1)'}).finished;
+  await layer.animate([viewport(),rectangle(target)],{duration:950,easing:'cubic-bezier(.76,0,.24,1)'}).finished;
   Object.assign(layer.style,rectangle(target));
   figure.style.visibility='';
   figure.removeAttribute('data-ch-arrival');
