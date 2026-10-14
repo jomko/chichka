@@ -8,7 +8,31 @@ const cover=()=>document.getElementById('ch-editorial-cut') as HTMLElement|null;
 
 async function revealHero(){
  const hero=document.querySelector<HTMLElement>('.ch-home .ch-hero');
- if(!hero || reduced())return;
+ if(!hero)return;
+ const html=document.documentElement;
+ if(html.classList.contains('ch-initial-loading')){
+  const image=hero.querySelector<HTMLImageElement>('.ch-photo img');
+  try{
+   if(image){
+    if(!image.complete)await Promise.race([
+     new Promise<void>(resolve=>{
+      image.addEventListener('load',()=>resolve(),{once:true});
+      image.addEventListener('error',()=>resolve(),{once:true});
+     }),
+     new Promise<void>(resolve=>setTimeout(resolve,4000))
+    ]);
+    if(image.complete && image.naturalWidth)await Promise.race([
+     image.decode().catch(()=>{}),
+     new Promise<void>(resolve=>setTimeout(resolve,1200))
+    ]);
+   }
+  }finally{
+   html.classList.replace('ch-initial-loading','ch-initial-revealing');
+   await new Promise<void>(resolve=>setTimeout(resolve,reduced()?0:460));
+   html.classList.remove('ch-initial-revealing');
+  }
+ }
+ if(reduced())return;
  // A new visit starts with a fresh document; Astro back/forward may retain an existing page.
  if(hero.dataset.entrancePlayed)return;
  hero.dataset.entrancePlayed='true';
