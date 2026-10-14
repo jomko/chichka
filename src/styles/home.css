@@ -1,5 +1,5 @@
 /* CHICHKA / new homepage — isolated design system */
-:root{--ch-black:#111;--ch-white:#f5f5f2;--ch-red:#e34234}
+:root{--ch-black:#111;--ch-white:#f5f5f2;--ch-red:var(--accent)}
 body:has(.ch-home){background:var(--ch-white);color:var(--ch-black)}
 .ch-home{font-family:Arial,Helvetica,sans-serif;overflow:clip}
 .ch-home *{box-sizing:border-box}
