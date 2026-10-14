@@ -6,7 +6,7 @@ function updateHeroScene(){
  queued=false;
  updateManagementPhoto();
  updateAboutPhoto();
- updateEndingScene();
+ updateCollaboration();
  const scene=document.querySelector<HTMLElement>('.ch-home .ch-hero-scene');
  const hero=scene?.querySelector<HTMLElement>('.ch-hero');
  if(!scene||!hero)return;
@@ -48,24 +48,16 @@ function updateAboutPhoto(){
  const shift=(progress-.5)*box.height*.08;
  photo.style.setProperty('--ch-about-parallax',`${shift.toFixed(2)}px`);
 }
-function updateEndingScene(){
- const scene=document.querySelector<HTMLElement>('.ch-home .ch-ending-scene');
- const panel=scene?.querySelector<HTMLElement>('.ch-collaboration');
- if(!scene||!panel)return;
+function updateCollaboration(){
+ const section=document.querySelector<HTMLElement>('.ch-home .ch-collaboration');
+ if(!section)return;
  if(matchMedia('(prefers-reduced-motion: reduce)').matches){
-  panel.style.removeProperty('--ch-end-camera');
-  panel.style.removeProperty('--ch-end-exit');
-  panel.style.removeProperty('--ch-end-frame');
+  section.style.removeProperty('--ch-collab-progress');
   return;
  }
- const range=scene.offsetHeight-panel.offsetHeight;
- const progress=range>0?clamp(-scene.getBoundingClientRect().top/range):0;
- const camera=smooth(progress/.7);
- const exit=smooth((progress-.55)/.45);
- const frame=smooth((progress-.72)/.28);
- panel.style.setProperty('--ch-end-camera',camera.toFixed(4));
- panel.style.setProperty('--ch-end-exit',exit.toFixed(4));
- panel.style.setProperty('--ch-end-frame',`${(frame*5).toFixed(3)}vw`);
+ const rect=section.getBoundingClientRect();
+ const progress=smooth((innerHeight-rect.top)/(innerHeight+rect.height*.45));
+ section.style.setProperty('--ch-collab-progress',progress.toFixed(4));
 }
 function schedule(){if(!queued){queued=true;requestAnimationFrame(updateHeroScene)}}
 window.addEventListener('scroll',schedule,{passive:true});
