@@ -37,7 +37,7 @@ function isHomepageLink(a:HTMLAnchorElement){
 // Do not allow the incoming document to add a second curtain during the swap.
 document.addEventListener('astro:before-swap',event=>{
  if(!returning)return;
- const next=(event as CustomEvent & {newDocument:Document}).newDocument;
+ const next=(event as typeof event & {newDocument:Document}).newDocument;
  next?.getElementById('ch-editorial-cut')?.remove();
 });
 
