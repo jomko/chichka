@@ -31,7 +31,7 @@ const disciplines=[
  </section>
  </div>
  <section class="ch-disciplines" aria-label={uk?'Напрями діяльності':'Areas of practice'}>
- {disciplines.map((d,i)=><a class={'ch-discipline'+(i===1?' ch-discipline--management':'')} data-project-entry={`discipline-${['artist','management','voice'][i]}`} href={d.href}><span class="ch-number">0{i+1}</span><div class="ch-discipline__copy"><h2>{d.title}</h2></div><span class="ch-detail">{d.desc}<br/>↗</span><div class="ch-preview" aria-hidden="true"><img class="ch-work__photo" src={`/m${i+1}.jpg`} alt="" loading="lazy" decoding="async" width="1024" height="1024" /></div></a>)}
+ {disciplines.map((d,i)=><a class={'ch-discipline'+(i===1?' ch-discipline--management':'')} data-project-entry={`discipline-${['artist','management','voice'][i]}`} href={d.href}><span class="ch-number">0{i+1}</span><div class="ch-discipline__copy"><h2>{d.title}</h2></div><span class="ch-detail">{d.desc}<br/>↗</span><div class="ch-preview" aria-hidden="true"><img class="ch-work__photo" src={`/assets/m${i+1}.png`} alt="" loading="lazy" decoding="async" width="1920" height="1080" /></div></a>)}
  </section>
  <section class="ch-work" id="selected-work" aria-labelledby="ch-work-heading">
   <header class="ch-work__header">
