@@ -2,11 +2,11 @@
 import Base from '../layouts/Base.astro';
 import {projects,t,base,pathFor} from '../data/projects.js';
 import '../styles/project-detail.css';
-const {p,lang}=Astro.props;
+const {p,lang}=Astro.props as {p:(typeof projects)[number];lang:'en'|'uk'};
 const idx=projects.findIndex(item=>item.slug===p.slug);
 const next=projects[(idx+1)%projects.length];
 const uk=lang==='uk';
-const images={
+const images:Record<string,string>={
  'make-music-day-lviv':'/assets/fete.png',
  'spivmaisternia':'/spivmaisternia-wide.webp',
  'slavalachia':'/assets/slavalacha.png',
@@ -30,7 +30,7 @@ const image=images[p.slug] || p.image;
    {p.role?.[lang]&&<div class="ch-project__fact"><span>{t(lang,'role')}</span><strong>{p.role[lang]}</strong></div>}
   </div>
   <div class="ch-project__body">
-   {p.body[lang].split(/\n\s*\n/).map(paragraph=><p>{paragraph}</p>)}
+   {p.body[lang].split(/\n\s*\n/).map((paragraph:string)=><p>{paragraph}</p>)}
    {p.links.length>0&&<div class="ch-project__links"><span>{t(lang,'documentation')}</span>{p.links.map(link=><a href={link.url} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>)}</div>}
   </div>
  </section>
