@@ -12,9 +12,9 @@ const images:Record<string,string>={
  'local-cultural-support':'/assets/lkp.png'
 };
 const groups=[
- {id:'artist',number:'01',name:uk?'Музика й виступи':'Music & Performance',photo:'/m1.jpg',items:projects.filter(p=>p.type==='artist')},
- {id:'management',number:'02',name:uk?'Культурний менеджмент':'Cultural Management',photo:'/m2.jpg',items:projects.filter(p=>p.type==='management')},
- {id:'voice',number:'03',name:uk?'Голосові практики й навчання':'Voice Practices & Teaching',photo:'/m3.jpg',items:projects.filter(p=>p.slug==='spivmaisternia')}
+ {id:'artist',number:'01',name:uk?'Музика й виступи':'Music & Performance',photo:'/assets/m1.png',items:projects.filter(p=>p.type==='artist')},
+ {id:'management',number:'02',name:uk?'Культурний менеджмент':'Cultural Management',photo:'/assets/m2.png',items:projects.filter(p=>p.type==='management')},
+ {id:'voice',number:'03',name:uk?'Голосові практики й навчання':'Voice Practices & Teaching',photo:'/assets/m3.png',items:projects.filter(p=>p.slug==='spivmaisternia')}
 ];
 ---
 <Base lang={lang} title={t(lang,'projects')}>
@@ -26,7 +26,7 @@ const groups=[
  </header>
  {groups.map(group=><section class="ch-projects__chapter" id={group.id} aria-labelledby={`chapter-${group.id}`}>
    <figure class="ch-project-group__photo" data-project-image={`discipline-${group.id}`}>
-     <img src={group.photo} alt="" loading="eager" decoding="async"/>
+     <img src={group.photo} alt="" loading="eager" decoding="async" width="1920" height="1080"/>
    </figure>
    <div class="ch-projects__chapter-heading"><span>{group.number} / 03</span><h2 id={`chapter-${group.id}`}>{group.name}</h2><span>{String(group.items.length).padStart(2,'0')} {uk?'ПРОЄКТІВ':'PROJECTS'}</span></div>
    <div class="ch-projects__grid">
