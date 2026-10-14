@@ -74,9 +74,9 @@ body:has(.ch-home){background:var(--ch-white);color:var(--ch-black)}
 
 /* About / open editorial composition */
 .ch-home .ch-about{background:var(--ch-white);color:var(--ch-black);display:grid;grid-template-columns:42% 58%;min-height:clamp(460px,45vw,720px)}
-.ch-home .ch-about__image{background:linear-gradient(125deg,#232323,#696969 49%,#252525);position:relative;min-height:460px;display:grid;place-items:center;overflow:hidden}
-.ch-home .ch-about__image:before{content:"";position:absolute;inset:0;background:linear-gradient(140deg,transparent 30%,rgba(0,0,0,.32) 70%)}
-.ch-home .ch-about__image span{position:relative;border:1px solid #ccc;padding:8px 15px;font-size:10px;letter-spacing:.2em;color:#eee}
+.ch-home .ch-about__image{background:#67210e;position:relative;min-height:460px;overflow:hidden}
+.ch-home .ch-about__image img{display:block;width:100%;height:100%;position:absolute;inset:0;object-fit:cover;object-position:68% center}
+
 .ch-home .ch-about__content{padding:clamp(35px,5vw,90px);display:flex;flex-direction:column;justify-content:space-between;gap:65px}
 .ch-home .ch-about__label,.ch-home .ch-collaboration__meta{font:11px/1.5 Arial,sans-serif;letter-spacing:.15em}
 .ch-home .ch-about h2{font:400 clamp(43px,5.2vw,99px)/.98 Georgia,serif;letter-spacing:-.075em;max-width:780px;margin:0}
