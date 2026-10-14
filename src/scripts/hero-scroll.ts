@@ -1,5 +1,6 @@
 // Native scroll-linked hero choreography. No scroll interception or dependencies.
 const clamp=(value:number)=>Math.max(0,Math.min(1,value));
+const smooth=(t:number)=>{const x=clamp(t);return x*x*(3-2*x)};
 let queued=false;
 function updateHeroScene(){
  queued=false;
@@ -13,11 +14,12 @@ function updateHeroScene(){
  }
  const range=scene.offsetHeight-hero.offsetHeight;
  const progress=range>0?clamp(-scene.getBoundingClientRect().top/range):0;
- hero.style.setProperty('--ch-scroll',progress.toFixed(4));
- // First the camera moves. Only the last third frames the image on paper.
- const frame=clamp((progress-.65)/.35);
- const eased=frame*frame*(3-2*frame);
- hero.style.setProperty('--ch-frame',`calc(${(eased*7.5).toFixed(3)}vw)`);
+ const camera=smooth(progress/.65);
+ const exit=smooth((progress-.35)/.30);
+ const frame=smooth((progress-.65)/.20);
+ hero.style.setProperty('--ch-camera',camera.toFixed(4));
+ hero.style.setProperty('--ch-exit',exit.toFixed(4));
+ hero.style.setProperty('--ch-frame',`${(frame*7.5).toFixed(3)}vw`);
 }
 function schedule(){if(!queued){queued=true;requestAnimationFrame(updateHeroScene)}}
 window.addEventListener('scroll',schedule,{passive:true});
