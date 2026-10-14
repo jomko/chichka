@@ -159,6 +159,19 @@ body:has(.ch-home){background:var(--ch-white);color:var(--ch-black)}
  .ch-home .ch-discipline h2{font-size:clamp(34px,9vw,55px)}
 }
 
+/* Closing scroll scene mirrors the opening camera without taking over native scrolling. */
+.ch-home .ch-ending-scene{height:165svh;position:relative;background:var(--ch-white)}
+.ch-home .ch-ending-scene>.ch-collaboration{position:sticky;top:0;height:100svh;min-height:100svh;overflow:hidden;clip-path:inset(var(--ch-end-frame,0px));--ch-end-camera:0;--ch-end-exit:0;--ch-end-frame:0px}
+.ch-home .ch-ending-scene .ch-collaboration__center{transform:translate3d(0,calc(var(--ch-end-camera)*-3vh),0);will-change:transform}
+.ch-home .ch-ending-scene .ch-collaboration__center h2{transform:scale(calc(1 + var(--ch-end-camera)*.035));transform-origin:left center}
+.ch-home .ch-ending-scene .ch-collaboration__disc span{display:block;transform:rotate(calc(var(--ch-end-camera)*-45deg))}
+.ch-home .ch-ending-scene .ch-collaboration__meta,.ch-home .ch-ending-scene .ch-collaboration__footer{opacity:calc(1 - var(--ch-end-exit)*.7);transform:translate3d(0,calc(var(--ch-end-exit)*-3vh),0)}
+.ch-home .ch-collaboration__up{position:absolute;right:clamp(25px,4vw,76px);bottom:clamp(22px,3vw,55px);display:flex;gap:12px;align-items:center;text-decoration:none;color:#fff;font:10px/1 Arial,sans-serif;letter-spacing:.14em;z-index:2;opacity:var(--ch-end-camera);transform:translateY(calc((1 - var(--ch-end-camera))*14px));pointer-events:auto}
+.ch-home .ch-collaboration__up span:first-child{font:28px/1 Arial,sans-serif}
+.ch-home .ch-collaboration__up:hover{color:var(--ch-red)}
+@media(max-width:650px){.ch-home .ch-ending-scene{height:145svh}.ch-home .ch-ending-scene>.ch-collaboration{min-height:100svh;height:100svh}.ch-home .ch-collaboration__up{right:24px;bottom:22px}}
+@media(prefers-reduced-motion:reduce){.ch-home .ch-ending-scene{height:auto}.ch-home .ch-ending-scene>.ch-collaboration{position:relative;height:auto;min-height:660px;clip-path:none}.ch-home .ch-ending-scene .ch-collaboration__center,.ch-home .ch-ending-scene .ch-collaboration__center h2,.ch-home .ch-ending-scene .ch-collaboration__disc span,.ch-home .ch-ending-scene .ch-collaboration__meta,.ch-home .ch-ending-scene .ch-collaboration__footer{transform:none;opacity:1}.ch-home .ch-collaboration__up{opacity:1;transform:none}}
+
 /* First document load only: protect the hero against an undecoded image flash. */
 html.ch-initial-loading .ch-home .ch-hero::after,
 html.ch-initial-revealing .ch-home .ch-hero::after{
