@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import '../styles/about-editorial.css';
 import {projects,base,pathFor} from '../data/projects.js';
-const {lang='en'}=Astro.props;
+const {lang='en'}=Astro.props as {lang?:'en'|'uk'};
 const uk=lang==='uk';
 const prefix=base(lang);
 const story=uk?[
@@ -28,7 +28,7 @@ const entries=[
  {year:'2014',items:[['olenky','Olenky']]},
  {year:'2012',items:[['make-music-day-lviv',uk?'Свято музики у Львові':'Make Music Day Lviv']]}
 ];
-const label=(slug,name)=>{const p=projects.find(x=>x.slug===slug);return p?.name[lang]||name};
+const label=(slug:string,name:string)=>{const p=projects.find(x=>x.slug===slug);return p?.name[lang]||name};
 ---
 <Base lang={lang} title={uk?'Про Марічку':'About'}>
 <div class="ch-about-page">
