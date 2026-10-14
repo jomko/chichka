@@ -59,7 +59,7 @@ body:has(.ch-home){background:var(--ch-white);color:var(--ch-black)}
 .ch-home .ch-work__image:after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.13);pointer-events:none}
 .ch-home .ch-work__index{position:absolute;left:16px;top:12px;font-size:12px;letter-spacing:.06em}
 .ch-home .ch-work__image-label{border:1px solid rgba(255,255,255,.55);padding:7px 12px;font:10px Arial,sans-serif;letter-spacing:.12em;text-align:center}
-.ch-home .ch-work__caption{display:flex;gap:20px;justify-content:space-between;border-top:1px solid #777;padding-top:15px;margin-top:11px}
+.ch-home .ch-work__caption{display:flex;gap:20px;justify-content:space-between;padding-top:15px;margin-top:11px}
 .ch-home .ch-work__caption h3{font:400 clamp(23px,2.35vw,44px)/1.1 Georgia,serif;letter-spacing:-.05em;margin:0 0 9px}
 .ch-home .ch-work__caption p{font:11px/1.6 Arial,sans-serif;letter-spacing:.11em;text-transform:uppercase;color:#bbb;margin:0}
 .ch-home .ch-work__arrow{align-self:start;color:var(--ch-red);font-size:23px;transition:transform .2s}
