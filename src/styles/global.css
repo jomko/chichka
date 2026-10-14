@@ -69,30 +69,30 @@
 
 /* About — artist statement, chronological portfolio, CV. */
 .about-opening{padding-top:clamp(85px,10vw,155px);padding-bottom:clamp(60px,7vw,105px)}
-.about-opening h1{font-size:clamp(60px,9vw,140px);margin:25px 0 20px}
-.about-deck{font-size:clamp(20px,2.4vw,32px);margin:0}
-.about-portrait{width:100%;height:clamp(420px,63vw,850px);overflow:hidden;background:var(--paper)}
-.about-portrait img{object-fit:cover;object-position:center 42%}
-.about-story{display:grid;grid-template-columns:1fr 1fr;gap:10%}
-.about-story h2{margin:26px 0;max-width:590px}
-.about-narrative{max-width:650px}
-.about-narrative p{font-size:clamp(17px,1.4vw,21px);line-height:1.85;margin:0 0 1.35em;color:#4b463e}
-.about-narrative .about-first{font-size:clamp(21px,2vw,29px);line-height:1.58;color:var(--ink)}
-.about-chronology-intro{font-size:18px;color:var(--muted);margin:-15px 0 55px}
-.year-row{border-top:1px solid var(--rule);padding:22px 0;display:grid;grid-template-columns:25% 1fr;gap:5%}
-.year-row:last-child{border-bottom:1px solid var(--rule)}
-.year{font-family:Prata,Georgia,serif;font-size:clamp(23px,2.8vw,40px);letter-spacing:-.06em}
-.year-items{display:flex;flex-wrap:wrap;gap:14px 35px;align-items:center;font-size:clamp(16px,1.5vw,22px)}
-.year-items a{border-bottom:1px solid transparent}.year-items a:hover{border-bottom-color:currentColor}.year-items a span{font-size:13px}
-.about-cv{display:flex;justify-content:space-between;gap:50px;align-items:end}
-.about-cv .display{margin:25px 0 20px;max-width:800px}.about-cv p{font-size:17px;color:var(--muted);max-width:560px}
-.cv-link{font-size:clamp(18px,2vw,28px);white-space:nowrap;padding-bottom:10px;border-bottom:1px solid var(--ink)}
-.cv-link span{margin-left:28px}
-.cv-row{display:grid;grid-template-columns:22% 1fr;gap:5%;border-top:1px solid var(--rule);padding:18px 0}
-.cv-row:last-child{border-bottom:1px solid var(--rule)}.cv-row time{color:var(--muted);font-size:14px}
-.cv-row p{margin:0;font-size:clamp(16px,1.4vw,20px)}
-@media(max-width:800px){.about-story{grid-template-columns:1fr;gap:10px}.about-cv{align-items:start;flex-direction:column;gap:35px}}
-@media(max-width:600px){.about-opening{padding-top:60px;padding-bottom:55px}.about-opening h1{font-size:clamp(49px,12vw,78px)}.about-portrait{height:110vw;max-height:650px}.about-narrative p{font-size:17px}.year-row{grid-template-columns:90px 1fr;gap:16px}.year-items{display:block}.year-items>*{display:block;margin-bottom:8px}.about-chronology-intro{margin-bottom:35px}.cv-row{grid-template-columns:82px 1fr;gap:15px}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media(max-width:800px){}
+@media(max-width:600px){}
 
 /* Wider editorial canvas only for Selected Projects on the homepage. */
 .wrap--portfolio{max-width:1920px;padding-inline:clamp(20px,4vw,76px)}
