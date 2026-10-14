@@ -38,7 +38,8 @@ document.addEventListener('click',async(event)=>{
  event.preventDefault();event.stopImmediatePropagation();
  // Discipline thumbnails may be CSS-transformed; measure their visible crop frame instead.
  // Selected Work retains its existing, verified image geometry.
- const frame=link.classList.contains('ch-discipline')?link.querySelector<HTMLElement>('.ch-preview'):null;
+ const discipline=link.classList.contains('ch-discipline');
+ const frame=discipline?link.querySelector<HTMLElement>('.ch-preview'):null;
  const initial=(frame||original).getBoundingClientRect();
  const layer=document.createElement('div');
  const photo=original.cloneNode() as HTMLImageElement;
@@ -46,9 +47,12 @@ document.addEventListener('click',async(event)=>{
  layer.className='ch-transition-stage';
  photo.removeAttribute('loading');
  photo.style.objectPosition=getComputedStyle(original).objectPosition;
- // The floating photo is never scaled by thumbnail hover/parallax styles.
- photo.style.transform='none';
- photo.style.transition='none';
+ if(discipline){
+  // The overlay animates the uncropped original, not a transformed thumbnail.
+  photo.style.transform='none';
+  photo.style.transition='none';
+  photo.style.filter='none';
+ }
  layer.append(photo);
  document.documentElement.appendChild(layer);
  Object.assign(layer.style,rectangle(initial));
@@ -61,11 +65,7 @@ document.addEventListener('click',async(event)=>{
   await paint();
   await sleep(200); // Actual visible full-screen hold, NOT concurrent with expansion.
   current.phase='loading';
-  // Drop the hash while Astro swaps; hash navigation must not scroll underneath the transition.
-  const destination=new URL(current.url);
-  const hash=destination.hash;
-  destination.hash='';
-  await navigate(destination.href); // Incoming figure was hidden in astro:before-swap.
+  await navigate(current.url); // Incoming figure was hidden in astro:before-swap.
   if(session!==current)return;
   const figure=document.querySelector<HTMLElement>(selector(current.slug));
   const destImg=figure?.querySelector<HTMLImageElement>('img');
@@ -87,23 +87,17 @@ document.addEventListener('click',async(event)=>{
   figure.style.visibility='';
   figure.removeAttribute('data-ch-arrival');
   restore();
-  // One deliberate final position, after the photographic handoff.
-  // Page -> top. Anchor -> title (not the section photo).
-  if(hash){
-   history.replaceState(history.state,'',current.url);
-   const id=decodeURIComponent(hash.slice(1));
-   const section=document.getElementById(id);
-   const title=section?.querySelector<HTMLElement>('.ch-projects__chapter-heading h2, h1, h2');
-   const target=title||section;
-   if(target){
-    const header=document.querySelector<HTMLElement>('.header');
-    const offset=(header?.getBoundingClientRect().height||0)+24;
-    const top=Math.max(0,target.getBoundingClientRect().top+scrollY-offset);
-    scrollTo({top,behavior:'instant'});
-   }else scrollTo({top:0,behavior:'instant'});
-  }else{
-   scrollTo({top:0,behavior:'instant'});
-  }
+  // Once the image has landed, return to the beginning of the new project page.
+  // Do not change scroll position until the photographic handoff is complete.
+  // Discipline links land at their new section; project detail links return to page top.
+  const anchor=new URL(current.url).hash;
+  requestAnimationFrame(()=>{
+   if(anchor){
+    const section=document.getElementById(decodeURIComponent(anchor.slice(1)));
+    if(section){section.scrollIntoView({behavior:'smooth',block:'start'});return;}
+   }
+   scrollTo({top:0,behavior:'smooth'});
+  });
  }catch(error){
   const fallbackUrl=current.url;
   restore();
