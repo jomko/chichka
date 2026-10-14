@@ -6,6 +6,7 @@ function updateHeroScene(){
  queued=false;
  updateManagementPhoto();
  updateAboutPhoto();
+ updateAboutReveal();
  updateCollaboration();
  const scene=document.querySelector<HTMLElement>('.ch-home .ch-hero-scene');
  const hero=scene?.querySelector<HTMLElement>('.ch-hero');
@@ -48,6 +49,18 @@ function updateAboutPhoto(){
  const shift=(progress-.5)*box.height*.08;
  photo.style.setProperty('--ch-about-parallax',`${shift.toFixed(2)}px`);
 }
+function updateAboutReveal(){
+ const section=document.querySelector<HTMLElement>('.ch-home .ch-about');
+ if(!section)return;
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+  section.style.removeProperty('--ch-about-reveal');
+  return;
+ }
+ const bounds=section.getBoundingClientRect();
+ // Reveal the entire editorial panel before it reaches the middle of the viewport.
+ const progress=smooth((innerHeight*.95-bounds.top)/(innerHeight*.72));
+ section.style.setProperty('--ch-about-reveal',progress.toFixed(4));
+}
 function updateCollaboration(){
  const section=document.querySelector<HTMLElement>('.ch-home .ch-collaboration');
  if(!section)return;
@@ -56,7 +69,7 @@ function updateCollaboration(){
   return;
  }
  const rect=section.getBoundingClientRect();
- const progress=smooth((innerHeight-rect.top)/(innerHeight+rect.height*.45));
+ const progress=smooth((innerHeight*.92-rect.top)/(innerHeight*.75));
  section.style.setProperty('--ch-collab-progress',progress.toFixed(4));
 }
 function schedule(){if(!queued){queued=true;requestAnimationFrame(updateHeroScene)}}
