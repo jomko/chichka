@@ -17,7 +17,7 @@ const selectedImages:Record<string,string>={
 const workLabel=(p:(typeof projects)[number])=>p.role[lang] || p.intro[lang];
 const disciplines=[
  {title:uk?'Музика й виступи':'Music & Performance',desc:uk?'Традиційний спів · концерти · співпраця':'Traditional songs · concerts · collaborations',href:prefix+'/projects/#artist'},
- {title:uk?'Культурний менеджмент':'Cultural Management',desc:uk?'Фестивалі · резиденції · культурні проєкти':'Festivals · residencies · cultural projects',href:prefix+'/projects/#management'},
+ {title:uk?'Культурний менеджмент':'Cultural Management',desc:uk?'Фестивалі · резиденції · культурні проєкти':'Festivals · residencies · cultural projects',href:prefix+'/projects/#management',context:uk?'Організовую фестивалі, підтримую незалежні культурні простори й створюю умови для зустрічей митців та аудиторій.':'I direct festivals, work with independent cultural spaces and bring artists and audiences together.'},
  {title:uk?'Голосові практики й навчання':'Voice Practices & Teaching',desc:uk?'Голос · майстерні · традиція':'Voice work · workshops · tradition',href:prefix+'/projects/#voice'}
 ];
 ---
@@ -31,7 +31,7 @@ const disciplines=[
  </section>
  </div>
  <section class="ch-disciplines" aria-label={uk?'Напрями діяльності':'Areas of practice'}>
- {disciplines.map((d,i)=><a class="ch-discipline" data-project-entry={`discipline-${['artist','management','voice'][i]}`} href={d.href}><span class="ch-number">0{i+1}</span><h2>{d.title}</h2><span class="ch-detail">{d.desc}<br/>↗</span><div class="ch-preview" aria-hidden="true"><img class="ch-work__photo" src={`/m${i+1}.jpg`} alt="" loading="lazy" decoding="async" width="1024" height="1024" /></div></a>)}
+ {disciplines.map((d,i)=><a class={'ch-discipline'+(i===1?' ch-discipline--management':'')} data-project-entry={`discipline-${['artist','management','voice'][i]}`} href={d.href}><span class="ch-number">0{i+1}</span><div class="ch-discipline__copy"><h2>{d.title}</h2>{i===1 && <p class="ch-discipline__context">{d.context}</p>}</div><span class="ch-detail">{d.desc}<br/>↗</span><div class="ch-preview" aria-hidden="true"><img class="ch-work__photo" src={`/m${i+1}.jpg`} alt="" loading="lazy" decoding="async" width="1024" height="1024" /></div></a>)}
  </section>
  <section class="ch-work" id="selected-work" aria-labelledby="ch-work-heading">
   <header class="ch-work__header">
