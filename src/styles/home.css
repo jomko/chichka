@@ -24,6 +24,7 @@ body:has(.ch-home){background:var(--ch-white);color:var(--ch-black)}
 .ch-home .ch-discipline__copy{min-width:0}
 .ch-home .ch-discipline--management .ch-discipline__context{max-width:570px;margin:clamp(15px,1.8vw,28px) 0 0;font:400 clamp(17px,1.35vw,23px)/1.4 Georgia,serif;letter-spacing:-.025em}
 .ch-home .ch-discipline--management .ch-preview img{transform:scale(1.12) translate3d(0,var(--ch-management-shift,0px),0);will-change:transform}
+.ch-home .ch-discipline--management:hover .ch-preview img{transform:scale(1.12) translate3d(0,var(--ch-management-shift,0px),0)}
 @media(max-width:600px){.ch-home .ch-discipline--management .ch-discipline__context{font-size:17px;max-width:34ch}}
 @media(prefers-reduced-motion:reduce){.ch-home .ch-discipline--management .ch-preview img{transform:none;will-change:auto}}
 .ch-home .ch-preview{aspect-ratio:1.9;background:#d2d2d0;position:relative;overflow:hidden;display:block}
