@@ -24,7 +24,7 @@ async function withTimeout<T>(promise:Promise<T>,ms:number):Promise<T>{
 // Hiding after navigate() resolves is too late: the first frame already contains a duplicate.
 document.addEventListener('astro:before-swap',(event)=>{
  if(!session)return;
- const next=(event as CustomEvent & {newDocument:Document}).newDocument;
+ const next=(event as typeof event & {newDocument:Document}).newDocument;
  const figure=next?.querySelector<HTMLElement>(selector(session.slug));
  if(figure){figure.style.visibility='hidden';figure.setAttribute('data-ch-arrival','');}
 });
