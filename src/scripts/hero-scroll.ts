@@ -4,6 +4,7 @@ const smooth=(t:number)=>{const x=clamp(t);return x*x*(3-2*x)};
 let queued=false;
 function updateHeroScene(){
  queued=false;
+ updateManagementPhoto();
  const scene=document.querySelector<HTMLElement>('.ch-home .ch-hero-scene');
  const hero=scene?.querySelector<HTMLElement>('.ch-hero');
  if(!scene||!hero)return;
@@ -20,6 +21,16 @@ function updateHeroScene(){
  hero.style.setProperty('--ch-camera',camera.toFixed(4));
  hero.style.setProperty('--ch-exit',exit.toFixed(4));
  hero.style.setProperty('--ch-frame',`${(frame*7.5).toFixed(3)}vw`);
+}
+function updateManagementPhoto(){
+ const row=document.querySelector<HTMLElement>('.ch-home .ch-discipline--management');
+ const photo=row?.querySelector<HTMLElement>('.ch-preview img');
+ if(!row||!photo)return;
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches){photo.style.removeProperty('--ch-management-shift');return;}
+ const bounds=row.getBoundingClientRect();
+ const distance=innerHeight+bounds.height;
+ const progress=clamp((innerHeight-bounds.top)/distance);
+ photo.style.setProperty('--ch-management-shift',`${((progress-.5)*20).toFixed(2)}px`);
 }
 function schedule(){if(!queued){queued=true;requestAnimationFrame(updateHeroScene)}}
 window.addEventListener('scroll',schedule,{passive:true});
