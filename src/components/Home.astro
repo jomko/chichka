@@ -1,20 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
-import {t,base,projects,pathFor} from '../data/projects.js';
+import {base,projects,pathFor} from '../data/projects.js';
 import '../styles/home.css';
-const {lang}=Astro.props;
+const {lang}=Astro.props as {lang:'en'|'uk'};
 const prefix=base(lang);
 const uk=lang==='uk';
 const selectedSlugs=['make-music-day-lviv','spivmaisternia','slavalachia','cycles','local-cultural-support'];
-const selected=selectedSlugs.map(slug=>projects.find(p=>p.slug===slug)).filter(Boolean);
-const selectedImages={
+const selected=selectedSlugs.flatMap(slug=>{const project=projects.find(p=>p.slug===slug);return project?[project]:[];});
+const selectedImages:Record<string,string>={
  'make-music-day-lviv':'/assets/fete.png',
  'spivmaisternia':'/spivmaisternia-wide.webp',
  'slavalachia':'/assets/slavalacha.png',
  'cycles':'/assets/cycles.png',
  'local-cultural-support':'/assets/lkp.png'
 };
-const workLabel=(p)=>p.role[lang] || p.intro[lang];
+const workLabel=(p:(typeof projects)[number])=>p.role[lang] || p.intro[lang];
 const disciplines=[
  {title:uk?'Музика й виступи':'Music & Performance',desc:uk?'Традиційний спів · концерти · співпраця':'Traditional songs · concerts · collaborations',href:prefix+'/projects/#artist'},
  {title:uk?'Культурний менеджмент':'Cultural Management',desc:uk?'Фестивалі · резиденції · культурні проєкти':'Festivals · residencies · cultural projects',href:prefix+'/projects/#management'},
