@@ -36,13 +36,23 @@ document.addEventListener('click',async(event)=>{
  const original=link.querySelector<HTMLImageElement>('.ch-work__photo');
  if(!original?.complete || !original.naturalWidth)return;
  event.preventDefault();event.stopImmediatePropagation();
- const initial=original.getBoundingClientRect();
+ // Discipline thumbnails may be CSS-transformed; measure their visible crop frame instead.
+ // Selected Work retains its existing, verified image geometry.
+ const discipline=link.classList.contains('ch-discipline');
+ const frame=discipline?link.querySelector<HTMLElement>('.ch-preview'):null;
+ const initial=(frame||original).getBoundingClientRect();
  const layer=document.createElement('div');
  const photo=original.cloneNode() as HTMLImageElement;
  layer.setAttribute('aria-hidden','true');
  layer.className='ch-transition-stage';
  photo.removeAttribute('loading');
  photo.style.objectPosition=getComputedStyle(original).objectPosition;
+ if(discipline){
+  // The overlay animates the uncropped original, not a transformed thumbnail.
+  photo.style.transform='none';
+  photo.style.transition='none';
+  photo.style.filter='none';
+ }
  layer.append(photo);
  document.documentElement.appendChild(layer);
  Object.assign(layer.style,rectangle(initial));
