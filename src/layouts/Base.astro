@@ -115,7 +115,14 @@ if(!window.__chDocumentBooted){
   const header=document.querySelector('.header');
   const hero=document.querySelector('.ch-home .ch-hero');
   if(!header)return;
-  header.classList.toggle('is-scrolled',!!hero && hero.getBoundingClientRect().bottom<=header.getBoundingClientRect().height);
+  const scene=document.querySelector('.ch-home .ch-hero-scene');
+  if(scene && hero){
+   const travel=scene.getBoundingClientRect().height-hero.getBoundingClientRect().height;
+   const progress=travel>0?Math.max(0,Math.min(1,-scene.getBoundingClientRect().top/travel)):0;
+   header.classList.toggle('is-scrolled',progress>=.65);
+  }else{
+   header.classList.toggle('is-scrolled',!!hero && hero.getBoundingClientRect().bottom<=header.getBoundingClientRect().height);
+  }
  };
  window.addEventListener('scroll',update,{passive:true});
  window.addEventListener('resize',update,{passive:true});
