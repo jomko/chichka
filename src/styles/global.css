@@ -46,8 +46,6 @@
 .project-card .placeholder{overflow-wrap:anywhere}
 
 /* Sticky navigation on desktop and mobile; solid editorial-paper backdrop. */
-.header{position:sticky;top:0;z-index:1000;background:var(--paper);background:rgba(245,241,235,.97);isolation:isolate}
-@supports (padding-top: env(safe-area-inset-top)){.header{top:0}}
 
 /* Art-directed portfolio thumbnails: respect posters and graphic design. */
 .project-card--artwork figure{background:#e8e3dc}
@@ -67,32 +65,7 @@
 .project-card--logo figure img{width:100%;height:auto;max-height:none;object-fit:contain}
 @media(max-width:600px){.project-card--logo figure{padding:0}}
 
-/* About — artist statement, chronological portfolio, CV. */
-.about-opening{padding-top:clamp(85px,10vw,155px);padding-bottom:clamp(60px,7vw,105px)}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@media(max-width:800px){}
-@media(max-width:600px){}
 
 /* Wider editorial canvas only for Selected Projects on the homepage. */
 .wrap--portfolio{max-width:1920px;padding-inline:clamp(20px,4vw,76px)}
@@ -107,8 +80,6 @@ html{scroll-padding-top:90px}
 /* Refined independent-artist portfolio: restrained and photographic. */
 :root{--paper:#f6f3ee;--ink:#252321;--rule:#cec7bf;--accent:#803b48}
 body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-.header{background:rgba(246,243,238,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.wordmark{letter-spacing:-.045em}
 .navigation a{transition:color .2s ease}
 .hero-contact{display:inline-flex;align-items:center;gap:40px;margin-top:38px;border-bottom:1px solid currentColor;padding:0 0 9px;font-size:14px;letter-spacing:.025em}
 .hero-contact span{transition:transform .25s ease}
@@ -117,7 +88,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 .project-card:hover figure img{transform:scale(1.025)}
 .project-card h3{transition:color .2s ease}
 .section .display{letter-spacing:-.06em}
-.text-link,.cv-link{transition:color .2s ease,border-color .2s ease}
+.text-link{transition:color .2s ease,border-color .2s ease}
 @media(prefers-reduced-motion:reduce){.project-card figure img,.navigation a,.hero-contact span{transition:none}}
 
 /* Editorial Cut: typography cuts in; still images are uncovered by a fixed mask. */
@@ -137,12 +108,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 }
 
 /* Keep fixed photographic backgrounds outside reveal transforms. */
-.editorial-interlude {
-  opacity: 1;
-  transform: none;
-  transition: none;
-}
-
+.editorial-interlude{opacity:1;transform:none;transition:none}
 /* Portrait diptychs: a fixed photographic window on desktop. */
 .editorial-interlude{background-color:var(--paper);background-repeat:no-repeat;background-size:cover;background-position:center;}
 .editorial-interlude--after-about{background-image:url('/assets/images/face_top.png')}
