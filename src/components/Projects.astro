@@ -19,17 +19,13 @@ const groups=[
 ---
 <Base lang={lang} title={t(lang,'projects')}>
 <div class="ch-projects" id="portfolio">
- <header class="ch-projects__opening">
-  <div class="ch-projects__meta"><span>PORTFOLIO / 01—03</span><span>MARICHKA CHICHKOVA · LVIV</span></div>
-  <h1>{uk?'ПРОЄКТИ':'SELECTED'}<br/><em>{uk?'ТА ПРАКТИКИ':'PROJECTS'}</em><span class="ch-projects__mark" aria-hidden="true">↗</span></h1>
-  <p>{t(lang,'allIntro')}</p>
- </header>
+ <h1 class="ch-projects__visually-hidden">{uk?'Проєкти та практики':'Selected Projects'}</h1>
  {groups.map(group=><section class="ch-projects__chapter" id={group.id} aria-labelledby={`chapter-${group.id}`}>
    <figure class="ch-project-group__photo" data-project-image={`discipline-${group.id}`}>
      <img src={group.photo} alt="" loading="eager" decoding="async" width="1920" height="1080"/>
    </figure>
    <div class="ch-projects__chapter-heading"><span>{group.number} / 03</span><h2 id={`chapter-${group.id}`}>{group.name}</h2><span>{String(group.items.length).padStart(2,'0')} {uk?'ПРОЄКТІВ':'PROJECTS'}</span></div>
-   <div class="ch-projects__grid">
+   <div class={"ch-projects__grid"+(group.id==='voice'?" ch-projects__grid--single":"")}>
      {group.items.map(p=><a class="ch-projects__card" href={pathFor(lang,p.slug)}>
        <figure class={p.slug==='local-cultural-support'?'ch-projects__card-photo ch-projects__card-photo--logo':'ch-projects__card-photo'}>
          {images[p.slug]||p.image?<img src={images[p.slug]||p.image} alt={p.name[lang]} loading="lazy" decoding="async"/>:<span class="ch-projects__placeholder">{p.name[lang]}</span>}
