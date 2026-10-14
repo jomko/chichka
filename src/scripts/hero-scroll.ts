@@ -5,6 +5,7 @@ let queued=false;
 function updateHeroScene(){
  queued=false;
  updateManagementPhoto();
+ updateAboutPhoto();
  const scene=document.querySelector<HTMLElement>('.ch-home .ch-hero-scene');
  const hero=scene?.querySelector<HTMLElement>('.ch-hero');
  if(!scene||!hero)return;
@@ -31,6 +32,20 @@ function updateManagementPhoto(){
  const distance=innerHeight+bounds.height;
  const progress=clamp((innerHeight-bounds.top)/distance);
  photo.style.setProperty('--ch-management-shift',`${((progress-.5)*20).toFixed(2)}px`);
+}
+function updateAboutPhoto(){
+ const frame=document.querySelector<HTMLElement>('.ch-home .ch-about__image');
+ const photo=frame?.querySelector<HTMLElement>('img');
+ if(!frame||!photo)return;
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+  photo.style.removeProperty('--ch-about-parallax');
+  return;
+ }
+ const box=frame.getBoundingClientRect();
+ const progress=clamp((innerHeight-box.top)/(innerHeight+box.height));
+ // Reserve 5% overscan above and below, so the image never exposes an edge.
+ const shift=(progress-.5)*box.height*.08;
+ photo.style.setProperty('--ch-about-parallax',`${shift.toFixed(2)}px`);
 }
 function schedule(){if(!queued){queued=true;requestAnimationFrame(updateHeroScene)}}
 window.addEventListener('scroll',schedule,{passive:true});
