@@ -38,7 +38,7 @@ document.addEventListener('click',async(event)=>{
  event.preventDefault();event.stopImmediatePropagation();
  // Discipline thumbnails may be CSS-transformed; measure their visible crop frame instead.
  // Selected Work retains its existing, verified image geometry.
- const frame=link.querySelector<HTMLElement>('.ch-preview, .ch-work__image');
+ const frame=link.classList.contains('ch-discipline')?link.querySelector<HTMLElement>('.ch-preview'):null;
  const initial=(frame||original).getBoundingClientRect();
  const layer=document.createElement('div');
  const photo=original.cloneNode() as HTMLImageElement;
