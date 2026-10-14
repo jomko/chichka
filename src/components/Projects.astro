@@ -2,9 +2,9 @@
 import Base from '../layouts/Base.astro';
 import {projects,t,pathFor} from '../data/projects.js';
 import '../styles/project-sections.css';
-const {lang}=Astro.props;
+const {lang}=Astro.props as {lang:'en'|'uk'};
 const uk=lang==='uk';
-const images={
+const images:Record<string,string>={
  'make-music-day-lviv':'/assets/fete.png',
  'spivmaisternia':'/spivmaisternia-wide.webp',
  'slavalachia':'/assets/slavalacha.png',
@@ -30,7 +30,7 @@ const groups=[
    </figure>
    <div class="ch-projects__chapter-heading"><span>{group.number} / 03</span><h2 id={`chapter-${group.id}`}>{group.name}</h2><span>{String(group.items.length).padStart(2,'0')} {uk?'ПРОЄКТІВ':'PROJECTS'}</span></div>
    <div class="ch-projects__grid">
-     {group.items.map((p,i)=><a class="ch-projects__card" href={pathFor(lang,p.slug)}>
+     {group.items.map(p=><a class="ch-projects__card" href={pathFor(lang,p.slug)}>
        <figure class={p.slug==='local-cultural-support'?'ch-projects__card-photo ch-projects__card-photo--logo':'ch-projects__card-photo'}>
          {images[p.slug]||p.image?<img src={images[p.slug]||p.image} alt={p.name[lang]} loading="lazy" decoding="async"/>:<span class="ch-projects__placeholder">{p.name[lang]}</span>}
        </figure>
