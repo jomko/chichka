@@ -24,7 +24,7 @@ const summary=description||t(lang,'intro');
 <script is:inline>
 if(!window.__chDocumentBooted){
  window.__chDocumentBooted=true;
- if(/^\\/(?:uk\\/?)?$/.test(location.pathname)){
+ if(['/', '/uk', '/uk/'].includes(location.pathname)){
   document.documentElement.classList.add('ch-initial-loading');
   // Fail open if the bundle or image never becomes ready.
   setTimeout(()=>document.documentElement.classList.remove('ch-initial-loading','ch-initial-revealing'),6500);
