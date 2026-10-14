@@ -189,3 +189,23 @@ html.ch-initial-revealing .ch-home .ch-hero::after{
 @media(prefers-reduced-motion:reduce){
  html.ch-initial-revealing .ch-home .ch-hero::after{transition:none}
 }
+
+/* Cinematic scroll scene: scroll position drives the composition, never the scroll itself. */
+.ch-home .ch-hero-scene{height:205svh;position:relative;background:var(--ch-white)}
+.ch-home .ch-hero-scene>.ch-hero{position:sticky;top:0;height:100svh;min-height:100svh;overflow:hidden;--ch-scroll:0;--ch-frame:0px}
+.ch-home .ch-hero-scene .ch-photo{inset:var(--ch-frame);will-change:inset}
+.ch-home .ch-hero-scene .ch-photo img{transform:scale(calc(1 + var(--ch-scroll)*.07)) translateX(calc(var(--ch-scroll)*-1.6%));transform-origin:65% 45%;will-change:transform}
+.ch-home .ch-hero-scene .ch-title{transform:translateY(calc(var(--ch-scroll)*-32vh));opacity:calc(1 - var(--ch-scroll)*2.15);will-change:transform,opacity}
+.ch-home .ch-hero-scene .ch-hero__bottom{transform:translateY(calc(var(--ch-scroll)*-15vh));opacity:calc(1 - var(--ch-scroll)*2.6);will-change:transform,opacity}
+.ch-home .ch-hero-scene .ch-hero{background:var(--ch-white)}
+@media(max-width:600px){
+ .ch-home .ch-hero-scene{height:170svh}
+ .ch-home .ch-hero-scene>.ch-hero{height:90svh;min-height:90svh}
+ .ch-home .ch-hero-scene .ch-title{transform:translateY(calc(var(--ch-scroll)*-22vh))}
+}
+@media(prefers-reduced-motion:reduce){
+ .ch-home .ch-hero-scene{height:auto}
+ .ch-home .ch-hero-scene>.ch-hero{position:relative;height:auto;min-height:90svh}
+ .ch-home .ch-hero-scene .ch-photo{inset:0}
+ .ch-home .ch-hero-scene .ch-photo img,.ch-home .ch-hero-scene .ch-title,.ch-home .ch-hero-scene .ch-hero__bottom{transform:none;opacity:1}
+}
