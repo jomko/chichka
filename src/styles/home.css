@@ -175,3 +175,17 @@ body:has(.ch-home){background:var(--ch-white);color:var(--ch-black)}
  .ch-home .ch-discipline .ch-preview img{transition:transform .6s ease}
  .ch-home .ch-discipline:hover .ch-preview img{transform:scale(1.035)}
 }
+
+/* First document load only: protect the hero against an undecoded image flash. */
+html.ch-initial-loading .ch-home .ch-hero::after,
+html.ch-initial-revealing .ch-home .ch-hero::after{
+ content:"";position:absolute;inset:0;z-index:5;pointer-events:none;background:#111;
+ clip-path:inset(0 0 0 0);
+}
+html.ch-initial-revealing .ch-home .ch-hero::after{
+ clip-path:inset(0 0 0 100%);
+ transition:clip-path 440ms cubic-bezier(.76,0,.24,1);
+}
+@media(prefers-reduced-motion:reduce){
+ html.ch-initial-revealing .ch-home .ch-hero::after{transition:none}
+}
