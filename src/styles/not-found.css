@@ -37,3 +37,25 @@
  .ch-lost__bottom nav{justify-content:space-between;gap:16px}
 }
 @media(prefers-reduced-motion:reduce){.ch-lost__bottom a{transition:none}}
+
+/* 404 composition: oversized numeral crosses the photographic boundary. */
+.ch-lost__canvas{grid-template-rows:minmax(510px,1fr) auto;padding-top:clamp(18px,3vw,45px)}
+.ch-lost__scene{min-height:510px}
+.ch-lost__portrait{inset:0 -8.85% 0 27%}
+.ch-lost__number{font-size:clamp(240px,37vw,690px);letter-spacing:-.105em;z-index:3;transform:translateX(-.025em)}
+.ch-lost__number span:nth-child(2){-webkit-text-stroke:2px #f5f1eb}
+.ch-lost__note{left:0;right:auto;bottom:9%;width:min(30%,390px);z-index:4}
+.ch-lost__bottom nav a{font-size:clamp(17px,1.5vw,25px);padding-bottom:11px}
+@media(max-width:900px){
+ .ch-lost__portrait{inset:4% -9% 0 18%}
+ .ch-lost__number{font-size:38vw}
+ .ch-lost__note{left:0;right:auto;bottom:7%;width:40%}
+}
+@media(max-width:600px){
+ .ch-lost__canvas{grid-template-rows:minmax(440px,1fr) auto;padding-top:16px}
+ .ch-lost__scene{min-height:440px;padding-top:65px}
+ .ch-lost__portrait{inset:0 -20px 13% 5%}
+ .ch-lost__number{font-size:43vw}
+ .ch-lost__note{left:0;right:auto;bottom:5%;width:86%;background:linear-gradient(90deg,#111d,#1115);padding:14px 12px}
+ .ch-lost__bottom nav a{font-size:15px}
+}
