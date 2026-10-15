@@ -1,6 +1,7 @@
 // Native scroll-linked hero choreography. No scroll interception or dependencies.
 const clamp=(value:number)=>Math.max(0,Math.min(1,value));
 const smooth=(t:number)=>{const x=clamp(t);return x*x*(3-2*x)};
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 let queued=false;
 function updateHeroScene(){
  queued=false;
@@ -10,9 +11,8 @@ function updateHeroScene(){
  const scene=document.querySelector<HTMLElement>('.ch-home .ch-hero-scene');
  const hero=scene?.querySelector<HTMLElement>('.ch-hero');
  if(!scene||!hero)return;
- if(matchMedia('(prefers-reduced-motion: reduce)').matches){
-  hero.style.removeProperty('--ch-scroll');
-  hero.style.removeProperty('--ch-frame');
+ if(reducedMotion.matches){
+  for(const key of ['--ch-camera','--ch-exit','--ch-frame'])hero.style.removeProperty(key);
   return;
  }
  const range=scene.offsetHeight-hero.offsetHeight;
@@ -28,7 +28,7 @@ function updateManagementPhoto(){
  const row=document.querySelector<HTMLElement>('.ch-home .ch-discipline--management');
  const photo=row?.querySelector<HTMLElement>('.ch-preview img');
  if(!row||!photo)return;
- if(matchMedia('(prefers-reduced-motion: reduce)').matches){photo.style.removeProperty('--ch-management-shift');return;}
+ if(reducedMotion.matches){photo.style.removeProperty('--ch-management-shift');return;}
  const bounds=row.getBoundingClientRect();
  const distance=innerHeight+bounds.height;
  const progress=clamp((innerHeight-bounds.top)/distance);
@@ -39,7 +39,7 @@ function updateAboutScene(){
  const scene=document.querySelector<HTMLElement>('.ch-home .ch-about-scene');
  const about=scene?.querySelector<HTMLElement>('.ch-about');
  if(!scene||!about)return;
- if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+ if(reducedMotion.matches){
   for(const key of ['--ch-about-frame','--ch-about-exit','--ch-about-camera'])about.style.removeProperty(key);
   return;
  }
@@ -55,7 +55,7 @@ function updateAboutScene(){
 function updateCollaboration(){
  const section=document.querySelector<HTMLElement>('.ch-home .ch-collaboration');
  if(!section)return;
- if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+ if(reducedMotion.matches){
   section.style.removeProperty('--ch-collab-progress');
   return;
  }
@@ -64,6 +64,7 @@ function updateCollaboration(){
  section.style.setProperty('--ch-collab-progress',progress.toFixed(4));
 }
 function schedule(){if(!queued){queued=true;requestAnimationFrame(updateHeroScene)}}
+reducedMotion.addEventListener('change',schedule);
 window.addEventListener('scroll',schedule,{passive:true});
 window.addEventListener('resize',schedule,{passive:true});
 document.addEventListener('astro:page-load',schedule);

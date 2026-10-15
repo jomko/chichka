@@ -20,6 +20,10 @@ async function withTimeout<T>(promise:Promise<T>,ms:number):Promise<T>{
  try{return await Promise.race([promise,new Promise<never>((_,reject)=>{timer=setTimeout(()=>reject(new Error('Image load timeout')),ms)})]);}
  finally{if(timer)clearTimeout(timer);}
 }
+// A newer navigation owns the page; do not let an older photo handoff redirect it.
+document.addEventListener('astro:before-preparation',event=>{
+ if(session && (event as Event & {to:URL}).to.href!==session.url)restore();
+});
 // Hide the destination figure BEFORE Astro swaps it into the live document.
 // Hiding after navigate() resolves is too late: the first frame already contains a duplicate.
 document.addEventListener('astro:before-swap',(event)=>{
@@ -102,8 +106,9 @@ document.addEventListener('click',async(event)=>{
   });
  }catch(error){
   const fallbackUrl=current.url;
+  const shouldFallback=session===current && location.href!==fallbackUrl;
   restore();
-  if(location.href!==fallbackUrl)location.assign(fallbackUrl);
+  if(shouldFallback)location.assign(fallbackUrl);
  }
 },{capture:true});
 window.addEventListener('pagehide',()=>{if(session)restore()});
