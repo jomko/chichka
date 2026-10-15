@@ -131,6 +131,8 @@ body:has(.ch-home){background:var(--ch-white);color:var(--ch-black)}
 .ch-home .ch-discipline .ch-detail{grid-column:2;grid-row:2;display:block;font-size:11px;line-height:1.7}
 .ch-home .ch-discipline .ch-preview{grid-column:1/-1;grid-row:3;width:100%;height:auto;justify-self:stretch;aspect-ratio:auto;margin-top:clamp(20px,3vw,45px)}
 .ch-home .ch-discipline .ch-preview img{width:100%;height:100%;object-fit:cover}
+/* Calm the burgundy-and-olive photo series without altering source images. */
+.ch-home .ch-disciplines .ch-preview img{filter:saturate(.86)}
 .ch-home .ch-discipline:nth-child(1){grid-column:1/8;grid-row:1}
 .ch-home .ch-discipline:nth-child(1) .ch-preview{aspect-ratio:1.2}
 .ch-home .ch-discipline:nth-child(1) .ch-preview img{object-position:62% center}
