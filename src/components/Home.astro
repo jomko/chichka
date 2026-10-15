@@ -41,9 +41,9 @@ const disciplines=[
    <a class="ch-work__all" href={prefix+'/projects/'}>{uk?'Усі проєкти':'All projects'} <span aria-hidden="true">↗</span></a>
   </header>
   <div class="ch-work__grid">
-   {selected.map((p,i)=><a class={'ch-work__item ch-work__item--'+(i+1)} data-project-entry={p.slug} href={pathFor(lang,p.slug)} aria-label={p.name[lang]+': '+workLabel(p)}>
+   {selected.map((p,i)=><a class={'ch-work__item ch-work__item--'+(i+1)} data-project-entry={p.slug} href={pathFor(lang,p.slug)}>
     <div class="ch-work__image">
-     {selectedImages[p.slug] && <img class="ch-work__photo" src={selectedImages[p.slug]} alt={p.name[lang]} loading="lazy" decoding="async" />}
+     {selectedImages[p.slug] && <img class="ch-work__photo" src={selectedImages[p.slug]} alt="" loading="lazy" decoding="async" />}
      <span class="ch-work__index">0{i+1}</span>
     </div>
     <div class="ch-work__caption">
