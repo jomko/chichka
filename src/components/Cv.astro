@@ -38,6 +38,7 @@ const groups=[
   <div class="ch-cv__eyebrow"><span>MARICHKA CHICHKOVA</span><span>CURRICULUM VITAE / 2026</span></div>
   <h1>EXPERIENCE<span class="ch-cv__mark" aria-hidden="true">↗</span><br/><em>&amp; PRACTICE</em></h1>
   <div class="ch-cv__opening-bottom"><span>{uk?'МИСТКИНЯ · КУЛЬТУРНА МЕНЕДЖЕРКА':'ARTIST · CULTURAL MANAGER'}</span><p>{uk?'Музика, культурні проєкти, освіта й люди — професійний досвід у різних контекстах.':'Music, cultural projects, education and people — professional experience across different contexts.'}</p></div>
+  <button class="ch-cv__pdf-action" type="button" onclick="window.print()">{uk?'Зберегти PDF':'Save as PDF'} <span aria-hidden="true">↗</span></button>
  </header>
  {groups.map((g,i)=><section class="ch-cv__chapter" aria-labelledby={`cv-chapter-${i}`}>
   <div class="ch-cv__chapter-heading"><span>0{i+1} / 03</span><h2 id={`cv-chapter-${i}`}>{g.title}</h2><span>{String(g.items.length).padStart(2,'0')} {uk?'ЗАПИСІВ':'ENTRIES'}</span></div>
