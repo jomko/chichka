@@ -1,32 +1,16 @@
-/* 404 — photographic triptych, one interaction. */
-.ch-missing{--yellow:#bf8300;--dark:#261915;--gap:clamp(3px,.42vw,9px);background:var(--yellow);color:var(--dark);min-height:calc(100svh - 76px);padding:clamp(20px,2.8vw,45px) var(--site-content-gutter) clamp(24px,3vw,50px);display:grid;grid-template-rows:auto auto minmax(360px,1fr) auto;overflow:hidden;isolation:isolate}
-.ch-missing__top{display:flex;justify-content:space-between;font:10px/1.2 Arial,sans-serif;letter-spacing:.16em}
-.ch-missing__title{position:relative;z-index:5;margin:clamp(22px,3vw,46px) 0 -0.15em;font:800 clamp(52px,10vw,175px)/.85 Arial,Helvetica,sans-serif;letter-spacing:-.09em;max-width:1050px;pointer-events:none}
-.ch-missing__stage{position:relative;display:block;justify-self:center;align-self:stretch;width:min(100%,1150px);min-height:360px;cursor:pointer;isolation:isolate;color:inherit}
-.ch-missing__stage:focus-visible{outline:3px solid var(--dark);outline-offset:6px}
-.ch-missing__digits{position:absolute;z-index:0;left:50%;top:43%;transform:translate(-50%,-50%);font:800 clamp(180px,38vw,650px)/.8 Arial,sans-serif;letter-spacing:-.13em;color:rgba(38,25,21,.28);white-space:nowrap;pointer-events:none}
-.ch-missing__slices{position:absolute;z-index:2;inset:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--gap);width:min(64%,590px);height:clamp(355px,56vh,650px);max-height:100%;margin:auto;filter:drop-shadow(15px 18px 2px rgba(38,25,21,.10));transform:rotate(-2deg);transition:transform .6s cubic-bezier(.2,.75,.2,1)}
+/* Full-viewport 404 photographic triptych. The page has no site chrome. */
+body:has(.ch-missing){margin:0;overflow:hidden}
+body:has(.ch-missing)>.header,body:has(.ch-missing)>.footer,body:has(.ch-missing)>.skip-link{display:none!important}
+body:has(.ch-missing)>main{min-height:100svh}
+.ch-missing{--dark:#261915;--gap:clamp(3px,.4vw,9px);position:relative;width:100%;height:100svh;min-height:0;background:#bf8300;color:var(--dark);overflow:hidden;isolation:isolate}
+.ch-missing__stage{position:absolute;inset:0;display:block;overflow:hidden;cursor:pointer;color:inherit}
+.ch-missing__stage:focus-visible{outline:5px solid #fff;outline-offset:-8px}
+.ch-missing__slices{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);overflow:hidden}
 .ch-missing__slice{display:block;min-width:0;height:100%;background-image:url('/assets/chichka-404-portrait-large.webp');background-repeat:no-repeat;background-size:300% 100%;transform:translate3d(var(--slice-x,0px),var(--slice-y,0px),0);transition:transform .55s cubic-bezier(.18,.75,.22,1);will-change:transform}
-.ch-missing__slice--one{background-position:0% 50%}
-.ch-missing__slice--two{background-position:50% 50%}
-.ch-missing__slice--three{background-position:100% 50%}
-.ch-missing__stage:hover .ch-missing__slices{transform:rotate(0deg)}
-.ch-missing__stage-hint{position:absolute;z-index:4;bottom:6%;right:2%;font:700 clamp(12px,1.1vw,16px)/1.2 Arial,sans-serif;letter-spacing:.06em;border-bottom:2px solid;padding-bottom:7px}
-.ch-missing__bottom{display:flex;align-items:end;justify-content:space-between;gap:25px;border-top:1px solid rgba(38,25,21,.55);padding-top:19px;position:relative;z-index:5}
-.ch-missing__bottom p{margin:0;font:italic clamp(19px,2.1vw,33px)/1.2 Georgia,serif;letter-spacing:-.035em}
-.ch-missing__back{font:700 clamp(14px,1.25vw,19px)/1.2 Arial,sans-serif;border-bottom:2px solid currentColor;padding-bottom:8px;white-space:nowrap;color:inherit}
-.ch-missing__back span{margin-left:12px}
-@media(max-width:900px){.ch-missing__slices{width:min(77%,560px)}.ch-missing__stage-hint{bottom:5%;right:0}}
-@media(max-width:650px){
- .ch-missing{min-height:calc(100svh - 65px);grid-template-rows:auto auto minmax(390px,1fr) auto;padding-block:20px 28px}
- .ch-missing__top{font-size:9px}
- .ch-missing__title{font-size:clamp(49px,13.5vw,85px);margin:32px 0 -15px;max-width:90%}
- .ch-missing__stage{min-height:390px}
- .ch-missing__digits{font-size:60vw;top:45%}
- .ch-missing__slices{width:85%;height:min(56vh,530px);transform:rotate(-2deg)}
- .ch-missing__slice{background-image:url('/assets/chichka-404-portrait-mobile.webp')}
- .ch-missing__stage-hint{bottom:1%;font-size:11px}
- .ch-missing__bottom{align-items:start;flex-direction:column;gap:20px}
- .ch-missing__bottom p{font-size:22px}
-}
-@media(prefers-reduced-motion:reduce){.ch-missing__slices,.ch-missing__slice{transition:none!important;transform:none!important;will-change:auto}}
+.ch-missing__slice--one{background-position:left center}
+.ch-missing__slice--two{background-position:center center}
+.ch-missing__slice--three{background-position:right center}
+.ch-missing__title{position:absolute;top:clamp(18px,4vw,70px);left:var(--site-content-gutter);z-index:3;max-width:80%;margin:0;font:800 clamp(50px,10vw,175px)/.86 Arial,Helvetica,sans-serif;letter-spacing:-.09em;pointer-events:none;color:#f5f1eb;text-shadow:0 2px 20px rgba(0,0,0,.15)}
+.ch-missing__stage-hint{position:absolute;z-index:4;bottom:clamp(26px,5vw,85px);right:var(--site-content-gutter);font:700 clamp(15px,1.7vw,27px)/1.15 Arial,sans-serif;letter-spacing:-.025em;color:#fff;border-bottom:2px solid currentColor;padding-bottom:12px;text-shadow:0 2px 12px rgba(0,0,0,.2)}
+@media(max-width:650px){.ch-missing__title{top:28px;max-width:93%;font-size:clamp(49px,12.5vw,85px)}.ch-missing__slice{background-image:url('/assets/chichka-404-portrait-mobile.webp')}.ch-missing__stage-hint{bottom:36px;right:20px;font-size:18px}}
+@media(prefers-reduced-motion:reduce){.ch-missing__slice{transform:none!important;transition:none!important;will-change:auto}}
