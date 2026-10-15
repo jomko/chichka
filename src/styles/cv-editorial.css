@@ -1,5 +1,5 @@
 /* CHICHKA / CV editorial layout, isolated from legacy CV rules. */
-.ch-cv{--paper:#f5f5f2;--ink:#111;--accent:#e34234;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;overflow:hidden}
+.ch-cv{--paper:#f5f5f2;--ink:#111;--accent:var(--site-accent, #96351f);background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;overflow:hidden}
 .ch-cv *{box-sizing:border-box}.ch-cv a{color:inherit;text-decoration:none}
 .ch-cv__opening{min-height:calc(100svh - 76px);padding:clamp(85px,9vw,155px) clamp(22px,4vw,80px) clamp(65px,7vw,130px);display:flex;flex-direction:column;justify-content:space-between}
 .ch-cv__eyebrow{display:flex;justify-content:space-between;gap:20px;font-size:11px;letter-spacing:.13em}
@@ -30,7 +30,6 @@
 @media(max-width:600px){.ch-cv__opening{min-height:80svh;padding:95px 20px 60px}.ch-cv__eyebrow{font-size:9px}.ch-cv__opening h1{font-size:clamp(46px,12vw,78px);margin:95px 0}.ch-cv__chapter{padding:80px 20px 95px}.ch-cv__chapter-heading h2{font-size:clamp(42px,10vw,70px)}.ch-cv__chapter-heading>span{font-size:9px}.ch-cv__row{grid-template-columns:1fr 25px;gap:12px;padding:28px 0}.ch-cv__date{grid-column:1/-1;font-size:25px}.ch-cv__row p{font-size:20px}.ch-cv__row-mark{grid-column:2;grid-row:2}.ch-cv__source-note{padding:35px 20px}.ch-cv__outro{padding:95px 20px}.ch-cv__outro h2{font-size:clamp(44px,11vw,77px)}}
 
 /* The shared editorial rhythm applies to CV too, while section backgrounds stay full width. */
-.ch-cv{--accent:var(--accent)}
 .ch-cv__opening,.ch-cv__chapter,.ch-cv__source-note,.ch-cv__outro{
  padding-inline:var(--site-content-gutter);
 }
