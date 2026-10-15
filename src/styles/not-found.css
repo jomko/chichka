@@ -6,11 +6,13 @@ body:has(.ch-missing)>main{min-height:100svh}
 .ch-missing__stage{position:absolute;inset:0;display:block;overflow:hidden;cursor:pointer;color:inherit}
 .ch-missing__stage:focus-visible{outline:5px solid #fff;outline-offset:-8px}
 .ch-missing__slices{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);overflow:hidden}
-.ch-missing__slice{display:block;min-width:0;height:100%;background-image:url('/assets/chichka-404-portrait-large.webp');background-repeat:no-repeat;background-size:300% 100%;transform:translate3d(var(--slice-x,0px),var(--slice-y,0px),0);transition:transform .55s cubic-bezier(.18,.75,.22,1);will-change:transform}
-.ch-missing__slice--one{background-position:left center}
-.ch-missing__slice--two{background-position:center center}
-.ch-missing__slice--three{background-position:right center}
+.ch-missing__slice{position:relative;display:block;min-width:0;height:100%;overflow:hidden;transform:translate3d(var(--slice-x,0px),var(--slice-y,0px),0);transition:transform .55s cubic-bezier(.18,.75,.22,1);will-change:transform}
+/* Each panel reveals its third of the SAME cover-fitted image; no stretching. */
+.ch-missing__slice img{position:absolute;top:0;left:calc(-1 * var(--panel) * (100vw + var(--gap)) / 3);width:100vw;height:100svh;max-width:none;object-fit:cover;object-position:center center;pointer-events:none;user-select:none}
+.ch-missing__slice--one{--panel:0}
+.ch-missing__slice--two{--panel:1}
+.ch-missing__slice--three{--panel:2}
 .ch-missing__title{position:absolute;top:clamp(18px,4vw,70px);left:var(--site-content-gutter);z-index:3;max-width:80%;margin:0;font:800 clamp(50px,10vw,175px)/.86 Arial,Helvetica,sans-serif;letter-spacing:-.09em;pointer-events:none;color:#f5f1eb;text-shadow:0 2px 20px rgba(0,0,0,.15)}
 .ch-missing__stage-hint{position:absolute;z-index:4;bottom:clamp(26px,5vw,85px);right:var(--site-content-gutter);font:700 clamp(15px,1.7vw,27px)/1.15 Arial,sans-serif;letter-spacing:-.025em;color:#fff;border-bottom:2px solid currentColor;padding-bottom:12px;text-shadow:0 2px 12px rgba(0,0,0,.2)}
-@media(max-width:650px){.ch-missing__title{top:28px;max-width:93%;font-size:clamp(49px,12.5vw,85px)}.ch-missing__slice{background-image:url('/assets/chichka-404-portrait-mobile.webp')}.ch-missing__stage-hint{bottom:36px;right:20px;font-size:18px}}
+@media(max-width:650px){.ch-missing__title{top:28px;max-width:93%;font-size:clamp(49px,12.5vw,85px)}.ch-missing__stage-hint{bottom:36px;right:20px;font-size:18px}}
 @media(prefers-reduced-motion:reduce){.ch-missing__slice{transform:none!important;transition:none!important;will-change:auto}}
