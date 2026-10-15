@@ -34,6 +34,14 @@ const image=images[p.slug] || p.image;
    {p.links.length>0&&<div class="ch-project__links"><span>{t(lang,'documentation')}</span>{p.links.map(link=><a href={link.url} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>)}</div>}
   </div>
  </section>
+ {p.videoId&&<section class="ch-project__video" aria-label={uk?'Відео проєкту':'Project video'}>
+  <div class="ch-project__video-inner">
+   <span class="ch-project__video-label">{uk?'ДИВИТИСЬ':'WATCH'} / {p.name[lang]}</span>
+   <div class="ch-project__video-frame">
+    <iframe src={`https://www.youtube-nocookie.com/embed/${p.videoId}`} title={`${p.name[lang]} — ${uk?'відео':'video'}`} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+   </div>
+  </div>
+ </section>}
  {p.landscapeImage&&<figure class="ch-project__extra"><img src={p.landscapeImage} alt={uk?'Пейзаж Андрутова':'Andrutiv landscape'} loading="lazy" decoding="async"/></figure>}
  <a class="ch-project__next" href={pathFor(lang,next.slug)}><span>02 / {uk?'НАСТУПНИЙ ПРОЄКТ':'NEXT PROJECT'}</span><strong>{next.name[lang]}</strong><span class="ch-project__next-arrow" aria-hidden="true">↗</span></a>
 </article>
