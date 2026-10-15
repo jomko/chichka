@@ -5,6 +5,7 @@ const {lang='en'}=Astro.props;
 const uk=lang==='uk';
 const groups=[
  {title:uk?'Культурний менеджмент':'Cultural management',items:[
+ ['2026',uk?'Keychange — представниця України, Tallinn Music Week':'Keychange — Ukraine representative, Tallinn Music Week'],
  ['2012—',uk?'Свято музики у Львові — керівництво фестивалем':'Make Music Day Lviv — festival leadership'],
  ['2021—',uk?'ГО «Локальна культурна підтримка» — керівництво, Нижній Зал, ЗРІЗ, Розколяда':'Local Cultural Support — NGO leadership; Nyzhnyj Zal, ZRIZ, Rozkolyada'],
  ['2021–2024',uk?'Менторство для культурних менеджерів':'Mentoring for cultural managers'],
@@ -16,6 +17,7 @@ const groups=[
  ['2012–2019',uk?'ГО «17» — керівництво':'NGO “17” — leadership']
  ]},
  {title:uk?'Мистецька практика':'Artistic practice',items:[
+ ['2026',uk?'Sex Education. Дівоча версія — співкомпозиторка; «Як ми прощаємось» — робота з голосом і співом':'Sex Education. Girls’ Version — co-composer; How We Say Goodbye — voice and singing work'],
  ['2023',uk?'«Коло» — музика та концепція; «Леся. Їсторія» — асистентка композитора':'Kolo — composition and concept; Lesya. Herstory — assistant to composer'],
  ['2022',uk?'«Вертеп» — музика та виконання; Where is Home — концепція та вокал':'Vertep — composition and performance; Where is Home — concept and vocals'],
  ['2021',uk?'CYCLES — концепція та вокал':'CYCLES — concept and vocals'],
@@ -44,7 +46,7 @@ const groups=[
   <div class="ch-cv__chapter-heading"><span>0{i+1} / 03</span><h2 id={`cv-chapter-${i}`}>{g.title}</h2><span>{String(g.items.length).padStart(2,'0')} {uk?'ЗАПИСІВ':'ENTRIES'}</span></div>
   <div class="ch-cv__rows">{g.items.map(([year,description])=><div class="ch-cv__row"><span class="ch-cv__date">{year}</span><p>{description}</p><span class="ch-cv__row-mark" aria-hidden="true">↗</span></div>)}</div>
  </section>)}
- <aside class="ch-cv__source-note"><span>DOCUMENTATION / NOTE</span><p>{uk?'Укладено на основі CV 2019–2025. Дати поточних ролей потребують підтвердження перед фінальною публікацією.':'Compiled from CVs dated 2019–2025. Ongoing dates require confirmation before final publication.'}</p></aside>
+
  <section class="ch-cv__outro"><span>COLLABORATION / 04</span><h2>{uk?'ПОПРАЦЮЙМО':'LET’S MAKE'}<br/><em>{uk?'РАЗОМ.':'SOMETHING.'}</em></h2><a href={lang==='uk'?'/uk/contact/':'/contact/'}>{uk?'Зв’язатися':'Get in touch'} <span aria-hidden="true">↗</span></a></section>
 </div>
 </Base>
