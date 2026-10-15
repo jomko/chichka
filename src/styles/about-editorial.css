@@ -1,10 +1,10 @@
 /* CHICHKA / About. Isolated editorial layout. */
-.ch-about-page{--paper:#f5f5f2;--ink:#111;--accent:#e34234;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+.ch-about-page{--paper:#f5f5f2;--ink:#111;--accent:#96351f;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
 .ch-about-page *{box-sizing:border-box}.ch-about-page a{color:inherit;text-decoration:none}
-.ch-about-lead{position:relative;min-height:min(930px,100svh);background:#111;color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;padding:clamp(105px,10vw,165px) clamp(22px,4vw,80px) clamp(50px,6vw,90px);isolation:isolate;overflow:hidden}
-.ch-about-lead__image{position:absolute;inset:0 0 0 38%;z-index:-2;margin:0;overflow:hidden;background:#282828}
-.ch-about-lead__image img{width:100%;height:100%;object-fit:cover;object-position:center 37%;display:block;filter:grayscale(1)}
-.ch-about-lead:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#111 0%,rgba(17,17,17,.85) 32%,rgba(17,17,17,.15) 80%)}
+.ch-about-lead{position:relative;height:clamp(460px,63vw,970px);min-height:0;background:#111;color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;padding:clamp(105px,10vw,165px) clamp(22px,4vw,80px) clamp(50px,6vw,90px);isolation:isolate;overflow:hidden}
+.ch-about-lead__image{position:absolute;inset:0;z-index:-2;margin:0;overflow:hidden;background:#282828}
+.ch-about-lead__image img{width:100%;height:100%;object-fit:cover;object-position:50% 48%;display:block}
+.ch-about-lead:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(0,0,0,.35),transparent 65%),linear-gradient(0deg,rgba(0,0,0,.47),transparent 58%)}
 .ch-about-lead__meta,.ch-about-close__meta{display:flex;justify-content:space-between;gap:20px;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
 .ch-about-lead__identity{margin-top:clamp(170px,25vh,340px)}
 .ch-about-lead__overline{font-size:11px;letter-spacing:.15em}
@@ -34,6 +34,6 @@
 .ch-about-close__bottom p{font:400 clamp(20px,2vw,33px)/1.4 Georgia,serif;max-width:650px;margin:0}
 .ch-about-close__bottom a{font:400 clamp(22px,2.3vw,39px)/1.1 Georgia,serif;border-bottom:1px solid;padding-bottom:8px;white-space:nowrap}
 .ch-about-close__bottom a span{font-family:Arial,sans-serif;color:var(--accent);margin-left:25px}
-@media(max-width:850px){.ch-about-lead__image{left:25%}.ch-about-story{grid-template-columns:1fr;gap:10px}.ch-about-story__copy{padding-top:35px}.ch-about-timeline__intro{grid-template-columns:1fr;gap:35px}}
-@media(max-width:600px){.ch-about-lead{min-height:92svh;padding:100px 20px 40px}.ch-about-lead__image{inset:0 0 0 8%}.ch-about-lead:before{background:linear-gradient(0deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.1) 70%)}.ch-about-lead__identity{margin-top:auto}.ch-about-lead h1{font-size:clamp(57px,13vw,90px)}.ch-about-lead__meta,.ch-about-close__meta{font-size:9px}.ch-about-story,.ch-about-timeline,.ch-about-close{padding-left:20px;padding-right:20px}.ch-about-story h2,.ch-about-timeline h2,.ch-about-close h2{font-size:clamp(46px,11vw,74px);margin-top:45px}.ch-about-timeline__row{grid-template-columns:1fr;gap:18px}.ch-about-timeline__items{font-size:20px}.ch-about-close__bottom{display:block}.ch-about-close__bottom a{display:inline-block;margin-top:48px;white-space:normal}}
+@media(max-width:850px){.ch-about-lead__image{left:0}.ch-about-story{grid-template-columns:1fr;gap:10px}.ch-about-story__copy{padding-top:35px}.ch-about-timeline__intro{grid-template-columns:1fr;gap:35px}}
+@media(max-width:600px){.ch-about-lead{height:clamp(460px,63vw,970px);min-height:0;padding:90px 20px 35px}.ch-about-lead__image{inset:0}.ch-about-lead__image img{object-position:58% center}.ch-about-lead:before{background:linear-gradient(0deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.1) 70%)}.ch-about-lead__identity{margin-top:auto}.ch-about-lead h1{font-size:clamp(57px,13vw,90px)}.ch-about-lead__meta,.ch-about-close__meta{font-size:9px}.ch-about-story,.ch-about-timeline,.ch-about-close{padding-left:20px;padding-right:20px}.ch-about-story h2,.ch-about-timeline h2,.ch-about-close h2{font-size:clamp(46px,11vw,74px);margin-top:45px}.ch-about-timeline__row{grid-template-columns:1fr;gap:18px}.ch-about-timeline__items{font-size:20px}.ch-about-close__bottom{display:block}.ch-about-close__bottom a{display:inline-block;margin-top:48px;white-space:normal}}
 @media(prefers-reduced-motion:reduce){.ch-about-timeline__items a{transition:none}}
