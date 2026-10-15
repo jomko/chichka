@@ -11,6 +11,5 @@ body:has(.ch-missing) main{min-height:100svh}
 .ch-missing__back span{margin-left:12px}
 @media(max-width:650px){.ch-missing__masked{font-size:min(61vw,55svh);background-image:linear-gradient(155deg,rgba(24,12,8,.48),transparent 40%,rgba(24,12,8,.27)),url('/assets/chichka-404-portrait-mobile.webp');background-position:center,50% 27%}.ch-missing__back{right:22px;bottom:35px;font-size:18px}}
 
-/* Recessed letter edges: a dark inner lip and a restrained light rim. */
-.ch-missing__masked{position:relative;isolation:isolate;-webkit-text-stroke:2px rgba(39,12,5,.55);filter:drop-shadow(0 3px 0 rgba(52,13,4,.36))}
-.ch-missing__masked::after{content:attr(data-text);position:absolute;inset:0;color:transparent;background:none;-webkit-text-stroke:clamp(2px,.28vw,5px) rgba(42,10,4,.43);paint-order:stroke fill;pointer-events:none;filter:blur(1.1px);z-index:1}
+/* Depth is painted inside the photo-clipped glyphs, never with duplicated text. */
+.ch-missing__masked{-webkit-text-stroke:1px rgba(38,12,7,.30);filter:drop-shadow(0 2px 1px rgba(38,12,7,.20))}
