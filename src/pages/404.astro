@@ -6,14 +6,9 @@ const lang=uk?'uk':'en';
 const home=uk?'/uk/':'/';
 ---
 <Base lang={lang} title={uk?'Сторінку не знайдено':'Page not found'} description={uk?'Здається, ми збилися з ритму.':'We seem to have lost the rhythm.'}>
- <section class="ch-missing" aria-labelledby="missing-title">
-   <h1 class="ch-missing__title" id="missing-title">{uk?'ЗБИЛИСЯ З РИТМУ.':'OFF THE BEAT.'}</h1>
-  <a class="ch-missing__stage" href={home} aria-label={uk?'Повернутися на головну':'Return to homepage'} data-missing-stage>
-   <img class="ch-missing__photo" src="/assets/chichka-404-portrait-large.webp" alt="" fetchpriority="high" decoding="async" draggable="false" />
-   <canvas class="ch-missing__echo" aria-hidden="true"></canvas>
-   <span class="ch-missing__404" aria-hidden="true"><span>4</span><span>0</span><span>4</span></span>
-   <span class="ch-missing__stage-hint" aria-hidden="true">{uk?'НА ГОЛОВНУ ↗':'BACK TO HOME ↗'}</span>
-  </a>
- </section>
- <script>import '../scripts/missing-page.ts';</script>
+ <main class="ch-missing" aria-labelledby="missing-title">
+  <h1 id="missing-title" class="ch-missing__sr">{uk?'Сторінку не знайдено':'Page not found'}</h1>
+  <div class="ch-missing__masked" aria-hidden="true">404</div>
+  <a class="ch-missing__back" href={home}>{uk?'НА ГОЛОВНУ':'BACK TO HOME'} <span aria-hidden="true">↗</span></a>
+ </main>
 </Base>
