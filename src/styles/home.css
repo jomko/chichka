@@ -370,3 +370,7 @@ html.ch-initial-revealing .ch-home .ch-hero::after{
 
 /* Closing palette: warm terracotta sampled from About photo, not the muted UI burgundy. */
 .ch-home .ch-collaboration__disc{background:var(--ch-red)}
+
+/* Monochrome project thumbnails; restore color on interaction. */
+.ch-home .ch-work__photo{filter:grayscale(1)}
+.ch-home .ch-work__item:is(:hover,:focus-within) .ch-work__photo{filter:grayscale(0)}
