@@ -302,3 +302,19 @@ html.ch-initial-revealing .ch-home .ch-hero::after{
  .ch-home .ch-collaboration{min-height:0;padding:35px 22px 45px;gap:45px}
  .ch-home .ch-collaboration h2{font-size:clamp(43px,11vw,75px)}
 }
+
+/* Collaboration: tighten title cluster and baseline-align the editorial aside. */
+@media(min-width:1001px){
+ .ch-home .ch-collaboration__center{
+  grid-template-columns:auto minmax(0,1fr) minmax(230px,.42fr);
+  column-gap:clamp(18px,2vw,38px);
+  align-items:end;
+ }
+ .ch-home .ch-collaboration__disc{align-self:center}
+ .ch-home .ch-collaboration__center p{
+  align-self:end;
+  margin:0 0 .06em;
+  font-size:clamp(21px,2.35vw,40px);
+  line-height:1.15;
+ }
+}
