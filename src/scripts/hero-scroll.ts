@@ -5,8 +5,7 @@ let queued=false;
 function updateHeroScene(){
  queued=false;
  updateManagementPhoto();
- updateAboutPhoto();
- updateAboutReveal();
+ updateAboutScene();
  updateCollaboration();
  const scene=document.querySelector<HTMLElement>('.ch-home .ch-hero-scene');
  const hero=scene?.querySelector<HTMLElement>('.ch-hero');
@@ -35,31 +34,23 @@ function updateManagementPhoto(){
  const progress=clamp((innerHeight-bounds.top)/distance);
  photo.style.setProperty('--ch-management-shift',`${((progress-.5)*20).toFixed(2)}px`);
 }
-function updateAboutPhoto(){
- const frame=document.querySelector<HTMLElement>('.ch-home .ch-about__image');
- const photo=frame?.querySelector<HTMLElement>('img');
- if(!frame||!photo)return;
+// Exact reverse of Hero's camera / text / frame phases.
+function updateAboutScene(){
+ const scene=document.querySelector<HTMLElement>('.ch-home .ch-about-scene');
+ const about=scene?.querySelector<HTMLElement>('.ch-about');
+ if(!scene||!about)return;
  if(matchMedia('(prefers-reduced-motion: reduce)').matches){
-  photo.style.removeProperty('--ch-about-parallax');
+  for(const key of ['--ch-about-frame','--ch-about-exit','--ch-about-camera'])about.style.removeProperty(key);
   return;
  }
- const box=frame.getBoundingClientRect();
- const progress=clamp((innerHeight-box.top)/(innerHeight+box.height));
- // Reserve 5% overscan above and below, so the image never exposes an edge.
- const shift=(progress-.5)*box.height*.08;
- photo.style.setProperty('--ch-about-parallax',`${shift.toFixed(2)}px`);
-}
-function updateAboutReveal(){
- const section=document.querySelector<HTMLElement>('.ch-home .ch-about');
- if(!section)return;
- if(matchMedia('(prefers-reduced-motion: reduce)').matches){
-  section.style.removeProperty('--ch-about-reveal');
-  return;
- }
- const bounds=section.getBoundingClientRect();
- // Reveal the entire editorial panel before it reaches the middle of the viewport.
- const progress=smooth((innerHeight*.95-bounds.top)/(innerHeight*.72));
- section.style.setProperty('--ch-about-reveal',progress.toFixed(4));
+ const range=scene.offsetHeight-about.offsetHeight;
+ const progress=range>0?clamp(-scene.getBoundingClientRect().top/range):1;
+ const frame=1-smooth(progress/.20);
+ const exit=1-smooth((progress-.20)/.30);
+ const camera=1-smooth((progress-.50)/.50);
+ about.style.setProperty('--ch-about-frame',`${(frame*7.5).toFixed(3)}vw`);
+ about.style.setProperty('--ch-about-exit',exit.toFixed(4));
+ about.style.setProperty('--ch-about-camera',camera.toFixed(4));
 }
 function updateCollaboration(){
  const section=document.querySelector<HTMLElement>('.ch-home .ch-collaboration');
