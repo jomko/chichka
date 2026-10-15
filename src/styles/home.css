@@ -373,3 +373,7 @@ html.ch-initial-revealing .ch-home .ch-hero::after{
 /* Shared width is the actual Editorial Triptych width, including its responsive rhythm. */
 .ch-home .ch-disciplines.ch-content-container{width:85%}
 @media(max-width:650px){.ch-home .ch-content-container{width:calc(100% - 40px)}.ch-home .ch-disciplines.ch-content-container{width:calc(100% - 40px)}}
+
+/* Keep About copy on the same editorial grid as Disciplines. */
+.ch-home .ch-about__content.ch-content-container{width:85%;margin-inline:auto}
+@media(max-width:650px){.ch-home .ch-about__content.ch-content-container{width:calc(100% - 40px)}}
