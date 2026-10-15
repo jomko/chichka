@@ -37,3 +37,9 @@
 @media(max-width:850px){.ch-about-lead__image{left:0}.ch-about-story{grid-template-columns:1fr;gap:10px}.ch-about-story__copy{padding-top:35px}.ch-about-timeline__intro{grid-template-columns:1fr;gap:35px}}
 @media(max-width:600px){.ch-about-lead{height:clamp(460px,63vw,970px);min-height:0;padding:90px 20px 35px}.ch-about-lead__image{inset:0}.ch-about-lead__image img{object-position:58% center}.ch-about-lead:before{background:linear-gradient(0deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.1) 70%)}.ch-about-lead__identity{margin-top:auto}.ch-about-lead h1{font-size:clamp(57px,13vw,90px)}.ch-about-lead__meta,.ch-about-close__meta{font-size:9px}.ch-about-story,.ch-about-timeline,.ch-about-close{padding-left:20px;padding-right:20px}.ch-about-story h2,.ch-about-timeline h2,.ch-about-close h2{font-size:clamp(46px,11vw,74px);margin-top:45px}.ch-about-timeline__row{grid-template-columns:1fr;gap:18px}.ch-about-timeline__items{font-size:20px}.ch-about-close__bottom{display:block}.ch-about-close__bottom a{display:inline-block;margin-top:48px;white-space:normal}}
 @media(prefers-reduced-motion:reduce){.ch-about-timeline__items a{transition:none}}
+
+
+/* Consistent 85% editorial text grid; cover photo remains full bleed. */
+.ch-about-lead{padding-inline:var(--site-content-gutter)}
+.ch-about-story,.ch-about-timeline,.ch-about-close{padding-inline:var(--site-content-gutter)}
+@media(max-width:600px){.ch-about-lead,.ch-about-story,.ch-about-timeline,.ch-about-close{padding-inline:var(--site-content-gutter)}}
