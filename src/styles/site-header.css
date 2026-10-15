@@ -13,6 +13,6 @@ body:has(.ch-home) .header:not(.is-scrolled){position:fixed;left:0;right:0;top:0
 body:has(.ch-home) .header:not(.is-scrolled) .wordmark{opacity:0;pointer-events:none}
 body:has(.ch-home) .header.is-scrolled{position:fixed;left:0;right:0;top:0;background:rgba(245,245,242,.97);color:#111}
 body:has(.ch-home) .header.is-scrolled .wordmark{opacity:1;pointer-events:auto}
-@media(max-width:650px){.header .header-inner{min-height:65px;padding-inline:16px;grid-template-columns:auto 1fr auto;gap:12px}.header .site-languages{gap:5px;font-size:10px}.header .wordmark{font-size:clamp(13px,3.2vw,18px);max-width:145px;text-align:center}.header .navigation{gap:10px;font-size:11px}.header .navigation a:nth-child(2){display:none}}
+@media(max-width:650px){.header .header-inner{min-height:65px;padding-inline:20px;grid-template-columns:auto 1fr auto;gap:12px}.header .site-languages{gap:5px;font-size:10px}.header .wordmark{font-size:clamp(13px,3.2vw,18px);max-width:145px;text-align:center}.header .navigation{gap:10px;font-size:11px}.header .navigation a:nth-child(2){display:none}}
 @media(max-width:370px){.header .navigation a:last-child{display:none}}
 @media(prefers-reduced-motion:reduce){.header *{transition:none!important}}

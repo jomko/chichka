@@ -102,7 +102,7 @@ body:has(.ch-home){background:var(--ch-white);color:var(--ch-black)}
 .ch-home .ch-collaboration__links a:hover,.ch-home .ch-about__bottom a:hover{color:var(--ch-red)}
 .ch-home #collaboration,.ch-home #about-preview{scroll-margin-top:80px}
 @media(max-width:1000px){.ch-home .ch-about__bottom{grid-template-columns:1fr}.ch-home .ch-collaboration__center{grid-template-columns:auto 1fr}.ch-home .ch-collaboration__center p{grid-column:2;margin:0}}
-@media(max-width:650px){.ch-home .ch-about{grid-template-columns:1fr}.ch-home .ch-about__image{min-height:0;aspect-ratio:1.25}.ch-home .ch-about__content{padding:45px 22px 60px;gap:35px}.ch-home .ch-about h2{font-size:clamp(42px,11vw,70px)}.ch-home .ch-collaboration{padding:36px 0 50px;min-height:660px}.ch-home .ch-collaboration__center{grid-template-columns:1fr;gap:25px}.ch-home .ch-collaboration__disc{width:70px}.ch-home .ch-collaboration h2{font-size:clamp(43px,11vw,75px)}.ch-home .ch-collaboration__center p{grid-column:1}.ch-home .ch-collaboration__footer{align-items:start;flex-direction:column;gap:30px}.ch-home .ch-collaboration__links{flex-wrap:wrap;gap:15px}}
+@media(max-width:650px){.ch-home .ch-about{grid-template-columns:1fr}.ch-home .ch-about__image{min-height:0;aspect-ratio:1.25}.ch-home .ch-about__content{padding:45px 22px 60px;gap:35px}.ch-home .ch-about h2{font-size:clamp(42px,11vw,70px)}.ch-home .ch-collaboration{padding:36px 0 50px;min-height:660px}.ch-home .ch-collaboration__center{grid-template-columns:1fr;gap:25px}.ch-home .ch-collaboration__disc{width:70px}.ch-home .ch-collaboration h2{font-size:clamp(43px,11vw,75px)}.ch-home .ch-collaboration__center p{grid-column:1}.ch-home .ch-collaboration__footer{align-items:start;flex-direction:column;gap:30px}.ch-home .ch-collaboration__context{white-space:normal}.ch-home .ch-collaboration__links{flex-wrap:wrap;gap:15px}}
 @media(max-width:600px){.ch-home .ch-photo img{object-position:62% center}.ch-home .ch-photo:before{background:linear-gradient(0deg,rgba(0,0,0,.82),rgba(0,0,0,.08) 75%)}}
 
 /* Discipline interaction stays useful for touch and keyboard. */
@@ -161,6 +161,7 @@ body:has(.ch-home){background:var(--ch-white);color:var(--ch-black)}
  .ch-home .ch-discipline .ch-preview,.ch-home .ch-discipline:nth-child(3) .ch-preview{grid-column:1/-1;grid-row:3;margin-top:12px;aspect-ratio:4/3}
  .ch-home .ch-discipline h2{font-size:clamp(34px,9vw,55px)}
 }
+@media(max-width:650px){.ch-home .ch-disciplines{width:var(--site-content-width)}}
 
 
 /* Continuous editorial scroll: Hero -> Work -> About -> Collaboration.
