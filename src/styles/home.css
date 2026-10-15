@@ -289,3 +289,16 @@ html.ch-initial-revealing .ch-home .ch-hero::after{
  .ch-home .ch-about__image img{height:100%;top:0;transform:none;clip-path:none;will-change:auto}
  .ch-home .ch-about h2,.ch-home .ch-about__bottom{transform:none}
 }
+
+/* Final editorial layout: lower the About title; keep the CTA as a short afterword. */
+.ch-home .ch-about__content{display:grid;grid-template-rows:auto minmax(0,1fr) auto;align-content:stretch}
+.ch-home .ch-about h2{align-self:end;margin:0 0 clamp(45px,7vh,110px)}
+.ch-home .ch-collaboration{min-height:clamp(430px,65svh,690px);padding-block:clamp(30px,3vw,55px);gap:clamp(22px,3vw,42px)}
+.ch-home .ch-collaboration__center{gap:clamp(18px,3vw,55px)}
+.ch-home .ch-collaboration h2{font-size:clamp(45px,6vw,112px)}
+@media(max-width:650px){
+ .ch-home .ch-about__content{display:grid;grid-template-rows:auto minmax(0,1fr) auto}
+ .ch-home .ch-about h2{align-self:end;margin-bottom:clamp(30px,5vh,65px)}
+ .ch-home .ch-collaboration{min-height:0;padding:35px 22px 45px;gap:45px}
+ .ch-home .ch-collaboration h2{font-size:clamp(43px,11vw,75px)}
+}
