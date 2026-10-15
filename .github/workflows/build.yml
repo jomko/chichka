@@ -20,6 +20,8 @@ jobs:
         run: |
           test -f dist/index.html
           test -f dist/uk/index.html
+          test -s dist/sitemap.xml
+          test -s dist/robots.txt
           for route in about contact cv projects; do
             test -f "dist/$route/index.html"
             test -f "dist/uk/$route/index.html"
@@ -28,7 +30,7 @@ jobs:
             test -f "dist/projects/$slug/index.html"
             test -f "dist/uk/projects/$slug/index.html"
           done
-          for image in chichka.jpg about.png spiv.jpg slavalacha.jpg cycles.png fdlm.png nz.png lkp.png; do
+          for image in assets/marichka.webp assets/about.webp assets/m1.webp assets/m2.webp assets/m3.webp assets/images/spiv.webp assets/slavalacha.webp assets/social/og.png; do
             test -s "dist/$image"
           done
           if grep -R -l 'localhost:4321' dist --include='*.html'; then

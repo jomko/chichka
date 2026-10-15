@@ -8,11 +8,11 @@ const uk=lang==='uk';
 const selectedSlugs=['make-music-day-lviv','spivmaisternia','slavalachia','cycles','local-cultural-support'];
 const selected=selectedSlugs.flatMap(slug=>{const project=projects.find(p=>p.slug===slug);return project?[project]:[];});
 const selectedImages:Record<string,string>={
- 'make-music-day-lviv':'/assets/fete.png',
+ 'make-music-day-lviv':'/assets/fete.webp',
  'spivmaisternia':'/spivmaisternia-wide.webp',
- 'slavalachia':'/assets/slavalacha.png',
- 'cycles':'/assets/cycles.png',
- 'local-cultural-support':'/assets/lkp.png'
+ 'slavalachia':'/assets/slavalacha.webp',
+ 'cycles':'/assets/cycles.webp',
+ 'local-cultural-support':'/assets/lkp.webp'
 };
 const workLabel=(p:(typeof projects)[number])=>p.role[lang] || p.intro[lang];
 const disciplines=[
@@ -25,13 +25,13 @@ const disciplines=[
 <div class="ch-home">
  <div class="ch-hero-scene">
  <section class="ch-hero" aria-labelledby="ch-hero-title">
-  <div class="ch-photo"><img src="/assets/marichka.png" alt={uk?"Портрет Марічки Чічкової":"Portrait of Marichka Chichkova"} fetchpriority="high" decoding="async" width="1664" height="934" /></div>
+  <div class="ch-photo"><img src="/assets/marichka.webp" alt={uk?"Портрет Марічки Чічкової":"Portrait of Marichka Chichkova"} fetchpriority="high" decoding="async" width="1664" height="934" /></div>
   <h1 class="ch-title" id="ch-hero-title">Marichka<br/>Chichkova</h1>
   <div class="ch-hero__bottom"><span class="ch-tag">{uk?'Мисткиня':'Artist'}<br/>{uk?'Культурна менеджерка':'Cultural manager'}<br/>{uk?'Практики голосу':'Voice practitioner'}</span><a class="ch-cta" href="#collaboration"><span class="ch-dot" aria-hidden="true">↗</span><span>{uk?'Створімо щось разом':'Let’s make something together'}</span></a></div>
  </section>
  </div>
  <section class="ch-content-container ch-disciplines" aria-label={uk?'Напрями діяльності':'Areas of practice'}>
- {disciplines.map((d,i)=><a class={'ch-discipline'+(i===1?' ch-discipline--management':'')} data-project-entry={`discipline-${['artist','management','voice'][i]}`} href={d.href}><span class="ch-number">0{i+1}</span><div class="ch-discipline__copy"><h2>{d.title}</h2></div><span class="ch-detail">{d.desc}<br/>↗</span><div class="ch-preview" aria-hidden="true"><img class="ch-work__photo" src={`/assets/m${i+1}.png`} alt="" loading="lazy" decoding="async" width="1920" height="1080" /></div></a>)}
+ {disciplines.map((d,i)=><a class={'ch-discipline'+(i===1?' ch-discipline--management':'')} data-project-entry={`discipline-${['artist','management','voice'][i]}`} href={d.href}><span class="ch-number">0{i+1}</span><div class="ch-discipline__copy"><h2>{d.title}</h2></div><span class="ch-detail">{d.desc}<br/>↗</span><div class="ch-preview" aria-hidden="true"><img class="ch-work__photo" src={`/assets/m${i+1}.webp`} alt="" loading="lazy" decoding="async" width="1920" height="1080" /></div></a>)}
  </section>
  <section class="ch-work" id="selected-work" aria-labelledby="ch-work-heading">
   <div class="ch-content-container ch-work__inner">
@@ -58,7 +58,7 @@ const disciplines=[
   </div>
  </section>
  <div class="ch-about-scene"><section class="ch-about" id="about-preview" aria-labelledby="ch-about-title">
-   <div class="ch-about__image"><img src="/assets/about.png" alt={uk?"Портрет Марічки Чічкової":"Portrait of Marichka Chichkova"} loading="lazy" decoding="async" width="1920" height="1080" /></div>
+   <div class="ch-about__image"><img src="/assets/about.webp" alt={uk?"Портрет Марічки Чічкової":"Portrait of Marichka Chichkova"} loading="lazy" decoding="async" width="1920" height="1080" /></div>
    <div class="ch-content-container ch-about__content">
     <p class="ch-about__label">05 / {uk?'ПРО МЕНЕ':'ABOUT'}</p>
     <h2 id="ch-about-title">{uk?'Цікавість зближує людей.':'Curiosity brings people together.'}</h2>

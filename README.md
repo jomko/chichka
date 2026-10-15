@@ -23,7 +23,7 @@ Projects are in `src/data/projects.js`. One data entry creates two localized pro
 
 ## Photographs
 
-Existing six archive photos remain at the repository root and are referenced directly in this first migration. **Before production**, move them into `public/` (or into the Astro image pipeline) and verify each photograph belongs to its assigned project, crop and photo credit. Photo assignments at this stage are **editorial placeholders**: the images were not visually reviewed, so do not imply they document a particular project.
+Images are served from `public/`. Before production, verify that each photograph belongs to its assigned project and confirm its crop, photo credit and usage rights. Photo assignments remain **editorial placeholders** until visually reviewed; do not imply they document a particular project before confirmation.
 
 ## Editorial status
 

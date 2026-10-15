@@ -7,11 +7,11 @@ const idx=projects.findIndex(item=>item.slug===p.slug);
 const next=projects[(idx+1)%projects.length];
 const uk=lang==='uk';
 const images:Record<string,string>={
- 'make-music-day-lviv':'/assets/fete.png',
+ 'make-music-day-lviv':'/assets/fete.webp',
  'spivmaisternia':'/spivmaisternia-wide.webp',
- 'slavalachia':'/assets/slavalacha.png',
- 'cycles':'/assets/cycles.png',
- 'local-cultural-support':'/assets/lkp.png'
+ 'slavalachia':'/assets/slavalacha.webp',
+ 'cycles':'/assets/cycles.webp',
+ 'local-cultural-support':'/assets/lkp.webp'
 };
 const image=images[p.slug] || p.image;
 ---

@@ -5,8 +5,8 @@ import { ClientRouter } from 'astro:transitions';
 import {t,base} from '../data/projects.js';
 const {lang='en',title='Marichka Chichkova',description,image='/assets/social/og.png'}=Astro.props;
 const prefix=base(lang);
-const current=Astro.url.pathname;
-const switchHref=lang==='en'?'/uk'+(current==='/'?'':current):current.replace(/^\/uk/,'')||'/';
+const current=Astro.url.pathname.endsWith('/')?Astro.url.pathname:`${Astro.url.pathname}/`;
+const switchHref=lang==='en'?'/uk'+(current==='/'?'/':current):current.replace(/^\/uk/,'')||'/';
 const links=[['projects',prefix+'/projects/'],['about',prefix+'/about/'],['contact',prefix+'/contact/']];
 const site=Astro.site; // Omit absolute SEO URLs rather than publish localhost canonicals.
 const canonical=site ? new URL(current,site).href : null;
@@ -16,6 +16,16 @@ const english=site ? new URL(enPath,site).href : null;
 const shareImage=site ? new URL(image,site).href : null;
 const fullTitle=title==='Marichka Chichkova'?title:`${title} — Marichka Chichkova`;
 const summary=description||t(lang,'intro');
+const personSchema={
+ '@context':'https://schema.org',
+ '@type':'Person',
+ name:'Marichka Chichkova',
+ url:site?.href,
+ jobTitle:lang==='uk'?'Мисткиня та культурна менеджерка':'Artist and cultural manager',
+ address:{'@type':'PostalAddress',addressLocality:'Lviv',addressCountry:'UA'},
+ knowsAbout:['Ukrainian traditional singing','Cultural management','Theatre music'],
+ sameAs:['https://www.instagram.com/mari4i4ka/','https://www.facebook.com/marichka.chichkova']
+};
 ---
 <!doctype html>
 <html lang={lang} transition:name="root" transition:animate="none">
@@ -34,7 +44,9 @@ if(!window.__chDocumentBooted){
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta name="theme-color" content="#f5f1eb"/>
 <meta name="description" content={summary}/>
+<meta name="robots" content="index,follow,max-image-preview:large"/>
 <title>{fullTitle}</title>
+<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 {canonical&&<link rel="canonical" href={canonical}/>}
 {canonical&&<link rel="alternate" hreflang={lang} href={canonical}/>}
 {alternate&&<link rel="alternate" hreflang={lang==='en'?'uk':'en'} href={alternate}/>}
@@ -46,8 +58,8 @@ if(!window.__chDocumentBooted){
 <meta property="og:description" content={summary}/>
 {canonical&&<meta property="og:url" content={canonical}/>}
 {shareImage&&<meta property="og:image" content={shareImage}/>}
-{shareImage&&<meta property="og:image:width" content="1200"/>}
-{shareImage&&<meta property="og:image:height" content="630"/>}
+{shareImage&&<meta property="og:image:width" content="1703"/>}
+{shareImage&&<meta property="og:image:height" content="924"/>}
 {shareImage&&<meta property="og:image:alt" content="Marichka Chichkova — Independent artist & cultural manager"/>}
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content={fullTitle}/>
