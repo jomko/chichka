@@ -38,6 +38,7 @@
 @page{size:A4;margin:17mm 16mm}
 @media print{
  html,body{background:white!important;color:#111!important;height:auto!important;overflow:visible!important;scroll-behavior:auto!important}
+ .skip-link{display:none!important}
  .header,.site-header,body>.footer,.ch-cv__pdf-action,.ch-cv__mark{display:none!important}
  .ch-cv{color:#111!important;background:#fff!important;overflow:visible!important;font:11pt/1.4 Georgia,serif}
  .ch-cv__opening{min-height:0!important;padding:0 0 12mm!important;display:block!important}
