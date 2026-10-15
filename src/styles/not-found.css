@@ -13,3 +13,8 @@ body:has(.ch-missing) main{min-height:100svh}
 
 /* Depth is painted inside the photo-clipped glyphs, never with duplicated text. */
 .ch-missing__masked{-webkit-text-stroke:1px rgba(38,12,7,.30);filter:drop-shadow(0 2px 1px rgba(38,12,7,.20))}
+
+.ch-missing__message{position:absolute;right:var(--site-content-gutter);bottom:clamp(28px,5vw,85px);z-index:2;text-align:right;color:#f5f1eb}
+.ch-missing__message p{margin:0 0 10px;font:700 clamp(14px,1.5vw,23px)/1.2 'DM Sans',Arial,sans-serif;letter-spacing:.02em}
+.ch-missing__message .ch-missing__back{position:static;display:inline-block;font-size:clamp(15px,1.5vw,23px)}
+@media(max-width:650px){.ch-missing__message{right:22px;bottom:35px;left:22px}.ch-missing__message p{font-size:15px}}
