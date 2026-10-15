@@ -4,23 +4,24 @@ import '../styles/not-found.css';
 const uk=Astro.url.pathname.startsWith('/uk/');
 const lang=uk?'uk':'en';
 const home=uk?'/uk/':'/';
-const projects=uk?'/uk/projects/':'/projects/';
 ---
-<Base lang={lang} title={uk?'Сторінку не знайдено':'Page not found'} description={uk?'Ця сторінка загубилася. Повернімося до початку.':'This page has wandered off. Let’s return to the beginning.'}>
-<section class="ch-lost" aria-labelledby="ch-lost-title">
- <div class="ch-content-container ch-lost__canvas">
-  <div class="ch-lost__scene">
-   <div class="ch-lost__number" aria-hidden="true"><span>4</span><span>0</span><span>4</span></div>
-   <div class="ch-lost__portrait" aria-hidden="true"><img src="/assets/about.webp" alt="" loading="eager" decoding="async" /></div>
-   <div class="ch-lost__note"><span class="ch-lost__symbol" aria-hidden="true">↗</span><p id="ch-lost-title">{uk?'Не кожна імпровізація веде туди, куди планувалося.':'Not every improvisation goes where you expected.'}</p></div>
+<Base lang={lang} title={uk?'Сторінку не знайдено':'Page not found'} description={uk?'Здається, ми збилися з ритму.':'We seem to have lost the rhythm.'}>
+ <section class="ch-missing" aria-labelledby="missing-title">
+  <div class="ch-missing__top" aria-hidden="true"><span>MARICHKA CHICHKOVA</span><span>404</span></div>
+  <h1 class="ch-missing__title" id="missing-title">{uk?'ЗБИЛИСЯ З РИТМУ.':'OFF THE BEAT.'}</h1>
+  <a class="ch-missing__stage" href={home} aria-label={uk?'Повернутися на головну':'Return to homepage'} data-missing-stage>
+   <span class="ch-missing__digits" aria-hidden="true">404</span>
+   <span class="ch-missing__slices" aria-hidden="true">
+    <span class="ch-missing__slice ch-missing__slice--one"></span>
+    <span class="ch-missing__slice ch-missing__slice--two"></span>
+    <span class="ch-missing__slice ch-missing__slice--three"></span>
+   </span>
+   <span class="ch-missing__stage-hint" aria-hidden="true">{uk?'ЗБЕРИ ДОКУПИ ↗':'PUT IT BACK TOGETHER ↗'}</span>
+  </a>
+  <div class="ch-missing__bottom">
+   <p>{uk?'Не кожна імпровізація йде за планом.':'Not every improvisation follows the score.'}</p>
+   <a href={home} class="ch-missing__back">{uk?'Почати спочатку':'Back to the beginning'} <span aria-hidden="true">↗</span></a>
   </div>
-  <div class="ch-lost__bottom">
-   <p>{uk?'Схоже, ця сторінка пішла своєю дорогою.':'Looks like this page went its own way.'}</p>
-   <nav aria-label={uk?'Повернутися на сайт':'Return to the site'}>
-    <a class="ch-lost__return" href={home}>{uk?'На головну':'Back to the beginning'} <span aria-hidden="true">↗</span></a>
-    <a class="ch-lost__secondary" href={projects}>{uk?'Переглянути роботи':'Explore the work'} <span aria-hidden="true">↗</span></a>
-   </nav>
-  </div>
- </div>
-</section>
+ </section>
+ <script>import '../scripts/missing-page.ts';</script>
 </Base>
