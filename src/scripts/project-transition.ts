@@ -33,21 +33,23 @@ document.addEventListener('click',async(event)=>{
      matchMedia('(prefers-reduced-motion: reduce)').matches || !Element.prototype.animate)return;
  const link=(event.target as Element|null)?.closest<HTMLAnchorElement>('a[data-project-entry]');
  if(!link || link.target==='_blank' || link.hasAttribute('download'))return;
- const original=link.querySelector<HTMLImageElement>('.ch-work__photo');
+ const aboutLink=link.dataset.projectEntry==='about';
+ const aboutFrame=aboutLink?link.closest('.ch-about')?.querySelector<HTMLElement>('.ch-about__image'):null;
+ const original=aboutLink?aboutFrame?.querySelector<HTMLImageElement>('img'):link.querySelector<HTMLImageElement>('.ch-work__photo');
  if(!original?.complete || !original.naturalWidth)return;
  event.preventDefault();event.stopImmediatePropagation();
  // Discipline thumbnails may be CSS-transformed; measure their visible crop frame instead.
  // Selected Work retains its existing, verified image geometry.
  const discipline=link.classList.contains('ch-discipline');
  const frame=discipline?link.querySelector<HTMLElement>('.ch-preview'):null;
- const initial=(frame||original).getBoundingClientRect();
+ const initial=(aboutFrame||frame||original).getBoundingClientRect();
  const layer=document.createElement('div');
  const photo=original.cloneNode() as HTMLImageElement;
  layer.setAttribute('aria-hidden','true');
  layer.className='ch-transition-stage';
  photo.removeAttribute('loading');
  photo.style.objectPosition=getComputedStyle(original).objectPosition;
- if(discipline){
+ if(discipline || aboutLink){
   // The overlay animates the uncropped original, not a transformed thumbnail.
   photo.style.transform='none';
   photo.style.transition='none';
