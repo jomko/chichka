@@ -28,3 +28,37 @@
 .ch-cv__outro a span{color:var(--accent);margin-left:30px}
 @media(max-width:800px){.ch-cv__opening-bottom{grid-template-columns:1fr;gap:35px}.ch-cv__chapter-heading{grid-template-columns:1fr auto;gap:25px}.ch-cv__chapter-heading h2{grid-column:1/-1;grid-row:2}.ch-cv__chapter-heading>span:last-child{grid-column:2;grid-row:1}.ch-cv__source-note{grid-template-columns:1fr}}
 @media(max-width:600px){.ch-cv__opening{min-height:80svh;padding:95px 20px 60px}.ch-cv__eyebrow{font-size:9px}.ch-cv__opening h1{font-size:clamp(46px,12vw,78px);margin:95px 0}.ch-cv__chapter{padding:80px 20px 95px}.ch-cv__chapter-heading h2{font-size:clamp(42px,10vw,70px)}.ch-cv__chapter-heading>span{font-size:9px}.ch-cv__row{grid-template-columns:1fr 25px;gap:12px;padding:28px 0}.ch-cv__date{grid-column:1/-1;font-size:25px}.ch-cv__row p{font-size:20px}.ch-cv__row-mark{grid-column:2;grid-row:2}.ch-cv__source-note{padding:35px 20px}.ch-cv__outro{padding:95px 20px}.ch-cv__outro h2{font-size:clamp(44px,11vw,77px)}}
+
+/* The shared editorial rhythm applies to CV too, while section backgrounds stay full width. */
+.ch-cv{--accent:var(--accent)}
+.ch-cv__opening,.ch-cv__chapter,.ch-cv__source-note,.ch-cv__outro{
+ padding-inline:var(--site-content-gutter);
+}
+.ch-cv__pdf-action{display:inline-flex;gap:.65em;align-items:center;align-self:flex-start;background:transparent;border:1px solid currentColor;padding:.75em 1.05em;color:inherit;font:600 12px Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.ch-cv__pdf-action:hover{color:var(--accent)}
+@media(max-width:600px){
+ .ch-cv__opening,.ch-cv__chapter,.ch-cv__source-note,.ch-cv__outro{padding-inline:var(--site-content-gutter)}
+}
+@page{size:A4;margin:17mm 16mm}
+@media print{
+ html,body{background:white!important;color:#111!important;height:auto!important;overflow:visible!important;scroll-behavior:auto!important}
+ .header,.site-header,body>.footer,.ch-cv__pdf-action,.ch-cv__mark{display:none!important}
+ .ch-cv{color:#111!important;background:#fff!important;overflow:visible!important;font:11pt/1.4 Georgia,serif}
+ .ch-cv__opening{min-height:0!important;padding:0 0 12mm!important;display:block!important}
+ .ch-cv__eyebrow{font:9pt Arial,sans-serif;display:flex;justify-content:space-between}
+ .ch-cv__opening h1{font:700 35pt/.98 Arial,sans-serif;letter-spacing:-.035em;margin:12mm 0 8mm!important}
+ .ch-cv__opening-bottom{display:block}
+ .ch-cv__opening-bottom p{font:13pt/1.3 Georgia,serif;margin-top:5mm}
+ .ch-cv__chapter{background:#fff!important;color:#111!important;padding:8mm 0 4mm!important;border-top:1px solid #aaa;break-before:auto}
+ .ch-cv__chapter-heading{display:flex;justify-content:space-between;align-items:baseline;gap:5mm;margin:0 0 7mm}
+ .ch-cv__chapter-heading h2{font:700 18pt/1.1 Arial,sans-serif;letter-spacing:-.03em}
+ .ch-cv__chapter-heading>span{font:8pt Arial,sans-serif}
+ .ch-cv__row{display:grid;grid-template-columns:26mm 1fr;gap:5mm;break-inside:avoid;padding:3mm 0;border-bottom:1px solid #ddd}
+ .ch-cv__row-mark{display:none}
+ .ch-cv__date{font:10pt Georgia,serif}
+ .ch-cv__row p{font:10pt/1.35 Georgia,serif}
+ .ch-cv__source-note{padding:7mm 0!important;display:block;break-inside:avoid}
+ .ch-cv__source-note p{font:8pt/1.4 Arial,sans-serif}
+ .ch-cv__outro{display:none!important}
+ a{color:inherit!important;text-decoration:none!important}
+}
