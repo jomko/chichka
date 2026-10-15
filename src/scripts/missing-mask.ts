@@ -11,7 +11,7 @@ function setupMask(){
  const fine=matchMedia('(hover:hover) and (pointer:fine)');
  const state={x:50,y:27};
  let targetX=50,targetY=27,frame=0,lastAnime=0;
- const paint=()=>{mask.style.backgroundPosition=`${state.x.toFixed(2)}% ${state.y.toFixed(2)}%`};
+ const paint=()=>{mask.style.backgroundPosition=`center, ${state.x.toFixed(2)}% ${state.y.toFixed(2)}%`};
  const fallback=()=>{
   frame=0;
   state.x+=(targetX-state.x)*.095;
@@ -23,7 +23,7 @@ function setupMask(){
   if(reduce.matches)return;
   if(window.anime){
    window.anime.remove(state);
-   window.anime({targets:state,x:targetX,y:targetY,duration:1050,easing:'easeOutCubic',update:paint});
+   window.anime({targets:state,x:targetX,y:targetY,duration:1200,easing:'easeOutCubic',update:paint});
   }else if(!frame)frame=requestAnimationFrame(fallback);
  };
  const onMove=(event:PointerEvent)=>{
@@ -31,8 +31,8 @@ function setupMask(){
   const rect=section.getBoundingClientRect();
   const x=(event.clientX-rect.left)/rect.width-.5;
   const y=(event.clientY-rect.top)/rect.height-.5;
-  targetX=50-x*37;
-  targetY=27-y*21;
+  targetX=50-x*11;
+  targetY=27-y*8;
   const time=performance.now();
   if(time-lastAnime>55){lastAnime=time;animateTo()}
  };
