@@ -94,7 +94,7 @@ body:has(.ch-home){background:var(--ch-white);color:var(--ch-black)}
 .ch-home .ch-collaboration h2{font:800 clamp(45px,7vw,140px)/.86 Arial,Helvetica,sans-serif;letter-spacing:-.085em;margin:0}
 .ch-home .ch-collaboration__center p{font:italic clamp(23px,2.8vw,52px)/1.15 Georgia,serif;letter-spacing:-.05em}
 .ch-home .ch-collaboration__footer{border-top:1px solid #626262;padding-top:22px;display:flex;align-items:end;justify-content:space-between;gap:35px}
-.ch-home .ch-collaboration__context{text-transform:uppercase;letter-spacing:.13em;font-size:11px;line-height:1.7;max-width:440px}
+.ch-home .ch-collaboration__context{text-transform:uppercase;letter-spacing:.13em;font-size:11px;line-height:1.7;max-width:none;white-space:nowrap}
 .ch-home .ch-collaboration__links{display:flex;gap:28px;align-items:center}
 .ch-home .ch-collaboration__links a{font-size:clamp(15px,1.5vw,26px);border-bottom:1px solid #888;padding-bottom:8px;white-space:nowrap}
 .ch-home .ch-collaboration__links a span{color:var(--ch-red)}
