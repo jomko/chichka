@@ -164,7 +164,7 @@ body:has(.ch-home){background:var(--ch-white);color:var(--ch-black)}
    Only content inside each normal-flow section moves; photos/cards remain link targets. */
 .ch-home .ch-about{--ch-about-reveal:0}
 .ch-home .ch-about__image img{
- clip-path:inset(0 calc((1 - var(--ch-about-reveal))*100%) 0 0);
+
 }
 .ch-home .ch-about__content h2{
  transform:translate3d(0,calc((1 - var(--ch-about-reveal))*44px),0);
@@ -247,7 +247,7 @@ html.ch-initial-revealing .ch-home .ch-hero::after{
  position:absolute;inset:-5% 0 auto;width:100%;height:110%;
  object-fit:cover;object-position:50% center;
  transform:translate3d(0,var(--ch-about-parallax,0px),0);
- clip-path:inset(0 calc((1 - var(--ch-about-reveal,0))*100%) 0 0);
+
 }
 .ch-home .ch-about__content{
  position:relative;z-index:1;display:flex;flex-direction:column;justify-content:space-between;
@@ -316,5 +316,50 @@ html.ch-initial-revealing .ch-home .ch-hero::after{
   margin:0 0 .06em;
   font-size:clamp(21px,2.35vw,40px);
   line-height:1.15;
+ }
+}
+
+
+/* ABOUT: reverse of the opening Hero scroll timeline.
+   The camera widens first, then typography returns, then the image settles.
+   No mask/clip-path: only the photographed frame changes. */
+.ch-home .ch-about-scene{height:205svh;position:relative;background:var(--ch-white)}
+.ch-home .ch-about-scene>.ch-about{
+ position:sticky;top:0;height:100svh;min-height:100svh;
+ --ch-about-frame:7.5vw;--ch-about-exit:1;--ch-about-camera:1;
+ background:var(--ch-white);
+}
+.ch-home .ch-about-scene .ch-about__image{
+ inset:var(--ch-about-frame);overflow:hidden;will-change:inset;
+}
+.ch-home .ch-about-scene .ch-about__image img{
+ clip-path:none;
+ transform:scale(calc(1 + var(--ch-about-camera)*.07)) translateX(calc(var(--ch-about-camera)*-.6%));
+ transform-origin:60% 44%;
+ will-change:transform;
+}
+.ch-home .ch-about-scene .ch-about__content h2{
+ transform:translateY(calc(var(--ch-about-exit)*-20vh));
+ opacity:calc(1 - var(--ch-about-exit));
+}
+.ch-home .ch-about-scene .ch-about__label,
+.ch-home .ch-about-scene .ch-about__bottom{
+ transform:translateY(calc(var(--ch-about-exit)*-10vh));
+ opacity:calc(1 - var(--ch-about-exit));
+}
+@media(max-width:600px){
+ .ch-home .ch-about-scene{height:170svh}
+ .ch-home .ch-about-scene>.ch-about{height:90svh;min-height:90svh}
+ .ch-home .ch-about-scene .ch-about__content h2{transform:translateY(calc(var(--ch-about-exit)*-16vh))}
+}
+@media(prefers-reduced-motion:reduce){
+ .ch-home .ch-about-scene{height:auto}
+ .ch-home .ch-about-scene>.ch-about{position:relative;height:auto;min-height:90svh}
+ .ch-home .ch-about-scene .ch-about__image{inset:0}
+ .ch-home .ch-about-scene .ch-about__image img,
+ .ch-home .ch-about-scene .ch-about__content h2,
+ .ch-home .ch-about-scene .ch-about__label,
+ .ch-home .ch-about-scene .ch-about__bottom{
+  transform:none;opacity:1;clip-path:none
  }
 }
