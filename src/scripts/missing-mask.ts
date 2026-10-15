@@ -31,7 +31,7 @@ function setupMask(){
   const rect=section.getBoundingClientRect();
   const x=(event.clientX-rect.left)/rect.width-.5;
   const y=(event.clientY-rect.top)/rect.height-.5;
-  targetX=50-x*11;
+  targetX=50-x*26;
   targetY=27-y*8;
   const time=performance.now();
   if(time-lastAnime>55){lastAnime=time;animateTo()}
