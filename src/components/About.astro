@@ -10,6 +10,7 @@ const story=uk?[
   "Я співаю, граю на концертині та віолончелі, аранжую музику й працюю зі звуком у театрі. Виступала з Olenky та Torbán, співпрацюю з музикантами з інших країн у Slavalachia, створювала музику й брала участь у театральних та аудіовізуальних роботах, зокрема CYCLES, «Вертеп» і «Коло».",
   "У 2020 році я заснувала Співмайстерню — свою школу українського традиційного співу. Для мене це не лише уроки: це нагода слухати одне одного, співати разом і знаходити для старих пісень місце в сьогоденні.",
   "І я люблю не тільки виходити на сцену, а й робити так, щоб сцена взагалі з’явилася. Керую Святом музики у Львові, працюю з незалежним простором Нижній Зал та культурними ініціативами ГО «Локальна культурна підтримка». Це різні масштаби роботи — від камерної зустрічі до фестивалю, що охоплює місто.",
+  "У театральній роботі я також створюю музику та працюю з голосом. Серед нових постановок — «Sex Education. Дівоча версія» та «Як ми прощаємось» (2026). На Tallinn Music Week 2026 представляла Україну в мережі Keychange, розбудовуючи міжнародні зв’язки жінок у музичній індустрії.",
   "Мені цікаві люди, які готові пробувати нове: музиканти, режисери, куратори, команди фестивалів. Іноді найкращі проєкти починаються просто з розмови."
 ]:[
   "I'm a musician and cultural manager based in Lviv, Ukraine. For more than a decade, Ukrainian traditional music has been at the heart of what I do — but the most exciting things happen when it meets new people, stages and ideas.",
@@ -19,6 +20,7 @@ const story=uk?[
   "I'm always interested in people who want to try something new — musicians, theatre-makers, curators and festival teams. Some of the best projects start with a conversation."
 ];
 const entries=[
+ {year:'2026',items:[['sex-education','Sex Education. Girls’ Version'],['yak-my-proshchayemos',uk?'Як ми прощаємось':'How We Say Goodbye'],['','Keychange · Tallinn Music Week']]},
  {year:'2023',items:[['kolo','Kolo'],['','Lesya. Herstory']]},
  {year:'2022',items:[['vertep','Vertep'],['zriz','ZRIZ'],['','Where is Home']]},
  {year:'2021',items:[['cycles','CYCLES'],['nyzhnyj-zal','Nyzhnyj Zal']]},
@@ -47,7 +49,7 @@ const label=(slug:string,name:string)=>{const p=projects.find(x=>x.slug===slug);
  </section>
  <section class="ch-about-timeline" aria-labelledby="ch-about-years-title">
   <div class="ch-about-timeline__intro"><div><span>03 / {uk?'ВИБРАНА ХРОНОЛОГІЯ':'SELECTED CHRONOLOGY'}</span><h2 id="ch-about-years-title">{uk?'Роботи за':'Work through'}<br/><em>{uk?'роками':'the years'}</em></h2></div><p>{uk?'Деякі проєкти почалися давно й тривають досі. Тут — вибрані роботи та ролі, а повніший перелік є у CV.':'Some of these projects began years ago and are still growing. Here is a selection of work and roles; the CV has a fuller record.'}</p></div>
-  <div class="ch-about-timeline__list">{entries.map(e=><div class="ch-about-timeline__row"><span class="ch-about-timeline__year">{e.year}</span><div class="ch-about-timeline__items">{e.items.map(([slug,name])=>slug?<a href={pathFor(lang,slug)}>{label(slug,name)} <span aria-hidden="true">↗</span></a>:<span>{name}</span>)}</div></div>)}</div>
+  <div class="ch-about-timeline__list">{entries.map(e=><div class="ch-about-timeline__row"><span class="ch-about-timeline__year">{e.year}</span><div class="ch-about-timeline__items">{e.items.map(([slug,name])=>slug&&projects.some(p=>p.slug===slug)?<a href={pathFor(lang,slug)}>{label(slug,name)} <span aria-hidden="true">↗</span></a>:<span>{name}</span>)}</div></div>)}</div>
  </section>
  <section class="ch-about-close"><div class="ch-about-close__meta"><span>04 / CURRICULUM VITAE</span><span>{uk?'ДОСВІД · ПРАКТИКИ · СПІВПРАЦЯ':'EXPERIENCE · PRACTICE · COLLABORATION'}</span></div><h2>{uk?'Більше ніж':'More than'}<br/><em>{uk?'біографія.':'a biography.'}</em></h2><div class="ch-about-close__bottom"><p>{uk?'Фестивалі, гурти, музика для театру, культурний менеджмент та освіта — детальніша хронологія моєї роботи.':'Festivals, bands, theatre music, cultural management and training — a more detailed view of the work I’ve done.'}</p><a href={prefix+'/cv/'}>{uk?'Переглянути CV':'View CV'} <span aria-hidden="true">↗</span></a></div></section>
 </div>
