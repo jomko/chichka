@@ -1,5 +1,5 @@
 /* CHICHKA contact — isolated editorial layout */
-.ch-contact{--ch-paper:#f5f5f2;--ch-ink:#111;--ch-accent:#e34234;font-family:Arial,Helvetica,sans-serif;background:var(--ch-paper);color:var(--ch-ink)}
+.ch-contact{--ch-paper:#f5f5f2;--ch-ink:#111;--ch-accent:var(--accent);font-family:Arial,Helvetica,sans-serif;background:var(--ch-paper);color:var(--ch-ink)}
 .ch-contact *{box-sizing:border-box}.ch-contact a{color:inherit;text-decoration:none}
 .ch-contact__hero{min-height:calc(100svh - 76px);background:#111;color:var(--ch-paper);padding:clamp(55px,6vw,110px) clamp(22px,4vw,80px) clamp(50px,5vw,90px);display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
 .ch-contact__meta{display:flex;justify-content:space-between;gap:24px;font:11px Arial,sans-serif;letter-spacing:.14em}
@@ -25,3 +25,7 @@
 @media(max-width:800px){.ch-contact__composition{grid-template-columns:1fr;padding-top:130px}.ch-contact__hero h1{font-size:clamp(70px,13vw,115px)}.ch-contact__circle{left:auto;right:8%;top:11%}.ch-contact__aside{max-width:520px}.ch-contact__intro{grid-template-columns:1fr;gap:35px}}
 @media(max-width:600px){.ch-contact__hero{min-height:calc(95svh - 65px);padding:65px 20px 42px}.ch-contact__meta{font-size:9px}.ch-contact__composition{padding:100px 0 65px}.ch-contact__hero h1{font-size:clamp(56px,14vw,90px)}.ch-contact__circle{top:7%;width:135px}.ch-contact__aside p{font-size:22px}.ch-contact__channels{padding:75px 20px}.ch-contact__links a{grid-template-columns:1fr 35px;gap:14px}.ch-contact__links a>span:first-child{grid-column:1/-1}.ch-contact__links a strong{font-size:clamp(35px,9vw,58px)}.ch-contact__links a>span:last-child{grid-column:2;grid-row:2}.ch-contact__signoff{font-size:9px;flex-direction:column}}
 @media(prefers-reduced-motion:reduce){.ch-contact__links a{transition:none}}
+
+/* Shared editorial content grid: retain full-bleed backgrounds, align copy to 85%. */
+.ch-contact__hero,.ch-contact__channels{padding-inline:var(--site-content-gutter)}
+@media(max-width:600px){.ch-contact__hero,.ch-contact__channels{padding-inline:var(--site-content-gutter)}}
