@@ -7,7 +7,7 @@
 .header .wordmark{grid-column:2;grid-row:1;justify-self:center;font:400 21px/1.2 Georgia,serif;letter-spacing:-.06em;color:inherit;margin:0}
 .header .navigation{grid-column:3;grid-row:1;justify-self:end;display:flex;gap:clamp(14px,1.6vw,30px);align-items:center;font:12px Arial,sans-serif}
 .header .navigation a{color:inherit;white-space:nowrap;text-decoration:none}
-.header .navigation a:hover,.header .site-languages a:hover{color:#e34234}
+.header .navigation a:hover,.header .site-languages a:hover{color:var(--accent)}
 .header .navigation a[aria-current=page]{border-bottom:1px solid;padding-bottom:3px}
 body:has(.ch-home) .header:not(.is-scrolled){position:fixed;left:0;right:0;top:0;background:transparent;border-color:transparent;color:#fff;backdrop-filter:none;-webkit-backdrop-filter:none}
 body:has(.ch-home) .header:not(.is-scrolled) .wordmark{opacity:0;pointer-events:none}
