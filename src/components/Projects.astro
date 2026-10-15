@@ -12,7 +12,7 @@ const images:Record<string,string>={
  'local-cultural-support':'/assets/lkp.png'
 };
 const groups=[
- {id:'artist',number:'01',name:uk?'Музика й виступи':'Music & Performance',photo:'/assets/m1.png',items:projects.filter(p=>p.type==='artist')},
+ {id:'artist',number:'01',name:uk?'Музика й виступи':'Music & Performance',photo:'/assets/m1.png',items:projects.filter(p=>p.type==='artist' && p.slug!=='spivmaisternia')},
  {id:'management',number:'02',name:uk?'Культурний менеджмент':'Cultural Management',photo:'/assets/m2.png',items:projects.filter(p=>p.type==='management')},
  {id:'voice',number:'03',name:uk?'Голосові практики й навчання':'Voice Practices & Teaching',photo:'/assets/m3.png',items:projects.filter(p=>p.slug==='spivmaisternia')}
 ];
