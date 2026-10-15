@@ -6,7 +6,7 @@ body:has(.ch-missing)>main{min-height:100svh}
 .ch-missing__stage{position:absolute;inset:0;display:block;overflow:hidden;cursor:pointer;color:inherit}
 .ch-missing__stage:focus-visible{outline:5px solid #fff;outline-offset:-8px}
 .ch-missing__slices{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);overflow:hidden}
-.ch-missing__slice{position:relative;display:block;min-width:0;height:100%;overflow:hidden;transform:translate3d(var(--slice-x,0px),var(--slice-y,0px),0);transition:transform .55s cubic-bezier(.18,.75,.22,1);will-change:transform}
+.ch-missing__slice{position:relative;display:block;min-width:0;height:100%;overflow:hidden;transform:translate3d(var(--slice-x,0px),var(--slice-y,0px),0);will-change:transform}
 /* Each panel reveals its third of the SAME cover-fitted image; no stretching. */
 .ch-missing__slice img{position:absolute;top:0;left:calc(-1 * var(--panel) * (100vw + var(--gap)) / 3);width:100vw;height:100svh;max-width:none;object-fit:cover;object-position:center 19%;pointer-events:none;user-select:none}
 .ch-missing__slice--one{--panel:0}
@@ -17,3 +17,8 @@ body:has(.ch-missing)>main{min-height:100svh}
 @media(max-width:650px){.ch-missing__title{top:28px;max-width:93%;font-size:clamp(49px,12.5vw,85px)}.ch-missing__stage-hint{bottom:36px;right:20px;font-size:18px}}
 @media(max-width:650px){.ch-missing__slice img{object-position:center center}}
 @media(prefers-reduced-motion:reduce){.ch-missing__slice{transform:none!important;transition:none!important;will-change:auto}}
+
+/* The gaps are intentional beats; motion never scales or warps the original image. */
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ .ch-missing__slice{box-shadow:0 20px 32px rgba(45,27,5,.15)}
+}
