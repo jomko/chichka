@@ -92,8 +92,8 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 @media(prefers-reduced-motion:reduce){.project-card figure img,.navigation a,.hero-contact span{transition:none}}
 
 /* Editorial Cut: typography cuts in; still images are uncovered by a fixed mask. */
-.scroll-reveal[data-cut="type"]{visibility:hidden}
-.scroll-reveal.scroll-revealed[data-cut="type"]{visibility:visible}
+/* Keep SSR typography accessible at every scroll position. Motion must not hide document text. */
+.scroll-reveal[data-cut="type"]{visibility:visible}
 .scroll-reveal[data-cut="photo"]{clip-path:inset(0 100% 0 0)}
 .scroll-reveal.scroll-revealed[data-cut="photo"]{
   animation:editorial-curtain .72s cubic-bezier(.76,0,.24,1) both;
