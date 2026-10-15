@@ -43,3 +43,14 @@
 .ch-about-lead{padding-inline:var(--site-content-gutter)}
 .ch-about-story,.ch-about-timeline,.ch-about-close{padding-inline:var(--site-content-gutter)}
 @media(max-width:600px){.ch-about-lead,.ch-about-story,.ch-about-timeline,.ch-about-close{padding-inline:var(--site-content-gutter)}}
+
+/* Keep the full identity inside the fixed editorial cover at every viewport. */
+.ch-about-lead{padding-block:clamp(55px,6vw,105px) clamp(38px,4.5vw,68px);gap:clamp(35px,6vh,90px)}
+.ch-about-lead__identity{margin-top:auto;min-height:0}
+.ch-about-lead h1{font-size:clamp(62px,9vw,150px);line-height:.9;margin:clamp(12px,2vw,28px) 0 clamp(16px,2.4vw,34px)}
+.ch-about-lead__identity p{font-size:clamp(20px,2.3vw,36px)}
+@media(max-width:600px){
+ .ch-about-lead{padding-block:75px 32px;gap:24px}
+ .ch-about-lead h1{font-size:clamp(54px,12vw,82px);margin:15px 0 20px}
+ .ch-about-lead__identity p{font-size:clamp(19px,4.8vw,26px)}
+}
