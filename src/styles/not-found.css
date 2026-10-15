@@ -1,61 +1,32 @@
-/* 404 / a single photographic editorial composition */
-.ch-lost{background:#111;color:#f5f1eb;min-height:calc(100svh - 76px);overflow:hidden}
-.ch-lost__canvas{min-height:calc(100svh - 76px);display:grid;grid-template-rows:auto minmax(480px,1fr) auto;padding-block:clamp(20px,2.5vw,42px)}
-.ch-lost__eyebrow{display:flex;justify-content:space-between;gap:20px;font:10px/1.4 Arial,sans-serif;letter-spacing:.16em;position:relative;z-index:5}
-.ch-lost__scene{position:relative;min-height:480px;display:flex;align-items:center}
-.ch-lost__portrait{position:absolute;inset:7% -8.85% 0 36%;z-index:1;overflow:hidden;background:#772d1e}
-.ch-lost__portrait img{width:100%;height:100%;display:block;object-fit:cover;object-position:60% 46%;filter:brightness(.72)}
-.ch-lost__portrait:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#111 0%,rgba(17,17,17,.7) 16%,transparent 48%)}
-.ch-lost__number{position:relative;z-index:2;display:flex;align-items:baseline;gap:.015em;font:800 clamp(145px,23vw,450px)/.75 Arial,Helvetica,sans-serif;letter-spacing:-.12em;white-space:nowrap;pointer-events:none}
-.ch-lost__number span:nth-child(2){color:transparent;-webkit-text-stroke:2px #f5f1eb}
-.ch-lost__note{position:absolute;z-index:3;bottom:9%;right:0;width:min(32%,410px)}
-.ch-lost__symbol{font:400 clamp(25px,3vw,42px)/1 Arial,sans-serif;color:#e09b75}
-.ch-lost__note p{font:italic clamp(24px,2.7vw,43px)/1.12 Georgia,serif;letter-spacing:-.045em;margin:10px 0 0}
-.ch-lost__bottom{z-index:4;position:relative;border-top:1px solid #69615d;padding-top:22px;display:flex;justify-content:space-between;align-items:end;gap:30px}
-.ch-lost__bottom>p{font:clamp(17px,1.5vw,24px)/1.3 Georgia,serif;max-width:320px;margin:0}
-.ch-lost__bottom nav{display:flex;gap:clamp(18px,3vw,50px);flex-wrap:wrap}
-.ch-lost__bottom a{font:clamp(14px,1.15vw,18px)/1.3 Arial,sans-serif;border-bottom:1px solid currentColor;padding-bottom:8px;transition:color .2s}
-.ch-lost__bottom a span{color:#d9815c;margin-left:12px}
-.ch-lost__bottom a:hover{color:#d9815c}
-@media(max-width:900px){
- .ch-lost__canvas{grid-template-rows:auto minmax(470px,1fr) auto}
- .ch-lost__portrait{inset:9% -9% 0 24%}
- .ch-lost__number{font-size:27vw}
- .ch-lost__note{right:0;bottom:7%;width:42%}
+/* 404 — photographic triptych, one interaction. */
+.ch-missing{--yellow:#bf8300;--dark:#261915;--gap:clamp(3px,.42vw,9px);background:var(--yellow);color:var(--dark);min-height:calc(100svh - 76px);padding:clamp(20px,2.8vw,45px) var(--site-content-gutter) clamp(24px,3vw,50px);display:grid;grid-template-rows:auto auto minmax(360px,1fr) auto;overflow:hidden;isolation:isolate}
+.ch-missing__top{display:flex;justify-content:space-between;font:10px/1.2 Arial,sans-serif;letter-spacing:.16em}
+.ch-missing__title{position:relative;z-index:5;margin:clamp(22px,3vw,46px) 0 -0.15em;font:800 clamp(52px,10vw,175px)/.85 Arial,Helvetica,sans-serif;letter-spacing:-.09em;max-width:1050px;pointer-events:none}
+.ch-missing__stage{position:relative;display:block;justify-self:center;align-self:stretch;width:min(100%,1150px);min-height:360px;cursor:pointer;isolation:isolate;color:inherit}
+.ch-missing__stage:focus-visible{outline:3px solid var(--dark);outline-offset:6px}
+.ch-missing__digits{position:absolute;z-index:0;left:50%;top:43%;transform:translate(-50%,-50%);font:800 clamp(180px,38vw,650px)/.8 Arial,sans-serif;letter-spacing:-.13em;color:rgba(38,25,21,.28);white-space:nowrap;pointer-events:none}
+.ch-missing__slices{position:absolute;z-index:2;inset:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--gap);width:min(64%,590px);height:clamp(355px,56vh,650px);max-height:100%;margin:auto;filter:drop-shadow(15px 18px 2px rgba(38,25,21,.10));transform:rotate(-2deg);transition:transform .6s cubic-bezier(.2,.75,.2,1)}
+.ch-missing__slice{display:block;min-width:0;height:100%;background-image:url('/assets/chichka-404-portrait-large.webp');background-repeat:no-repeat;background-size:300% 100%;transform:translate3d(var(--slice-x,0px),var(--slice-y,0px),0);transition:transform .55s cubic-bezier(.18,.75,.22,1);will-change:transform}
+.ch-missing__slice--one{background-position:0% 50%}
+.ch-missing__slice--two{background-position:50% 50%}
+.ch-missing__slice--three{background-position:100% 50%}
+.ch-missing__stage:hover .ch-missing__slices{transform:rotate(0deg)}
+.ch-missing__stage-hint{position:absolute;z-index:4;bottom:6%;right:2%;font:700 clamp(12px,1.1vw,16px)/1.2 Arial,sans-serif;letter-spacing:.06em;border-bottom:2px solid;padding-bottom:7px}
+.ch-missing__bottom{display:flex;align-items:end;justify-content:space-between;gap:25px;border-top:1px solid rgba(38,25,21,.55);padding-top:19px;position:relative;z-index:5}
+.ch-missing__bottom p{margin:0;font:italic clamp(19px,2.1vw,33px)/1.2 Georgia,serif;letter-spacing:-.035em}
+.ch-missing__back{font:700 clamp(14px,1.25vw,19px)/1.2 Arial,sans-serif;border-bottom:2px solid currentColor;padding-bottom:8px;white-space:nowrap;color:inherit}
+.ch-missing__back span{margin-left:12px}
+@media(max-width:900px){.ch-missing__slices{width:min(77%,560px)}.ch-missing__stage-hint{bottom:5%;right:0}}
+@media(max-width:650px){
+ .ch-missing{min-height:calc(100svh - 65px);grid-template-rows:auto auto minmax(390px,1fr) auto;padding-block:20px 28px}
+ .ch-missing__top{font-size:9px}
+ .ch-missing__title{font-size:clamp(49px,13.5vw,85px);margin:32px 0 -15px;max-width:90%}
+ .ch-missing__stage{min-height:390px}
+ .ch-missing__digits{font-size:60vw;top:45%}
+ .ch-missing__slices{width:85%;height:min(56vh,530px);transform:rotate(-2deg)}
+ .ch-missing__slice{background-image:url('/assets/chichka-404-portrait-mobile.webp')}
+ .ch-missing__stage-hint{bottom:1%;font-size:11px}
+ .ch-missing__bottom{align-items:start;flex-direction:column;gap:20px}
+ .ch-missing__bottom p{font-size:22px}
 }
-@media(max-width:600px){
- .ch-lost__canvas{min-height:calc(100svh - 65px);grid-template-rows:auto minmax(430px,1fr) auto;padding-block:23px 33px}
- .ch-lost__eyebrow{font-size:8px;letter-spacing:.08em}
- .ch-lost__scene{min-height:430px;align-items:flex-start;padding-top:105px}
- .ch-lost__portrait{inset:9% -20px 13% 8%;opacity:.88}
- .ch-lost__portrait:after{background:linear-gradient(0deg,#111 0%,transparent 40%),linear-gradient(90deg,rgba(17,17,17,.8),transparent 72%)}
- .ch-lost__number{font-size:30vw}
- .ch-lost__note{bottom:10%;right:0;width:83%}
- .ch-lost__note p{font-size:clamp(26px,6vw,38px)}
- .ch-lost__bottom{display:block}
- .ch-lost__bottom>p{font-size:17px;margin-bottom:28px}
- .ch-lost__bottom nav{justify-content:space-between;gap:16px}
-}
-@media(prefers-reduced-motion:reduce){.ch-lost__bottom a{transition:none}}
-
-/* 404 composition: oversized numeral crosses the photographic boundary. */
-.ch-lost__canvas{grid-template-rows:minmax(510px,1fr) auto;padding-top:clamp(18px,3vw,45px)}
-.ch-lost__scene{min-height:510px}
-.ch-lost__portrait{inset:0 -8.85% 0 27%}
-.ch-lost__number{font-size:clamp(240px,37vw,690px);letter-spacing:-.105em;z-index:3;transform:translateX(-.025em)}
-.ch-lost__number span:nth-child(2){-webkit-text-stroke:2px #f5f1eb}
-.ch-lost__note{left:0;right:auto;bottom:9%;width:min(30%,390px);z-index:4}
-.ch-lost__bottom nav a{font-size:clamp(17px,1.5vw,25px);padding-bottom:11px}
-@media(max-width:900px){
- .ch-lost__portrait{inset:4% -9% 0 18%}
- .ch-lost__number{font-size:38vw}
- .ch-lost__note{left:0;right:auto;bottom:7%;width:40%}
-}
-@media(max-width:600px){
- .ch-lost__canvas{grid-template-rows:minmax(440px,1fr) auto;padding-top:16px}
- .ch-lost__scene{min-height:440px;padding-top:65px}
- .ch-lost__portrait{inset:0 -20px 13% 5%}
- .ch-lost__number{font-size:43vw}
- .ch-lost__note{left:0;right:auto;bottom:5%;width:86%;background:linear-gradient(90deg,#111d,#1115);padding:14px 12px}
- .ch-lost__bottom nav a{font-size:15px}
-}
+@media(prefers-reduced-motion:reduce){.ch-missing__slices,.ch-missing__slice{transition:none!important;transform:none!important;will-change:auto}}
