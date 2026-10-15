@@ -1,4 +1,5 @@
 // Contact motion follows native scrolling; do not intercept navigation or scroll.
+export {};
 const clamp=(v:number)=>Math.max(0,Math.min(1,v));
 const ease=(v:number)=>{const t=clamp(v);return t*t*(3-2*t)};
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');

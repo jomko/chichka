@@ -1,4 +1,5 @@
 // Native scroll-linked hero choreography. No scroll interception or dependencies.
+export {};
 const clamp=(value:number)=>Math.max(0,Math.min(1,value));
 const smooth=(t:number)=>{const x=clamp(t);return x*x*(3-2*x)};
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');

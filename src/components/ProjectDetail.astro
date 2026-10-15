@@ -42,7 +42,6 @@ const image=images[p.slug] || p.image;
    </div>
   </div>
  </section>}
- {p.landscapeImage&&<figure class="ch-project__extra"><img src={p.landscapeImage} alt={uk?'Пейзаж Андрутова':'Andrutiv landscape'} loading="lazy" decoding="async"/></figure>}
  <a class="ch-project__next" href={pathFor(lang,next.slug)}><span>02 / {uk?'НАСТУПНИЙ ПРОЄКТ':'NEXT PROJECT'}</span><strong>{next.name[lang]}</strong><span class="ch-project__next-arrow" aria-hidden="true">↗</span></a>
 </article>
 </Base>

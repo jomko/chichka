@@ -13,6 +13,7 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci --no-audit --no-fund
+      - run: npm run check
       - run: npm run build
         env:
           SITE_URL: https://portfolio.example.org
@@ -26,7 +27,7 @@ jobs:
             test -f "dist/$route/index.html"
             test -f "dist/uk/$route/index.html"
           done
-          for slug in spivmaisternia we-selo slavalachia torban olenky cycles vertep kolo make-music-day-lviv nyzhnyj-zal zriz rozkolyada local-cultural-support; do
+          for slug in spivmaisternia slavalachia torban cycles sex-education lesya-yistoriya vertep kolo make-music-day-lviv nyzhnyj-zal zriz rozkolyada beyond-the-stream local-cultural-support; do
             test -f "dist/projects/$slug/index.html"
             test -f "dist/uk/projects/$slug/index.html"
           done
