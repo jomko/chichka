@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import '../styles/not-found.css';
+const uk=Astro.url.pathname.startsWith('/uk/');
+const lang=uk?'uk':'en';
+const home=uk?'/uk/':'/';
+const projects=uk?'/uk/projects/':'/projects/';
+---
+<Base lang={lang} title={uk?'Сторінку не знайдено':'Page not found'} description={uk?'Ця сторінка загубилася. Повернімося до початку.':'This page has wandered off. Let’s return to the beginning.'}>
+<section class="ch-lost" aria-labelledby="ch-lost-title">
+ <div class="ch-content-container ch-lost__canvas">
+  <div class="ch-lost__eyebrow"><span>404 / {uk?'НЕ ТУДИ':'WRONG TURN'}</span><span>MARICHKA CHICHKOVA · LVIV</span></div>
+  <div class="ch-lost__scene">
+   <div class="ch-lost__number" aria-hidden="true"><span>4</span><span>0</span><span>4</span></div>
+   <div class="ch-lost__portrait" aria-hidden="true"><picture><source srcset="/assets/404-portrait.webp" type="image/webp"/><img src="/assets/marichka.png" alt="" loading="eager" decoding="async" /></picture></div>
+   <div class="ch-lost__note"><span class="ch-lost__symbol" aria-hidden="true">↗</span><p id="ch-lost-title">{uk?'Не кожна імпровізація веде туди, куди планувалося.':'Not every improvisation goes where you expected.'}</p></div>
+  </div>
+  <div class="ch-lost__bottom">
+   <p>{uk?'Схоже, ця сторінка пішла своєю дорогою.':'Looks like this page went its own way.'}</p>
+   <nav aria-label={uk?'Повернутися на сайт':'Return to the site'}>
+    <a class="ch-lost__return" href={home}>{uk?'На головну':'Back to the beginning'} <span aria-hidden="true">↗</span></a>
+    <a class="ch-lost__secondary" href={projects}>{uk?'Переглянути роботи':'Explore the work'} <span aria-hidden="true">↗</span></a>
+   </nav>
+  </div>
+ </div>
+</section>
+</Base>
