@@ -7,21 +7,15 @@ const home=uk?'/uk/':'/';
 ---
 <Base lang={lang} title={uk?'Сторінку не знайдено':'Page not found'} description={uk?'Здається, ми збилися з ритму.':'We seem to have lost the rhythm.'}>
  <section class="ch-missing" aria-labelledby="missing-title">
-  <div class="ch-missing__top" aria-hidden="true"><span>MARICHKA CHICHKOVA</span><span>404</span></div>
-  <h1 class="ch-missing__title" id="missing-title">{uk?'ЗБИЛИСЯ З РИТМУ.':'OFF THE BEAT.'}</h1>
+   <h1 class="ch-missing__title" id="missing-title">{uk?'ЗБИЛИСЯ З РИТМУ.':'OFF THE BEAT.'}</h1>
   <a class="ch-missing__stage" href={home} aria-label={uk?'Повернутися на головну':'Return to homepage'} data-missing-stage>
-   <span class="ch-missing__digits" aria-hidden="true">404</span>
    <span class="ch-missing__slices" aria-hidden="true">
     <span class="ch-missing__slice ch-missing__slice--one"></span>
     <span class="ch-missing__slice ch-missing__slice--two"></span>
     <span class="ch-missing__slice ch-missing__slice--three"></span>
    </span>
-   <span class="ch-missing__stage-hint" aria-hidden="true">{uk?'ЗБЕРИ ДОКУПИ ↗':'PUT IT BACK TOGETHER ↗'}</span>
+   <span class="ch-missing__stage-hint" aria-hidden="true">{uk?'НА ГОЛОВНУ ↗':'BACK TO HOME ↗'}</span>
   </a>
-  <div class="ch-missing__bottom">
-   <p>{uk?'Не кожна імпровізація йде за планом.':'Not every improvisation follows the score.'}</p>
-   <a href={home} class="ch-missing__back">{uk?'Почати спочатку':'Back to the beginning'} <span aria-hidden="true">↗</span></a>
-  </div>
  </section>
  <script>import '../scripts/missing-page.ts';</script>
 </Base>
