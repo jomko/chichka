@@ -9,7 +9,7 @@ const selectedSlugs=['make-music-day-lviv','spivmaisternia','slavalachia','cycle
 const selected=selectedSlugs.flatMap(slug=>{const project=projects.find(p=>p.slug===slug);return project?[project]:[];});
 const selectedImages:Record<string,string>={
  'make-music-day-lviv':'/assets/fete.webp',
- 'spivmaisternia':'/spivmaisternia-wide.webp',
+ 'spivmaisternia':'/assets/spivmaisternia-wide.webp',
  'slavalachia':'/assets/slavalacha.webp',
  'cycles':'/assets/cycles.webp',
  'local-cultural-support':'/assets/lkp.webp'
