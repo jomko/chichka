@@ -73,7 +73,8 @@ document.addEventListener('click',async event=>{
  const home=isHomepageLink(a);
  const menu=!!a.closest('.navigation') && new URL(a.href).origin===location.origin &&
   new URL(a.href).pathname!==location.pathname && !new URL(a.href).hash;
- if(!home && !menu)return;
+ const nextProject=!!a.closest('.ch-project__next') && new URL(a.href).origin===location.origin && new URL(a.href).pathname!==location.pathname;
+ if(!home && !menu && !nextProject)return;
  // Photo transitions have their own navigation controller; never compete.
  if(a.closest('[data-project-entry]'))return;
  const stage=cover();
@@ -85,8 +86,8 @@ document.addEventListener('click',async event=>{
  const title=stage.querySelector('span');
  const previousTitle=title?.innerHTML;
  stage.dataset.mode=home?'home':'menu';
- if(menu && title){
-  const label=(a.textContent||'').trim();
+ if((menu || nextProject) && title){
+  const label=nextProject?(a.querySelector('strong')?.textContent||''):(a.textContent||'').trim();
   title.textContent=label.toUpperCase();
  }
  document.documentElement.append(stage); // survives Astro body swap
