@@ -41,3 +41,8 @@
 @media(max-width:800px){.ch-projects__chapter-heading h2{font-size:clamp(40px,8vw,85px)}.ch-projects__grid--single .ch-projects__card{grid-column:1/-1}.ch-projects__chapter-heading{grid-template-columns:1fr auto}.ch-projects__chapter-heading h2{grid-column:1/-1;grid-row:2}.ch-projects__chapter-heading>span:last-child{grid-column:2;grid-row:1}.ch-projects__card:nth-child(n){grid-column:span 6;padding-top:0}.ch-projects__grid{row-gap:75px}}
 @media(max-width:600px){.ch-projects__opening{padding-top:90px}.ch-projects__meta{font-size:9px;gap:12px}.ch-projects__opening h1{font-size:clamp(50px,12vw,76px)}.ch-projects__opening>p{margin-top:45px}.ch-project-group__photo{height:clamp(460px,63vw,970px);aspect-ratio:auto}.ch-projects__chapter{scroll-margin-top:65px}.ch-projects__chapter-heading{height:clamp(460px,63vw,970px);aspect-ratio:auto;padding:20px var(--site-content-gutter)}.ch-projects__chapter-heading h2{font-size:clamp(30px,7.5vw,48px)}.ch-projects__grid{grid-template-columns:1fr;row-gap:68px;margin-top:65px}.ch-projects__card:nth-child(n){grid-column:1;padding:0}.ch-projects__card:nth-child(even) .ch-projects__card-photo{aspect-ratio:5/4}.ch-projects__outro{display:block}.ch-projects__outro a{display:block;margin-top:45px}}
 @media(prefers-reduced-motion:reduce){.ch-projects__card-photo img{transition:none}}
+
+/* Project thumbnails only; chapter hero photographs retain their original color. */
+.ch-projects__card-photo img{filter:grayscale(1);transition:transform .6s cubic-bezier(.22,1,.36,1),filter .35s ease}
+.ch-projects__card:is(:hover,:focus-visible) .ch-projects__card-photo img{filter:grayscale(0)}
+@media(prefers-reduced-motion:reduce){.ch-projects__card-photo img{transition:none}}
