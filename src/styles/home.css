@@ -234,3 +234,58 @@ html.ch-initial-revealing .ch-home .ch-hero::after{
  .ch-home .ch-hero-scene .ch-photo{inset:0}
  .ch-home .ch-hero-scene .ch-photo img,.ch-home .ch-hero-scene .ch-title,.ch-home .ch-hero-scene .ch-hero__bottom{transform:none;opacity:1}
 }
+
+
+/* ABOUT / 05 — a photographic editorial cover, not a split panel. */
+.ch-home .ch-about{
+ position:relative;display:block;isolation:isolate;
+ width:100%;height:100svh;min-height:650px;
+ overflow:hidden;background:#67210e;color:#fff;
+}
+.ch-home .ch-about__image{position:absolute;inset:0;min-height:0;background:#67210e;z-index:-1}
+.ch-home .ch-about__image img{
+ position:absolute;inset:-5% 0 auto;width:100%;height:110%;
+ object-fit:cover;object-position:50% center;
+ transform:translate3d(0,var(--ch-about-parallax,0px),0);
+ clip-path:inset(0 calc((1 - var(--ch-about-reveal,0))*100%) 0 0);
+}
+.ch-home .ch-about__content{
+ position:relative;z-index:1;display:flex;flex-direction:column;justify-content:space-between;
+ width:100%;height:100%;padding:clamp(30px,4vw,78px);
+ gap:clamp(30px,5vh,70px);
+}
+.ch-home .ch-about__label{align-self:flex-start;text-shadow:0 1px 14px rgba(0,0,0,.4)}
+.ch-home .ch-about h2{
+ max-width:min(48vw,780px);font-size:clamp(54px,6vw,118px);line-height:.96;
+ color:#fff;text-shadow:0 2px 22px rgba(0,0,0,.27);
+}
+.ch-home .ch-about__bottom{
+ display:flex;align-items:end;justify-content:space-between;gap:40px;
+ width:100%;transform:translate3d(0,calc((1 - var(--ch-about-reveal,0))*24px),0);
+}
+.ch-home .ch-about__bottom p{
+ max-width:min(38vw,520px);font-size:clamp(15px,1.17vw,20px);
+ line-height:1.5;text-shadow:0 2px 12px rgba(0,0,0,.45);
+}
+.ch-home .ch-about__bottom a{
+ border-color:rgba(255,255,255,.8);color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.4);
+}
+.ch-home .ch-about__bottom a span{color:#fff}
+.ch-home .ch-about__bottom a:hover{color:#fff;border-color:#fff}
+@media(max-width:900px){
+ .ch-home .ch-about h2{max-width:60vw;font-size:clamp(46px,7.5vw,82px)}
+ .ch-home .ch-about__bottom p{max-width:55vw}
+}
+@media(max-width:650px){
+ .ch-home .ch-about{display:block;height:100svh;min-height:660px;overflow:hidden}
+ .ch-home .ch-about__image{position:absolute;inset:0;aspect-ratio:auto;min-height:0}
+ .ch-home .ch-about__image img{object-position:59% center}
+ .ch-home .ch-about__content{height:100%;padding:28px 22px 36px;gap:28px}
+ .ch-home .ch-about h2{max-width:90%;font-size:clamp(43px,10vw,68px)}
+ .ch-home .ch-about__bottom{display:flex;flex-direction:column;align-items:flex-start;gap:22px}
+ .ch-home .ch-about__bottom p{max-width:95%;font-size:15px}
+}
+@media(prefers-reduced-motion:reduce){
+ .ch-home .ch-about__image img{height:100%;top:0;transform:none;clip-path:none;will-change:auto}
+ .ch-home .ch-about h2,.ch-home .ch-about__bottom{transform:none}
+}
